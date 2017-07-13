@@ -6,8 +6,7 @@
  * and open the template in the editor.
  */
 define("APPLICATION_PATH",  dirname(dirname(__FILE__)));
-define("DIR_SPLIT", "\\");
-include_once(APPLICATION_PATH.DIR_SPLIT."framework".DIR_SPLIT."glider_sky".DIR_SPLIT."core".DIR_SPLIT."GliderSky.php");
+include_once(APPLICATION_PATH."/framework/glider_sky/core/GliderSky.php");
 
 register_shutdown_function(function() {
     
