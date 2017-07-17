@@ -14,10 +14,9 @@ class GliderSky{
     }
     
     public function run(){
+        $this->loadConf();
         if(empty($this->_sConfPath)){
             $this->_oMsg->sendErrorExit(1);
-        }else{
-            $this->loadConf();
         }
     }
     
