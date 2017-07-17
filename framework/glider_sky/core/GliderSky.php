@@ -9,19 +9,24 @@ class GliderSky{
     private $_sConfPath = '';
     private $_oLog = null;
     private $_oMsg = null;
+    private $_oConfig = null;
     public function __construct($sConfPath) {
-        ;
-    }
-    
-    public function run(){
         $this->loadConf();
-        if(empty($this->_sConfPath)){
+        if(empty($sConfPath)){
             $this->_oMsg->sendErrorExit(1);
+        }else{
+            $this->_sConfPath = $sConfPath;
         }
     }
     
+    public function run(){
+        var_dump($this->_sConfPath);
+    }
+    
     public function loadConf(){
-        $this->_oLog = new Log();
-        $this->_oMsg = new Msg();
+        $this->_oLog = new UtilLog();
+        $this->_oMsg = new UtilMsg();
+        $this->_oConfig = new ConfigLoader($this->_sConfPath);
+        $this->_oConfig->loadSysFile();
     }
 }

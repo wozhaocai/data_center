@@ -6,6 +6,9 @@
  * and open the template in the editor.
  */
 
-class Log{
-    
+class UtilXmlFile{
+    private $_sXmlFile = "";
+    public function __construct($sXmlFile) {
+        ;
+    }
 }
