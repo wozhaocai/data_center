@@ -12,6 +12,8 @@ class ConfigLoader{
     }
     
     public function loadSysFile(){
-        var_dump("test");
+        var_dump($this->_sConfigFile);
+        $oFile = new Util_IniFile($this->_sConfigFile);
+        $oFile->parse();
     }
 }

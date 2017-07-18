@@ -10,4 +10,10 @@ class Util_IniFile{
     public function __construct($sIniFile) {
         $this->_sIniFile = $sIniFile;
     }
+    
+    public function parse(){
+        $oFile = new Util_File();
+        $sContent = $oFile->readIni($this->_sIniFile);
+        var_dump($sContent);
+    }
 }
