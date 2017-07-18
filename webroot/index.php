@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
+header('Content-Type: text/html; charset=utf-8');
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 ServiceLocator::attachLocator(new PearLocator(APPLICATION_PATH."/framework/glider_sky"), 'PEAR');
 

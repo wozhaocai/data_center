@@ -91,10 +91,11 @@ class ServiceLocator
 * @author Chris Corbyn
 * @param string class
 */
-function __autoload($class)
+function glider_sky_autoload($class)
 {
     $locator = new ServiceLocator();
     $locator->load($class);
 }
 
+spl_autoload_register("glider_sky_autoload");
 ?>

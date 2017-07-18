@@ -24,8 +24,8 @@ class GliderSky{
     }
     
     public function loadConf(){
-        $this->_oLog = new UtilLog();
-        $this->_oMsg = new UtilMsg();
+        $this->_oLog = new Util_Log();
+        $this->_oMsg = new Util_Msg();
         $this->_oConfig = new ConfigLoader($this->_sConfPath);
         $this->_oConfig->loadSysFile();
     }

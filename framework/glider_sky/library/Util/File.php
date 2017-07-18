@@ -1,6 +1,6 @@
 <?php
 
-class UtilFile {
+class Util_File {
 
     private $_aData = array();
 

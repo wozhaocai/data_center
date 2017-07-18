@@ -20,10 +20,10 @@ class PearLocator implements Locator
     
     public function getPath($class)
     {
-        return $this->readFileFromDir($this->base, $class);
+        return $this->readFileFromDir($this->base);
     }
     
-    public function readFileFromDir($dir,$filename) {
+    public function readFileFromDir($dir) {
         if (!is_dir($dir)) {
             return false;
         }
@@ -37,14 +37,9 @@ class PearLocator implements Locator
             $file = $dir . DIRECTORY_SEPARATOR . $file;
             //如果是文件就打印出来，否则递归调用
             if (is_file($file)){
-                if(strstr($file,$filename.".php")){
-                    require_once $file;
-                    return true;
-                }else{
-                    continue;
-                }
+                require_once $file;          
             }elseif (is_dir($file)) {
-                $this->readFileFromDir($file, $filename);                
+                $this->readFileFromDir($file);                
             }else{
                 return false;
             }

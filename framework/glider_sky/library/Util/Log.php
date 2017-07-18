@@ -6,6 +6,9 @@
  * and open the template in the editor.
  */
 
-class UtilLog{
-    
+class Util_Log{
+    public function __construct() {
+        
+        ;
+    }
 }

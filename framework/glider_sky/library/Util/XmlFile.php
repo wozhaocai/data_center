@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class UtilXmlFile{
+class Util_XmlFile{
     private $_sXmlFile = "";
     public function __construct($sXmlFile) {
         ;

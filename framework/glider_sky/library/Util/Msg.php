@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class UtilMsg{
+class Util_Msg{
     public function sendErrorExit($sCode){
         
     }

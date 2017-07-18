@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-class UtilIniFile{
+class Util_IniFile{
     private $_sIniFile = "";
     public function __construct($sIniFile) {
         $this->_sIniFile = $sIniFile;
