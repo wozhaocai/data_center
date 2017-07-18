@@ -36,7 +36,7 @@ class PearLocator implements Locator
             }
             $file = $dir . DIRECTORY_SEPARATOR . $file;
             //如果是文件就打印出来，否则递归调用
-            if (is_file($file)){
+            if (is_file($file) and pathinfo($file, PATHINFO_EXTENSION)=="php"){
                 require_once $file;          
             }elseif (is_dir($file)) {
                 $this->readFileFromDir($file);                
