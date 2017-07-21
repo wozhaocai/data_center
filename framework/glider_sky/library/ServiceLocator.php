@@ -88,7 +88,7 @@ class ServiceLocator
 * PHPs default __autload
 * Grabs an instance of ServiceLocator then runs it
 * @package ServiceLocator
-* @author Chris Corbyn
+* @author Fengwayne
 * @param string class
 */
 function glider_sky_autoload($class)
