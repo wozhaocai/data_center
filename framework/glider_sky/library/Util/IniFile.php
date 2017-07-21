@@ -24,7 +24,20 @@ class Util_IniFile{
                     continue;
                 }
                 list($sField,$sValue) = explode("=",$sContent);
-                $this->_aConfig[$sEnv][trim($sField)] = $this->assign($sValue,$sEnv);
+                $sField = trim($sField);
+                $this->_aConfig[$sEnv][$sField] = $this->assign($sValue,$sEnv);
+            }
+        }
+        $aTempConfig = $this->_aConfig;
+        $this->_aConfig = array();
+        foreach($aTempConfig as $sEnv => $sEnvConfig){
+            foreach($sEnvConfig as $sFieldKey=>$sFieldValue){
+                if(strstr($sFieldKey,".")){
+                    $aFieldOption = explode(".",$sFieldKey);
+                    $this->_aConfig[$sEnv][$aFieldOption[0]][$aFieldOption[1]] = $sFieldValue;
+                }else{
+                    $this->_aConfig[$sEnv][$sField] = $sFieldValue;
+                }
             }
         }
         debugVar($this->_aConfig);
