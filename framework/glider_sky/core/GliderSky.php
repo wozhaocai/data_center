@@ -30,3 +30,9 @@ class GliderSky{
         $this->_oConfig->loadSysFile();
     }
 }
+
+function debugVar($sVal){
+    var_dump("<pre>");
+    var_dump($sVal);
+    var_dump("</pre>");
+}
