@@ -40,6 +40,8 @@ class GliderSky{
     }
     
     private function loadSmarty(){
+        include_once(self::$aConfig["smarty"]["class"]);
+        include_once(APPLICATION_PATH."/config/smarty.inc.php");        
         $this->_oTemplate = new GliderSkySmarty();                
     }
     
