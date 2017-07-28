@@ -7,7 +7,23 @@
  */
 
 class GS_Module {
+    private $_sBusiness = "";
+    private $_sModule = "";
+    private $_sController = "";
+    private $_sAction = "";
+    private $_aParam = array();
 
-
+    public function __construct($sBusiness="",$sModule="",$sController="",$sAction="",$aParam = array()) {
+        $this->_sBusiness = $sBusiness;
+        $this->_sModule = $sModule;
+        $this->_sController = $sController;
+        $this->_sAction = $sAction;
+        $this->_aParam = $aParam;
+    }
+    
+    public function run(){
+        debugVar($this);
+        return "abc";
+    }
 
 }
