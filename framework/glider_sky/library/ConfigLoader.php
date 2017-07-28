@@ -7,6 +7,7 @@
  */
 class ConfigLoader{
     private $_sConfigFile = "";
+    private $_aConfig = array();
     public function __construct($sConfigFile) {
         $this->_sConfigFile = $sConfigFile;
     }
@@ -14,6 +15,30 @@ class ConfigLoader{
     public function loadSysFile(){
         var_dump($this->_sConfigFile);
         $oFile = new Util_IniFile($this->_sConfigFile);
-        $oFile->parse();
+        $this->_aConfig = $oFile->parse()->getConfig();
+        $this->loadEnv();
+        $this->reloadConfig();
+        debugVar($this->_aConfig);
     }
+
+    private function loadEnv() {
+        if (isset($this->_aConfig['common']["test"]["host"])) {
+            $aTestServer = explode(",", $this->_aConfig['common']["test"]["host"]);
+            $server_name = php_uname('n');
+            if (in_array($server_name,$aTestServer)) {
+                define("IDC", 'test');
+            } else {
+                define("IDC", 'online');
+            }
+        }        
+    }
+    
+    private function reloadConfig(){
+        $aConfig = $this->_aConfig;
+        $this->_aConfig = array(
+            "common" => $aConfig["common"],
+            "env" => $aConfig[IDC]
+        );        
+    }
+
 }

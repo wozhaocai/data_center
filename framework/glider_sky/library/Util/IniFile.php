@@ -40,10 +40,14 @@ class Util_IniFile{
                 }
             }
         }
-        debugVar($this->_aConfig);
+        return $this;
     }
     
-    public function assign($sValue, $sEnv) {
+    public function getConfig(){
+        return $this->_aConfig;
+    }
+    
+    private function assign($sValue, $sEnv) {
         $sValue = trim($sValue);
         $aConstant = get_defined_constants(true);
         foreach ($aConstant["user"] as $sKey => $sVal) {
