@@ -9,6 +9,11 @@ define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 header('Content-Type: text/html; charset=utf-8');
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 ServiceLocator::attachLocator(new PearLocator(APPLICATION_PATH."/framework/glider_sky"), 'PEAR');
+function debugVar($sVal){
+    var_dump("<pre>");
+    var_dump($sVal);
+    var_dump("</pre>");
+}
 
 register_shutdown_function(function() {
     
@@ -16,5 +21,6 @@ register_shutdown_function(function() {
 
 $oApp = new GliderSky(APPLICATION_PATH . "/config/application.ini");
 $oApp->run();
-debugVar(IDC);
+
+debugVar(GliderSky::$aConfig);
 echo "hello world";

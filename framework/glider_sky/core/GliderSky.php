@@ -10,6 +10,7 @@ class GliderSky{
     private $_oLog = null;
     private $_oMsg = null;
     private $_oConfig = null;
+    public static $aConfig = array();
     public function __construct($sConfPath) {     
         if(empty($sConfPath)){
             $this->_oMsg->sendErrorExit(1);
@@ -27,12 +28,6 @@ class GliderSky{
         $this->_oLog = new Util_Log();
         $this->_oMsg = new Util_Msg();
         $this->_oConfig = new ConfigLoader($this->_sConfPath);
-        $this->_oConfig->loadSysFile();
+        self::$aConfig = $this->_oConfig->loadSysFile();
     }
-}
-
-function debugVar($sVal){
-    var_dump("<pre>");
-    var_dump($sVal);
-    var_dump("</pre>");
 }

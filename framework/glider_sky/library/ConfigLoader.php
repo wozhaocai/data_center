@@ -13,12 +13,11 @@ class ConfigLoader{
     }
     
     public function loadSysFile(){
-        var_dump($this->_sConfigFile);
         $oFile = new Util_IniFile($this->_sConfigFile);
         $this->_aConfig = $oFile->parse()->getConfig();
         $this->loadEnv();
         $this->reloadConfig();
-        debugVar($this->_aConfig);
+        return $this->_aConfig;
     }
 
     private function loadEnv() {
@@ -35,10 +34,7 @@ class ConfigLoader{
     
     private function reloadConfig(){
         $aConfig = $this->_aConfig;
-        $this->_aConfig = array(
-            "common" => $aConfig["common"],
-            "env" => $aConfig[IDC]
-        );        
+        $this->_aConfig = array_merge($aConfig["common"],$aConfig[IDC]);        
     }
 
 }
