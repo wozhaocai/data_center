@@ -7,7 +7,6 @@ include_once(APPLICATION_PATH."/config/config.inc.php");
 $oModule = new GS_Module();
 
 $oTemplate = new GS_Template();
-$oTemplate->loadTemplate();        
-$oApp->setTemplate($oTemplate);
+$oTemplate->loadTemplate();  
 $oTemplate->assign("helloworld", "hello world")->display("index.tpl");
 
