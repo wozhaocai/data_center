@@ -29,10 +29,6 @@ class GliderSky{
         $this->_oMsg = new Util_Msg();
         $this->_oConfig = new ConfigLoader($this->_sConfPath);
         self::$aConfig = $this->_oConfig->loadSysFile();
-    }
-    
-    public function setTemplate(GS_Template &$oTemplate){
-        $this->_oTemplate = $oTemplate;
-    }
-    
+    }    
+ 
 }
