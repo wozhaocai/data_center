@@ -31,8 +31,4 @@ class GliderSky{
         self::$aConfig = $this->_oConfig->loadSysFile();
     }
     
-    public function setTemplate(GS_Template &$oTemplate){
-        $this->_oTemplate = $oTemplate;
-    }
-    
 }
