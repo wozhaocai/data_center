@@ -29,6 +29,13 @@ class ConfigLoader{
             } else {
                 define("IDC", 'online');
             }
+        }      
+        if (isset($this->_aConfig['common']["template"]["engine"])){
+            if($this->_aConfig['common']["template"]["engine"] == "smarty"){
+                if (isset($this->_aConfig['common']["smarty"]["dir"])) {
+                    define("SMARTY_DIR", $this->_aConfig['common']["smarty"]["dir"]);
+                }
+            }
         }        
     }
     
