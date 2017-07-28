@@ -21,14 +21,14 @@ class GliderSky{
         $this->loadConf();
     }
     
-    public function run(){
-        $this->loadTemplate();
+    public function run(){        
     }
     
     public function loadTemplate(){
         if(self::$aConfig['template']['engine'] == "smarty"){
             $this->loadSmarty();
         }
+        return $this;
     }
     
     private function loadConf(){
