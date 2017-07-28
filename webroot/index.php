@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
-$oApp->loadTemplate();
-        
-$oApp->assign("helloworld", "hello world")->display("index.tpl");
+$oTemplate = new GS_Template();
+$oTemplate->loadTemplate();        
+$oTemplate->assign("helloworld", "hello world")->display("index.tpl");
 

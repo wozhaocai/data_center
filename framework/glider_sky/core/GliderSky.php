@@ -24,34 +24,11 @@ class GliderSky{
     public function run(){        
     }
     
-    public function loadTemplate(){
-        if(self::$aConfig['template']['engine'] == "smarty"){
-            $this->loadSmarty();
-        }
-        return $this;
-    }
-    
-    private function loadConf(){
+    private function loadConf() {
         $this->_oLog = new Util_Log();
         $this->_oMsg = new Util_Msg();
         $this->_oConfig = new ConfigLoader($this->_sConfPath);
         self::$aConfig = $this->_oConfig->loadSysFile();
     }
-    
-    private function loadSmarty(){
-        include_once(self::$aConfig["smarty"]["class"]);
-        include_once(APPLICATION_PATH."/config/smarty.inc.php");        
-        $this->_oTemplate = new GliderSkySmarty();                
-    }
-    
-    public function assign($sKey,$sVal){
-        $this->_oTemplate->assign($sKey,$sVal);
-        return $this;
-    }
-    
-    public function display($sTpl){
-        $this->_oTemplate->display($sTpl);
-        return $this;
-    }  
     
 }
