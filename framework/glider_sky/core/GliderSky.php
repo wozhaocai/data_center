@@ -26,7 +26,6 @@ class GliderSky{
     }
     
     public function loadTemplate(){
-        debugVar(self::$aConfig);
         if(self::$aConfig['template']['engine'] == "smarty"){
             $this->loadSmarty();
         }

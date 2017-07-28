@@ -23,5 +23,5 @@ $oApp = new GliderSky(APPLICATION_PATH . "/config/application.ini");
 $oApp->run();
 
 debugVar(GliderSky::$aConfig);
-debugVar($_SERVER);
+
 echo "hello world";
