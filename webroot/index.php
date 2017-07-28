@@ -22,6 +22,8 @@ register_shutdown_function(function() {
 $oApp = new GliderSky(APPLICATION_PATH . "/config/application.ini");
 $oApp->run();
 
-debugVar(GliderSky::$aConfig);
+$oApp->assign("helloworld", "hello world")->display("index.tpl");
 
-echo "hello world";
+
+
+;
