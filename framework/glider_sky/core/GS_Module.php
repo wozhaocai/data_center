@@ -22,6 +22,10 @@ class GS_Module {
     }
     
     public function run(){
+        $sClass = "GS_Module_".$this->_sModule;
+        if(Util_Class::checkClass($sClass,$this->_sAction)){
+            $oObj = new $sClass();
+        }
         debugVar($this);
         return "abc";
     }
