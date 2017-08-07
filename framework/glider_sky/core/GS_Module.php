@@ -22,12 +22,14 @@ class GS_Module {
     }
     
     public function run(){
-        $sClass = "GS_Module_".$this->_sModule;
+        $sClass = "GS_Module_".$this->_sModule;     
         if(Util_Class::checkClass($sClass,$this->_sAction)){
             $oObj = new $sClass();
         }
-        debugVar($this);
-        return "abc";
+        $sAction = $this->_sAction;
+        $this->_aParam["business"] = $this->_sBusiness;
+        $oObj->setParams($this->_aParam);
+        return $oObj->$sAction();
     }
 
 }
