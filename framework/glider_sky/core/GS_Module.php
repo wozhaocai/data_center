@@ -23,13 +23,15 @@ class GS_Module {
     
     public function run(){
         $sClass = "GS_Module_".$this->_sModule;     
-        if(Util_Class::checkClass($sClass,$this->_sAction)){
+        if(class_exists($sClass)){
             $oObj = new $sClass();
         }
         $sAction = $this->_sAction;
         $this->_aParam["business"] = $this->_sBusiness;
+        $this->_aParam["controller"] = $this->_sController;
+        $this->_aParam["action"] = $this->_sAction;
         $oObj->setParams($this->_aParam);
-        return $oObj->$sAction();
+        return $oObj->run();
     }
 
 }
