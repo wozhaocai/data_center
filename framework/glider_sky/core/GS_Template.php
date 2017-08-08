@@ -10,6 +10,10 @@ class GS_Template {
 
     public static $aConfig = array();
     private $_oTemplate = null;
+    
+    public function __construct() {
+        $this->loadTemplate();
+    }
 
     public function loadTemplate() {
         if (GliderSky::$aConfig['template']['engine'] == "smarty") {
