@@ -18,15 +18,17 @@ abstract class GS_Module_Base{
     }
     
     public function loadApplication(){
-        list($sDirName,$sFileName) = explode("_",  strtolower($this->_aParam["controller"]));
-        $sClassFile = APPLICATION_PATH."/application/controller/{$sDirName}/{$sFileName}.php";
-        if(file_exists($sClassFile)){
-            require_once($sClassFile);
-            $sClass = $this->_aParam["controller"]."Controller";
-            $this->_oApplicationObj = new $sClass($this->_aParam);
-            $sAction = $this->_aParam['action'];
-            $this->_bIsApplication = true;
-            $this->_aResult = $this->_oApplicationObj->$sAction();
+        if(strstr($this->_aParam["controller"],"_")){
+            list($sDirName,$sFileName) = explode("_",  strtolower($this->_aParam["controller"]));
+            $sClassFile = APPLICATION_PATH."/application/controller/{$sDirName}/{$sFileName}.php";
+            if(file_exists($sClassFile)){
+                require_once($sClassFile);
+                $sClass = $this->_aParam["controller"]."Controller";
+                $this->_oApplicationObj = new $sClass($this->_aParam);
+                $sAction = $this->_aParam['action'];
+                $this->_bIsApplication = true;
+                $this->_aResult = $this->_oApplicationObj->$sAction();
+            }
         }
     }
 }
