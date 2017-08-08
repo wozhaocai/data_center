@@ -5,12 +5,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-class GS_Module_Entity extends GS_Module_Base{
-    public function run(){
-        if($this->_bIsApplication){
-            return $this->_aResult;
-        }
-        var_dump("done");
-    }
-}
+ class BaseController{
+     protected $_aParams = array();
+     
+     public function __construct($aParams) {
+         $this->_aParams = $aParams;
+     }
+ }

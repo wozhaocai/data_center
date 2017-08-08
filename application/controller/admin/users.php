@@ -5,7 +5,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-class Admin_UsersController{
+class Admin_UsersController Extends BaseController{
     
+    public function search(){
+        var_dump("search");
+        debugVar($this->_aParams);
+    }
 }
 
