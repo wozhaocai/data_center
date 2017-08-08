@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
-$oModule = new GS_Module("dc","Entity","Admin_Users","search",array("username"=>"fengwei","emaile"=>"fengwei@xxx.cn"));
+$oModule = new GS_Module("dc","Entity","users","get",array("username"=>"fengwei","emaile"=>"fengwei@xxx.cn"));
 debugVar($oModule->run());
 /**WW
 $oTemplate = new GS_Template();
