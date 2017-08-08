@@ -18,7 +18,7 @@ class GS_Module {
         $this->_sModule = $sModule;
         $this->_sController = $sController;
         $this->_sAction = $sAction;
-        $this->_aParam = $aParam;
+        $this->_aParam["query"] = $aParam;
     }
     
     public function run(){

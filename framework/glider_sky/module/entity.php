@@ -11,7 +11,12 @@ class GS_Module_Entity extends GS_Module_Base{
         if($this->_bIsApplication){
             return $this->_aResult;
         }
-        
-        var_dump("done");
+        $sAction = $this->_aParam['action'];
+        return $this->$sAction();
+    }
+    
+    public function gets(){
+        $this->_oDB->setTable($this->_aParam["controller"]);
+        return $this->_oDB->getList($this->_aParam["query"]);
     }
 }
