@@ -14,6 +14,7 @@ abstract class GS_Module_Base{
 
     public function setParams($aParam){
         $this->_aParam = $aParam;
+        $this->loadDB();
         $this->loadApplication();
     }
     
@@ -30,5 +31,13 @@ abstract class GS_Module_Base{
                 $this->_aResult = $this->_oApplicationObj->$sAction();
             }
         }
+    }
+    
+    public function loadDB(){
+        if(empty($this->_aParam['business'])){
+            echo "请指定应用平台";
+            exit; 
+        }
+        debugVar(GliderSky::$aConfig);
     }
 }

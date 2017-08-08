@@ -11,6 +11,7 @@ class GS_Module_Entity extends GS_Module_Base{
         if($this->_bIsApplication){
             return $this->_aResult;
         }
+        
         var_dump("done");
     }
 }

@@ -34,7 +34,11 @@ class Util_IniFile{
             foreach($sEnvConfig as $sFieldKey=>$sFieldValue){
                 if(strstr($sFieldKey,".")){
                     $aFieldOption = explode(".",$sFieldKey);
-                    $this->_aConfig[$sEnv][$aFieldOption[0]][$aFieldOption[1]] = $sFieldValue;
+                    if(count($aFieldOption) == 3){
+                        $this->_aConfig[$sEnv][$aFieldOption[0]][$aFieldOption[1]][$aFieldOption[2]] = $sFieldValue;
+                    }else{
+                        $this->_aConfig[$sEnv][$aFieldOption[0]][$aFieldOption[1]] = $sFieldValue;
+                    }
                 }else{
                     $this->_aConfig[$sEnv][$sField] = $sFieldValue;
                 }
