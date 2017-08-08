@@ -7,8 +7,13 @@
  */
  class BaseController{
      protected $_aParams = array();
+     protected $_oDB = null;
      
      public function __construct($aParams) {
          $this->_aParams = $aParams;
+     }
+     
+     public function setDB(&$oDB){
+         $this->_oDB = $oDB;
      }
  }

@@ -10,6 +10,7 @@ abstract class GS_Module_Base{
     protected $_oApplicationObj = null;
     protected $_bIsApplication = false;
     protected $_aResult = array();
+    protected $_oDB = null;
     public abstract function run();
 
     public function setParams($aParam){
@@ -26,6 +27,7 @@ abstract class GS_Module_Base{
                 require_once($sClassFile);
                 $sClass = $this->_aParam["controller"]."Controller";
                 $this->_oApplicationObj = new $sClass($this->_aParam);
+                $this->_oApplicationObj->setDB($this->_oDB);
                 $sAction = $this->_aParam['action'];
                 $this->_bIsApplication = true;
                 $this->_aResult = $this->_oApplicationObj->$sAction();
@@ -38,6 +40,6 @@ abstract class GS_Module_Base{
             echo "请指定应用平台";
             exit; 
         }
-        debugVar(GliderSky::$aConfig);
+        $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);       
     }
 }

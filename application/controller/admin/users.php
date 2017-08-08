@@ -9,6 +9,7 @@ class Admin_UsersController Extends BaseController{
     
     public function search(){
         var_dump("search");
+        debugVar($this->_oDB->queryDB("select * from users"));
         debugVar($this->_aParams);
     }
 }
