@@ -5,9 +5,9 @@ header('Content-Type: text/html; charset=utf-8');
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
 $oTemplate = new GS_Template();
-if(empty($_REQUEST)){    
-    $oTemplate->assign("helloworld", "hello world")->display("reg.tpl");
+if(empty($_REQUEST["controller"])){    
+    Header("Location:./index.php");
 }else{
-    $oView = new GS_Service();
+    $oView = new GS_Service($oTemplate);
     $oView->route();
 }

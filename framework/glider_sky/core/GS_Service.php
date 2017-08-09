@@ -9,7 +9,7 @@
 class GS_Service {
 
     private $_oTemplate = null;
-    private $_aRequest = array();
+    private $_aRequest = array();    
 
     public function __construct(&$oTemplate) {
         $this->setTemplate($oTemplate);
@@ -21,10 +21,27 @@ class GS_Service {
     }
 
     public function route() {
+        $oRoute = new GS_Route();
+        $sController = $this->_aRequest["controller"];
+        if(isset(GS_Route::$_aConfig["view"][$sController])){
+            $aViewClass = GS_Route::$_aConfig["view"][$sController];
+            $this->callView($aViewClass);
+        }elseif(isset(GS_Route::$_aConfig["module"][$sController])){
+            $this->callMoudule();
+        }else{
+            Header("Location:/index.php");
+        }
+    }
+    
+    private function callView($aViewClass){
+        $oView = new GS_View($this->_aRequest['business'],$aViewClass,$this->_aRequest['action'],$this->_aRequest);
+        $oView->run($this->_oTemplate);
+    }
+    
+    private function callMoudule(){
         $oModule = new GS_Module("dc","Entity","users","gets",array("username"=>"fengwei"));
-//$oModule = new GS_Module("dc","Entity","Admin_Users","search",array("username"=>"fengwei"));
-debugVar("result");
-debugVar($oModule->run());
+        //$oModule = new GS_Module("dc","Entity","Admin_Users","search",array("username"=>"fengwei"));
+        debugVar($oModule->run());
     }
 
     private function filterRequest() {
@@ -35,7 +52,7 @@ debugVar($oModule->run());
         $this->_aRequest = array_merge((array) $_GET, (array) $_POST); //合并_GET _POST 变量，POST具有优先级.有同名直接使用$_GET
     }
 
-    function init() {
+    private function init() {
         if (!get_magic_quotes_gpc()) {
             $_POST = $this->Quotes($_POST);
             $_GET = $this->Quotes($_GET);
@@ -44,7 +61,7 @@ debugVar($oModule->run());
         //不考虑GPC，直接过滤了再说。$_SERVER的Referer不受GPC保护
     }
 
-    function Quotes($content) {
+    private function Quotes($content) {
         if (is_array($content)) {
             foreach ($content as $key => $value) {
                 $key = addslashes($key);
