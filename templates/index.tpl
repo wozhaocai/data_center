@@ -40,9 +40,6 @@
 		<script src="js/TweenLite.min.js"></script>
 		<script src="js/EasePack.min.js"></script>
 		<script src="js/rAF.js"></script>
-		<script src="js/demo-1.js"></script>
-		<div style="text-align:center;">
-<p><a href="http://www.mycodes.net/" target="_blank">关于我们</a></p>
-</div>
+		<script src="js/demo-1.js"></script>		
 	</body>
 </html>
