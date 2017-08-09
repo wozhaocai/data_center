@@ -1,8 +1,13 @@
 <?php
+define("APPLICATION_PATH", dirname(dirname(__FILE__)));
+header('Content-Type: text/html; charset=utf-8');
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+include_once(APPLICATION_PATH."/config/config.inc.php");
 
+$oTemplate = new GS_Template();
+if(empty($_REQUEST)){    
+    $oTemplate->assign("helloworld", "hello world")->display("reg.tpl");
+}else{
+    $oView = new GS_Service();
+    $oView->route();
+}
