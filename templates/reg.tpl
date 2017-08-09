@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-<form action="#" name="f" onSubmit="return validate()">
+<form action="/service.php?controller=reg&action=register" name="f" onsubmit="return validator();">
     <table width="800">
         <tr>
             <td width="200">&nbsp;</td>
@@ -58,7 +58,7 @@
             <td></td>
             <td>
                 <div class="mb2">
-                    <a class="act-but submit" href="javascript:;" style="color: #FFFFFF">注册提交</a>
+                    <a class="act-but submit" href="javascript:;" onclick="document.form.submit();" style="color: #FFFFFF">注册提交</a>
                 </div>
             </td>
             <td></td>

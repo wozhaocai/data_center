@@ -10,4 +10,9 @@ class User_RegView extends BaseView{
     public function show(){
         $this->_oTemplate->display($this->_sTpl);
     }
+    
+    public function register(){
+        debugVar($this->_aParams);
+        exit;
+    }
 }
