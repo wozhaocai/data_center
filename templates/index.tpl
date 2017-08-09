@@ -20,6 +20,7 @@
 					<canvas id="demo-canvas"></canvas>
 					<div class="logo_box">
 						<h3>我找财</h3>
+                                                <p>&nbsp;</p>
 						<form action="#" name="f" method="post">
 							<div class="input_outer">
 								<span class="u_user"></span>
@@ -30,6 +31,7 @@
 								<input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
 							</div>
 							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+                                                        <div class="mb2"><a class="text" href="javascript:;" style="color: #FFFFFF">注册</a></div>
 						</form>
 					</div>
 				</div>
