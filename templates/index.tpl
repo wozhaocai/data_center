@@ -1,3 +1,4 @@
+<{include file="header.tpl"}>
 <form action="#" name="f" method="post">
     <div class="input_outer">
         <span class="u_user"></span>
@@ -10,3 +11,4 @@
     <div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
     <div class="mb2"><a class="text" href="javascript:;" style="color: #FFFFFF">注册</a></div>
 </form>
+<{include file="footer.tpl"}>

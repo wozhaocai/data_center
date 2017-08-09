@@ -1,3 +1,4 @@
+<{include file="header.tpl"}>
 <form action="#" name="f" onSubmit="return validate()">
     <table width="800">
         <tr>
@@ -64,3 +65,4 @@
         </tr>
     </table>
 </form>
+<{include file="footer.tpl"}>
