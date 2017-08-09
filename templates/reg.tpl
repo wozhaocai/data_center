@@ -71,7 +71,7 @@
                                                             <td></td>
                                                             <td>
                                                                 <div class="mb2">
-                                                                    <a class="act-but submit" href="javascript:;" style="color: #FFFFFF">提交</a>
+                                                                    <a class="act-but submit" href="javascript:;" style="color: #FFFFFF">注册提交</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
