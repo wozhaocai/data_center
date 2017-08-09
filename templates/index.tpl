@@ -33,9 +33,16 @@
 							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
                                                         <div class="mb2"><a class="text" href="javascript:;" style="color: #FFFFFF">注册</a></div>
 						</form>
-					</div>
-				</div>
-			</div>
+                                                <p>&nbsp;&nbsp;</p>
+                                                <p>&nbsp;&nbsp;</p>
+                                                <p>&nbsp;&nbsp;</p>
+                                                <p>&nbsp;&nbsp;</p>
+                                                <p>&nbsp;&nbsp;</p>
+                                                <p>&nbsp;&nbsp;</p>
+                                                <div><a class="text" style="color: #FFFFFF !important; position:absolute; z-index:500;">关于我们</a></div>
+					</div>                                        
+				</div>                            
+			</div>                    
 		</div><!-- /container -->
 		<script src="js/TweenLite.min.js"></script>
 		<script src="js/EasePack.min.js"></script>
