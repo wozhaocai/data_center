@@ -11,10 +11,4 @@ if(empty($_REQUEST)){
     $oView = new GS_Service();
     $oView->route();
 }
-$oModule = new GS_Module("dc","Entity","users","gets",array("username"=>"fengwei"));
-//$oModule = new GS_Module("dc","Entity","Admin_Users","search",array("username"=>"fengwei"));
-debugVar("result");
-debugVar($oModule->run());
-/**WW
 
-*/

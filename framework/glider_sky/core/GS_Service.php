@@ -21,7 +21,10 @@ class GS_Service {
     }
 
     public function route() {
-        
+        $oModule = new GS_Module("dc","Entity","users","gets",array("username"=>"fengwei"));
+//$oModule = new GS_Module("dc","Entity","Admin_Users","search",array("username"=>"fengwei"));
+debugVar("result");
+debugVar($oModule->run());
     }
 
     private function filterRequest() {
