@@ -22,11 +22,11 @@
 						<h3>我找财</h3>
                                                 <p>&nbsp;</p>
 						<form action="#" name="f" onSubmit="return validate()">
-                                                    <table width="600">
+                                                    <table width="800">
                                                         <tr>
-                                                        <td width="100">&nbsp;</td>
                                                         <td width="200">&nbsp;</td>
-                                                        <td width="300">&nbsp;</td>
+                                                        <td width="200">&nbsp;</td>
+                                                        <td width="400">&nbsp;</td>
                                                         </tr>
                                                         <tr>
                                                             <td align="right">
@@ -65,7 +65,7 @@
                                                             <td id="cpasswordCheck" class="check" hidden="true">*Two passwd is not same</td> 
                                                         </tr>
                                                         <tr>
-                                                            <td align="right" width="100">
+                                                            <td align="right">
                                                                 <div>邮箱：</div>
                                                             </td>
                                                             <td>
