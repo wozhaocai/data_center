@@ -39,7 +39,7 @@
                                                 <p>&nbsp;&nbsp;</p>
                                                 <p>&nbsp;&nbsp;</p>
                                                 <p>&nbsp;&nbsp;</p>
-                                                <div><a class="text" style="color: #FFFFFF !important; position:absolute; z-index:500;">关于我们</a></div>
+                                                <div><a class="text" style="color: #00ff00 !important; position:absolute; z-index:500;">关于我们</a></div>
 					</div>                                        
 				</div>                            
 			</div>                    
