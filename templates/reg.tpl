@@ -24,7 +24,7 @@
 						<form action="#" name="f" method="post">
                                                     <table width="500">
                                                         <tr>
-                                                            <td>
+                                                            <td align="right">
                                                                 <div>账户名：</div>
                                                             </td>
                                                             <td>
@@ -35,7 +35,7 @@
                                                             <td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
+                                                            <td align="right">
                                                                 <div>输入密码：</div>
                                                             </td>
                                                             <td>
@@ -46,7 +46,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
+                                                            <td align="right">
                                                                 <div>再次输入密码：</div>
                                                             </td>
                                                             <td>
@@ -57,7 +57,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
+                                                            <td align="right">
                                                                 <div>邮箱：</div>
                                                             </td>
                                                             <td>
