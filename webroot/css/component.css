@@ -12,6 +12,12 @@
 .demo-1 .large-header {
 	background-image: url('../img/demo-1-bg.jpg');
 }
+td.check{ 
+color:#C00; 
+font-weight:bold; 
+align:left;
+width:300px;
+} 
 .logo_box{
 	width: 400px;
 	height: 500px;
