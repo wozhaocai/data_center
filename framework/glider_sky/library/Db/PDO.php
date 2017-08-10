@@ -77,7 +77,7 @@ class Db_PDO {
     function query($sql, $aParam = array()) {
         $time_start = microtime(true);
         $showsql = $this->getShowSql($sql, $aParam);
-        //var_dump($showsql);
+        //debugVar($showsql);
         $rs = self::$_db->prepare($sql);
         if (!$rs) {
             return false;

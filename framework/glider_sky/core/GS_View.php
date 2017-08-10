@@ -43,7 +43,7 @@ class GS_View {
                 $this->_oViewObj = new $sClass($oTemplate,$this->_aQuery);
                 $this->_oViewObj->setTpl($this->_aView['tpl']);
                 $sAction = $this->_aParam['action'];
-                $this->_oViewObj->$sAction();
+                return $this->_oViewObj->$sAction();
             }else{
                 echo "not find {$sClassFile}";
                 exit;

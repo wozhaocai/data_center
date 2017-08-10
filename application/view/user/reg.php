@@ -11,8 +11,32 @@ class User_RegView extends BaseView{
         $this->_oTemplate->display($this->_sTpl);
     }
     
-    public function register(){
-        debugVar($this->_aParams);
-        exit;
+    public function register(){    
+        $this->_aParams["password"] = md5($this->_aParams["password"]);
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","users","input",$this->_aParams);
+        $aResult = $oModule->run();
+        header("Location:/index.php");
+    }
+    
+    public function login() {
+        $sInputPwd = md5($this->_aParams["password"]);
+        unset($this->_aParams["password"]);
+        $aUsers = $this->gets();
+        if(empty($aUsers)){
+            header("Location:/index.php?err_msg=没有该用户{$this->_aParams["username"]}");
+        }else{
+            if($sInputPwd != $aUsers[0]->password){
+                header("Location:/index.php?err_msg=用户名错误");
+            }else{
+                $_SESSION["username"] = $this->_aParams["username"];
+                $_SESSION["business"] = $this->_aParams["business"];
+                header("Location:/service.php?business={$this->_aParams['business']}&controller=member&action=index");
+            }
+        }
+    }
+    
+    public function gets(){
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","users","gets",$this->_aParams);
+        return $oModule->run();
     }
 }

@@ -67,3 +67,29 @@ function validate()
         return false;
     }
 } 
+
+function login()
+{
+    var arr = ["username", "password"];
+    var i = 0;
+    submitOK = true;
+    while (i < 2)
+    {
+        if (!check(arr[i]))
+        {
+            alert(arr[i] + " wrong!");
+            submitOK = false;
+            break;
+        }
+        i++;
+    }
+    if (submitOK)
+    {
+        document.getElementById("f").submit();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+} 

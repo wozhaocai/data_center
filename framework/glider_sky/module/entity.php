@@ -16,7 +16,11 @@ class GS_Module_Entity extends GS_Module_Base{
     }
     
     public function gets(){
-        $this->_oDB->setTable($this->_aParam["controller"]);
-        return $this->_oDB->getList($this->_aParam["query"]);
+        var_dump($this->_aParam["query"]);
+        return $this->_oDB->gets($this->_aParam["query"]);
+    }
+    
+    public function input(){
+        return $this->_oDB->input($this->_aParam["query"]);
     }
 }

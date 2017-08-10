@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-<form action="/service.php" method="post" name="f" id="f">
+<form action="/guest.php" method="post" name="f" id="f">
     <table width="800">
         <tr>
             <td width="200">&nbsp;</td>

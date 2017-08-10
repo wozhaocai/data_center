@@ -307,7 +307,8 @@ class Db_Adapter {
     }
 
     function gets($aParam, $one = false) {
-        $aRequest = array();
+        $aParam = $this->filter($this->aField, $aParam);
+
         if(!empty($aParam['order'])){
             $aParam['order'] = str_replace("<>","|",$aParam['order']);
             $this->setOrderStr(str_replace("|"," ",$aParam['order']));
