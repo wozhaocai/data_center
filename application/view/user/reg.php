@@ -8,7 +8,6 @@
 class User_RegView extends BaseView{
     
     public function show(){
-        $this->_oTemplate->display($this->_sTpl);
     }
     
     public function register(){    
@@ -26,7 +25,7 @@ class User_RegView extends BaseView{
             header("Location:/index.php?err_msg=没有该用户{$this->_aParams["username"]}");
         }else{
             if($sInputPwd != $aUsers[0]->password){
-                header("Location:/index.php?err_msg=用户名错误");
+                header("Location:/index.php?err_msg=登录密码错误");
             }else{
                 $_SESSION["username"] = $this->_aParams["username"];
                 $_SESSION["business"] = $this->_aParams["business"];

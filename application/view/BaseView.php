@@ -8,14 +8,10 @@
  class BaseView{
      protected $_aParams = array();
      protected $_oTemplate = null;
-     protected $_sTpl = "";
      
      public function __construct(&$oTemplate,$aParams) {
          $this->_aParams = $aParams;
          $this->_oTemplate = $oTemplate;
      }
      
-     public function setTpl($sTpl){
-         $this->_sTpl = $sTpl;
-     }
  }

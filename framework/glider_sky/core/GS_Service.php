@@ -22,12 +22,14 @@ class GS_Service {
 
     public function route() {
         $oRoute = new GS_Route();
-        $sController = $this->_aRequest["controller"];
-        if(isset(GS_Route::$_aConfig["view"][$sController])){
-            $aViewClass = GS_Route::$_aConfig["view"][$sController];
-            $this->callView($aViewClass);
-        }elseif(isset(GS_Route::$_aConfig["module"][$sController])){
-            $this->callMoudule();
+        if(!empty($this->_aRequest["controller"])){
+            $sController = $this->_aRequest["controller"];
+            if(isset(GS_Route::$_aConfig["view"][$sController])){
+                $aViewClass = GS_Route::$_aConfig["view"][$sController];
+                $this->callView($aViewClass);
+            }elseif(isset(GS_Route::$_aConfig["module"][$sController])){
+                $this->callMoudule();
+            }
         }else{
             Header("Location:/index.php");
         }

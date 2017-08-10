@@ -5,6 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+session_start();
+
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 require_once APPLICATION_PATH."/application/view/BaseView.php";
 require_once APPLICATION_PATH."/application/controller/BaseController.php";

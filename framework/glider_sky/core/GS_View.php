@@ -41,9 +41,9 @@ class GS_View {
                 require_once($sClassFile);
                 $sClass = $this->_aView["class"]."View";
                 $this->_oViewObj = new $sClass($oTemplate,$this->_aQuery);
-                $this->_oViewObj->setTpl($this->_aView['tpl']);
                 $sAction = $this->_aParam['action'];
-                return $this->_oViewObj->$sAction();
+                $this->_oViewObj->$sAction();
+                $oTemplate->display($this->_aView['tpl']);
             }else{
                 echo "not find {$sClassFile}";
                 exit;
