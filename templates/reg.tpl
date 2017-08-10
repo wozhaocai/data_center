@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-<form action="/service.php?business=dc&controller=reg&action=register" name="f" id="f">
+<form action="/service.php" method="post" name="f" id="f">
     <table width="800">
         <tr>
             <td width="200">&nbsp;</td>
@@ -61,7 +61,11 @@
                     <a class="act-but submit" href="javascript:void(0);" onclick="validate();" style="color: #FFFFFF">注册提交</a>
                 </div>
             </td>
-            <td></td>
+            <td>
+                <input type="hidden" id="business" name="business" value="dc">
+                <input type="hidden" id="controller" name="controller" value="reg">
+                <input type="hidden" id="action" name="action" value="register">
+            </td>
         </tr>
     </table>
 </form>
