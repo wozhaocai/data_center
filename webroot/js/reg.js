@@ -3,13 +3,14 @@ function check(str)
     var x = document.getElementById(str);
     var y = document.getElementById(str + "Check");
 //alert("check!"); 
+
     if (str == "username")
     {
         if (x.value == "")
             y.hidden = false;
         else
             y.hidden = true;
-    }    
+    }
     else if (str == "password")
     {
         x = x.value.length;
@@ -46,7 +47,7 @@ function validate()
     var arr = ["username", "password", "cpassword", "email"];
     var i = 0;
     submitOK = true;
-    while (i <= 5)
+    while (i < 4)
     {
         if (!check(arr[i]))
         {
@@ -58,12 +59,11 @@ function validate()
     }
     if (submitOK)
     {
-        alert("提交成功！");
+        document.getElementById("f").submit();
         return true;
     }
     else
     {
-        alert("提交失败");
         return false;
     }
 } 

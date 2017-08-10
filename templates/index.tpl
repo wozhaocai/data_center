@@ -9,6 +9,6 @@
         <input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
     </div>
     <div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
-    <div class="mb2"><a class="text" href="./service.php?controller=reg&action=show" style="color: #FFFFFF">注册</a></div>
+    <div class="mb2"><a class="text" href="./service.php?business=dc&controller=reg&action=show" style="color: #FFFFFF">注册</a></div>
 </form>
 <{include file="footer.tpl"}>

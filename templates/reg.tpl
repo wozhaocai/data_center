@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-<form action="/service.php?controller=reg&action=register" name="f" onsubmit="return validator();">
+<form action="/service.php?business=dc&controller=reg&action=register" name="f" id="f">
     <table width="800">
         <tr>
             <td width="200">&nbsp;</td>
@@ -13,7 +13,7 @@
             <td>
                 <div class="input_outer">                                                            
                     <span class="u_user"></span>
-                    <input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户" onChange='check("username")'>
+                    <input id="username" name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户" onChange='check("username")'>
                 </div>
             <td>
             <td id="usernameCheck" class="check" hidden="true">*账户名不能为空</td> 
@@ -58,7 +58,7 @@
             <td></td>
             <td>
                 <div class="mb2">
-                    <a class="act-but submit" href="javascript:;" onclick="document.form.submit();" style="color: #FFFFFF">注册提交</a>
+                    <a class="act-but submit" href="javascript:void(0);" onclick="validate();" style="color: #FFFFFF">注册提交</a>
                 </div>
             </td>
             <td></td>
