@@ -14,4 +14,15 @@
          $this->_oTemplate = $oTemplate;
      }
      
+     protected function checkVar($sOption){
+        $this->_aParams[$sOption] = $this->_aParams["query_id"];
+        $aRs = $this->gets();
+        $aUsers = array();
+        if($aRs){
+            $aUsers = $aRs[0];
+        }
+        echo json_encode($aUsers);    
+        exit(0);
+    }
+     
  }

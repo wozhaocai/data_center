@@ -16,7 +16,6 @@ class GS_Module_Entity extends GS_Module_Base{
     }
     
     public function gets(){
-        var_dump($this->_aParam["query"]);
         return $this->_oDB->gets($this->_aParam["query"]);
     }
     

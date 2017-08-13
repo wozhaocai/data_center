@@ -14,9 +14,10 @@
                 <div class="input_outer">                                                            
                     <span class="u_user"></span>
                     <input id="username" name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户" onChange='check("username")'>
+                    <input id="is_reg" name="is_reg" type="hidden" value="reg">
                 </div>
             <td>
-            <td id="usernameCheck" class="check" hidden="true">*账户名不能为空</td> 
+            <td id="usernameCheck" class="check" hidden="true">*账户名不能为空</td>             
         </tr>
         <tr>
             <td align="right">

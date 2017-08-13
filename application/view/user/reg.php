@@ -38,4 +38,12 @@ class User_RegView extends BaseView{
         $oModule = new GS_Module($this->_aParams['business'],"Entity","users","gets",$this->_aParams);
         return $oModule->run();
     }
+    
+    public function check_username(){
+        $this->checkVar("username");
+    }
+    
+    public function check_email(){
+        $this->checkVar("email");
+    }
 }

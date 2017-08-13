@@ -1,16 +1,45 @@
+function query_has_reg(id) {
+    var regVar = $("#" + id).val();
+    $.post("/guest.php?business=dc&controller=reg&action=check_" + id, {query_id: regVar}, function (result) { 
+        var oUser = eval('(' + result + ')');
+        if (oUser.id) {
+            alert(regVar + "已经注册过了", '提示');
+            $("#"+id).val("");
+        }
+    });
+}
+
+function query_to_reg(id) {
+    var regVar = $("#" + id).val();
+    $.post("/guest.php?business=dc&controller=reg&action=check_" + id, {query_id: regVar}, function (result) { 
+        var oUser = eval('(' + result + ')');
+        if (oUser == "") {
+            alert(regVar + "用户不存在，请先注册", '提示');
+            $("#"+id).val("");
+        }
+    });
+}
+
 function check(str)
 {
     var x = document.getElementById(str);
     var y = document.getElementById(str + "Check");
 //alert("check!"); 
-
     if (str == "username")
-    {
-        if (x.value == "")
+    {        
+        if (x.value == ""){
             y.hidden = false;
-        else
+        }else{
             y.hidden = true;
-    }
+        }        
+        if(y.hidden == true){
+            if($("#is_reg").val() == "reg"){
+                query_has_reg("username");  
+            }else{
+                query_to_reg("username");
+            }
+        }         
+    }   
     else if (str == "password")
     {
         x = x.value.length;
@@ -31,14 +60,15 @@ function check(str)
         else
             y.hidden = true;
     }
-    else if (str == "email")
+    else if ((str == "email"))
     {
         x = x.value.indexOf("@")
         if (x == -1)
             y.hidden = false;
         else
             y.hidden = true;
-    }
+        if(y.hidden == true) query_has_reg("email"); 
+    }     
     return y.hidden;
 }
 

@@ -12,6 +12,7 @@
 <!--[if IE]>
 <script src="js/html5.js"></script>
 <![endif]-->
+<script src="/js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 		<div class="container demo-1">

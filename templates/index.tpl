@@ -36,6 +36,9 @@
                 <div class="mb2">
                     <a class="act-but submit" href="javascript:void(0);" onclick="login();" style="color: #FFFFFF">登录</a>
                 </div>
+                <div class="mb2">
+                    <a class="text" href="./guest.php?business=dc&controller=reg&action=show" style="color: #FFFFFF">注册</a>
+                </div>
             </td>
             <td>
                 <{$err_msg}>
