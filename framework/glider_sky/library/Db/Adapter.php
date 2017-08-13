@@ -249,7 +249,11 @@ class Db_Adapter {
         if (isset($aParam['order']) and count($aParam['order']) > 0) {
             $sSql .= " order by " . implode(",", $aParam['order']);
         }
-        return $this->queryDB(trim($sSql) . ";", $aParam['where'], $one, $debug);
+        if(empty($aParam["where"])){
+            return $this->queryDB(trim($sSql) . ";", array(), $one, $debug);
+        }else{
+            return $this->queryDB(trim($sSql) . ";", $aParam['where'], $one, $debug);
+        }        
     }
 
     function pushExec($sql, $aParam) {
@@ -329,8 +333,11 @@ class Db_Adapter {
                 $aRequest[":" . $sKey] = $sVal;
             }
         }
-        
-        return $this->selectDB(array("where" => $aRequest), $one);
+        if(!empty($aRequest)){
+            return $this->selectDB(array("where" => $aRequest), $one);
+        }else{
+            return $this->selectDB(array(), $one);
+        }        
     }
 
     function getList($aData, $one = false) {
