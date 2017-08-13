@@ -401,14 +401,14 @@ class Db_Adapter {
         if (count($aParam) < 1) {
             return false;
         } else {
-            $sSql .= "delete from {$this->_sTable} where ";
+            $sSql = "delete from {$this->_sTable} where ";
             foreach ($aParam as $sKey => $sVal) {
                 $aWhere[] = " " . substr($sKey, 1) . " = {$sKey} ";
             }
             $sSql .= implode("and", $aWhere) . ";";
         }
         return self::$oDB[$this->_sCurrentDb]->query($sSql, $aParam);
-    }
+    }       
 
     function isExist($aKeys, $aValues) {
         foreach ($aKeys as $sKey) {

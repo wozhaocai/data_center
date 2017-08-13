@@ -8,6 +8,6 @@
 
 class Member_IndexView extends BaseView{
     public function index(){
-        //$this->_oTemplate->display($this->_sTpl);
+        
     }
 }

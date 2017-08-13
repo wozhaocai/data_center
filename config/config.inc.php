@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 session_start();
-
+date_default_timezone_set('PRC');
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 require_once APPLICATION_PATH."/application/view/BaseView.php";
 require_once APPLICATION_PATH."/application/controller/BaseController.php";
