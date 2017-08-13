@@ -36,8 +36,6 @@ class GS_Service {
     }
     
     private function callView($aViewClass){
-        debugVar($this->_aRequest);
-        exit;
         $oView = new GS_View($this->_aRequest['business'],$aViewClass,$this->_aRequest['action'],$this->_aRequest);
         $oView->run($this->_oTemplate);
     }
