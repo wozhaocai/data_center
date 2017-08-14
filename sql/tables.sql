@@ -28,7 +28,7 @@ CREATE TABLE `menus` (
   KEY `idx_mlevel` (`mlevel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
-CREATE TABLE `group` (
+CREATE TABLE `groups` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户组id',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '用户组名',
   `description` varchar(200) NOT NULL DEFAULT '' COMMENT '描述',

@@ -7,7 +7,9 @@
  */
 
 class Member_UserView extends BaseView{
-    public function index(){
-        
+    public function group(){
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","groups","gets");
+        $aGroup = $oModule->run();
+        $this->_oTemplate->assign("aGroup",$aGroup);
     } 
 }

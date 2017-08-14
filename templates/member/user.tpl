@@ -59,48 +59,31 @@
             <thead>
               <tr class="am-success">
                 <th class="table-check"><input type="checkbox" /></th>
-                <th class="table-id">排序</th>
                 <th class="table-id">ID</th>
-                <th class="table-title">标题</th>
-                <th class="table-type">类别</th>
-                <th class="table-author am-hide-sm-only">上架/下架 <i class="am-icon-check am-text-warning"></i> <i class="am-icon-close am-text-primary"></i></th>
-                <th class="table-date am-hide-sm-only">修改日期</th>
+                <th class="table-title">名称</th>
+                <th class="table-type">描述</th>
+                <th class="table-date am-hide-sm-only">创建日期</th>
                 <th width="20%" class="table-set">操作</th>
               </tr>
             </thead>
             <tbody>
+                <{foreach $aGroup as $key=>$val}>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td><input type="text" class="am-form-field am-radius am-input-sm"/></td>
-                <td>14</td>
-                <td><a href="#">Business management</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only"><i class="am-icon-check am-text-warning"></i></td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                <td><{$val->id}></td>
+                <td><{$val->name}></td>
+                <td><{$val->description}></td>
+                <td class="am-hide-sm-only"><{$val->ctime}></td>
                 <td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs"><span class="am-icon-copy"></span> 复制</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
+                    <!--<button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>->
                   </div>
                   </div></td>
               </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td><input type="text" class="am-form-field am-radius am-input-sm"/></td>
-                <td>15</td>
-                <td><a href="#">Business management</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only"><i class="am-icon-close am-text-primary"></i></td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td><div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs"><span class="am-icon-copy"></span> 复制</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div></td>
-              </tr>
+              <{/foreach}>              
             </tbody>
           </table>
           
