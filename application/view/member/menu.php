@@ -8,7 +8,8 @@
 
 class Member_MenuView extends BaseView{
     public function show(){
-        $aMenus = $this->query($this->_aParams);
+        $oMenu = new Admin_MenusController($this->_aParams);
+        $aMenus = $this->$oMenu($this->_aParams);
         echo json_encode($aMenus);
         exit(0);
     }
@@ -20,8 +21,9 @@ class Member_MenuView extends BaseView{
             "path" => $sPath,
             "parent_id" => $this->_aParams["pId"]
         );
-        $aRs = $this->insert($aMenu);
-        $aMenus = $this->query($aMenu);  
+        $oMenu = new Admin_MenusController($this->_aParams);
+        $aRs = $oMenu->insert($aMenu);
+        $aMenus = $oMenu->query($aMenu);  
         echo json_encode($aMenus);
         exit(0);
     }
@@ -33,7 +35,8 @@ class Member_MenuView extends BaseView{
             "path" => $sPath,
             "id" => $this->_aParams["id"]
         );
-        $aRs = $this->updateDB($aMenu);
+        $oMenu = new Admin_MenusController($this->_aParams);
+        $aRs = $oMenu->updateDB($aMenu);
         exit(0);  
     }
     
@@ -41,33 +44,10 @@ class Member_MenuView extends BaseView{
         $aMenu = array(
             "id" => $this->_aParams["id"]
         );
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","delete",$aMenu);
-        $oModule->run();   
+        $oMenu = new Admin_MenusController($this->_aParams);
+        $oMenu->delete($aMenu);
         exit(0);  
     }
     
-    private function insert($aMenu){
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","input",$aMenu);
-        return $oModule->run();   
-    }
     
-   private function updateDB($aMenu){
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","update",$aMenu);
-        return $oModule->run();   
-    }
-    
-    private function query($aParams){
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","gets",$aParams);
-        $aRs = $oModule->run();
-        $aMenus = array();
-        foreach($aRs as $row){
-            $aMenu = array(
-                "id" => $row->id,
-                "pId" => $row->parent_id,
-                "name" => $row->title
-            );
-            $aMenus[] = $aMenu;
-        }
-        return $aMenus;        
-    }
 }
