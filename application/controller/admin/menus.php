@@ -43,11 +43,13 @@ class Admin_MenusController Extends BaseController {
                     $temp['id'] = $v->id;
                     $temp['parent_id'] = $v->parent_id;
                     $temp['title'] = $v->title;
+                    $temp['css_style'] = $v->css_style;
                     $temp['sub_menu'] = $this->getTree($data, $v->id);
                 } else {
                     $temp['id'] = $v->id;
                     $temp['parent_id'] = $v->parent_id;
                     $temp['title'] = $v->title;
+                    $temp['css_style'] = $v->css_style;
                     $temp['path'] = $v->path;
                 }
                 $tree['menu_' . $v->id] = $temp;
