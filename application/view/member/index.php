@@ -8,6 +8,14 @@
 
 class Member_IndexView extends BaseView{
     public function index(){
-        $aMenu = new Member_MenuView($oTemplate, $aParams)
-    }
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array());
+        $aMenus = $oModule->run(); 
+        $this->_oTemplate->assign("aMainMenu",$aMenus); 
+        
+        if(empty($this->_aParams['main_id'])){
+            $this->_oTemplate->assign("aSubMenu",$aMenus["menu_14"]);
+        }else{
+            $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$this->_aParams['main_id']}"]);
+        }
+    } 
 }

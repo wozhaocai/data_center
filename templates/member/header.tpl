@@ -52,13 +52,9 @@
 </li>
 
  <li class="kuanjie">
- 	
- 	<a href="#">会员管理</a>          
- 	<a href="#">奖金管理</a> 
- 	<a href="#">订单管理</a>   
- 	<a href="#">产品管理</a> 
- 	<a href="#">个人中心</a> 
- 	<a href="#">系统设置</a>
+     <{foreach $aMainMenu as $main_val}>
+        <a href="/service.php?business=dc&controller=member&action=index&main_id=<{$main_val.id}>"><{$main_val.title}></a>
+     <{/foreach}>
  </li>
 
  <li class="soso">
