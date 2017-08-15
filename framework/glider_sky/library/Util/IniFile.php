@@ -23,8 +23,9 @@ class Util_IniFile{
                     $sEnv = substr($res[0],1,-1);
                     continue;
                 }
-                list($sField,$sValue) = explode("=",$sContent);
-                $sField = trim($sField);
+                $i = strpos($sContent, '=', 0);
+                $sField = trim(substr($sContent,0,$i));
+                $sValue = trim(substr($sContent,$i+1));
                 $this->_aConfig[$sEnv][$sField] = $this->assign($sValue,$sEnv);
             }
         }

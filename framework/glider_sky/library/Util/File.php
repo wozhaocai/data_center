@@ -138,6 +138,18 @@ class Util_File {
         }
         return $aRs;
     }
+    
+    public function readIniToStr($sFile) {
+        $sStr = "";
+        $handle = fopen($sFile, 'r');
+        if ($handle) {
+            while (($buffer = trim(fgets($handle, 4096))) != false) {
+                $sStr .= $buffer."\r\n";
+            }
+            fclose($handle);
+        }
+        return $sStr;
+    }
 
     public function replaceIni($sFile, $aData, $sSign) {
         $aRs = array();

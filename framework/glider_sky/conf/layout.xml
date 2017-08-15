@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf8"?>
+<root>
+	<layout>datatables_1</layout>
+	<chart id="1">
+	    <x key="date">
+                <{chart_column}>
+	    </x>
+            <y>
+                <{chart_data}>
+            </y>
+	</chart>
+	<datatables id='1'>
+		<columns>
+			<{datables_column}>                        
+		</columns>
+		<data>
+			<{datables_data}>
+		</data>
+	</datatables>
+	<formadd id='1'>
+		<columns>
+			<{formadd_column}>
+		</columns>
+		<data>
+			<{formadd_data}>
+		</data>
+	</formadd>
+	<formedit id='1'>
+		<columns>
+			<{formedit_column}>
+		</columns>
+		<data>
+			<{formedit_data}>
+		</data>
+	</formedit>
+        <formdelete id='1'>
+		<data>
+			<{formdelete_data}>
+		</data>
+	</formdelete>
+</root>
