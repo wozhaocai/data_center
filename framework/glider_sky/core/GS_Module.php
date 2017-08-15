@@ -30,6 +30,7 @@ class GS_Module {
         $this->_aParam["business"] = $this->_sBusiness;
         $this->_aParam["controller"] = $this->_sController;
         $this->_aParam["action"] = $this->_sAction;
+        $this->_aParam["module"] = $this->_sModule;
         $oObj->setParams($this->_aParam);
         return $oObj->run();
     }
