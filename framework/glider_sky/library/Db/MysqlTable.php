@@ -5,9 +5,15 @@ class Db_MysqlTable{
     private $_oDb = null;
     private static $_aSystemFeilds = array("id","ctime","mtime");
     
-    public function __construct($aDB,$sTable) {
+    public function __construct($aDB,$sTable,$sAfterSetDB = false) {
         $this->_sTable = $sTable;
-        $this->_oDb = new Db_Adapter($aDB);        
+        if($sAfterSetDB == false){
+            $this->_oDb = new Db_Adapter($aDB);
+        }
+    }
+    
+    public function setDB(&$oDB){
+        $this->_oDb = $oDB;
     }
     
     public function getField($sType){        
