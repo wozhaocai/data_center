@@ -44,7 +44,7 @@ abstract class GS_Module_Base {
             exit;
         }
         $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);
-        if (in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
+        if (in_array($this->_aParam["module"],array("Resource")) or in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
             $this->_oDB->setFieldList($aFieldList);
@@ -52,6 +52,29 @@ abstract class GS_Module_Base {
             $this->_oDB->setNotNullField($aUniqueField);            
         }
         $this->_oDB->setTable($this->_aParam["controller"]);
+    }
+    
+    public function gets(){
+        return $this->_oDB->gets($this->_aParam["query"]);
+    }
+    
+    public function input(){
+        return $this->_oDB->input($this->_aParam["query"]);
+    }
+    
+    public function update(){
+        $sId = $this->_aParam["query"]["id"];
+        unset($this->_aParam["query"]["id"]);
+        return $this->_oDB->updateDB($sId,$this->_aParam["query"]);
+    }
+    
+    public function delete(){
+        $iId = intval($this->_aParam["query"]["id"]);
+        if($iId > 0){
+            return $this->_oDB->deleteByParam(array(":id"=>$iId));
+        }else{
+            return false;
+        }
     }
 
 }
