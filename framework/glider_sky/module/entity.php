@@ -13,28 +13,6 @@ class GS_Module_Entity extends GS_Module_Base{
         }
         $sAction = $this->_aParam['action'];
         return $this->$sAction();
-    }
+    }   
     
-    public function gets(){
-        return $this->_oDB->gets($this->_aParam["query"]);
-    }
-    
-    public function input(){
-        return $this->_oDB->input($this->_aParam["query"]);
-    }
-    
-    public function update(){
-        $sId = $this->_aParam["query"]["id"];
-        unset($this->_aParam["query"]["id"]);
-        return $this->_oDB->updateDB($sId,$this->_aParam["query"]);
-    }
-    
-    public function delete(){
-        $iId = intval($this->_aParam["query"]["id"]);
-        if($iId > 0){
-            return $this->_oDB->deleteByParam(array(":id"=>$iId));
-        }else{
-            return false;
-        }
-    }
 }
