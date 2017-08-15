@@ -23,9 +23,23 @@ class Db_MysqlTable{
                 break;
             case "unique_field":
                 return $this->getUniqueField();
+            case "full_field_list":
+                return $this->getFullFieldList();
             default :
                 break;
         }
+    }
+    
+    private function getFullFieldList(){      
+        $aTableDesc = $this->_oDb->queryDB("show full columns from {$this->_sTable};");
+        $aFields = array();
+        foreach($aTableDesc as $oField){
+            if(in_array($oField->field,self::$_aSystemFeilds)){
+                continue;
+            }
+            $aFields[] = $oField;
+        }
+        return $aFields;        
     }
     
     private function getFieldList(){      
