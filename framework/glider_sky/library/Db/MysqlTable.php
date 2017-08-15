@@ -31,15 +31,7 @@ class Db_MysqlTable{
     }
     
     private function getFullFieldList(){      
-        $aTableDesc = $this->_oDb->queryDB("show full columns from {$this->_sTable};");
-        $aFields = array();
-        foreach($aTableDesc as $oField){
-            if(in_array($oField->field,self::$_aSystemFeilds)){
-                continue;
-            }
-            $aFields[] = $oField;
-        }
-        return $aFields;        
+        return $this->_oDb->queryDB("show full columns from {$this->_sTable};");               
     }
     
     private function getFieldList(){      
