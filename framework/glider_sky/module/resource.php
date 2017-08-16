@@ -18,7 +18,7 @@ class GS_Module_Resource extends GS_Module_Base{
     private function fetchResource($sAction){
         $this->_aParam["query"] = array(
             "stype" => "xml",
-            "service_id" => $sAction
+            "service_id" => "tabel_$sAction"
         );
         $aResource = $this->gets();
         if(empty($aResource)){
@@ -26,8 +26,11 @@ class GS_Module_Resource extends GS_Module_Base{
             $oTable->setDB($this->_oDB);
             $aField = $oTable->getField("full_field_list");
             $oLayout = new Util_Layout($aField,GliderSky::$aConfig);             
-            $sXmlContent = $oLayout->generateLayout();     
-            debugVar($sXmlContent);
+            $sXmlContent = urlencode(urlencode($oLayout->generateLayout()));     
+            $this->_aParam["query"]["content"] = $sXmlContent;
+            $this->input();
+            $aResource = $this->gets();
+            return $aResource;
         }else{
             return $aResource;
         }

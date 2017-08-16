@@ -42,7 +42,14 @@ class GS_View {
                 $sClass = $this->_aView["class"]."View";
                 $this->_oViewObj = new $sClass($oTemplate,$this->_aQuery);
                 $sAction = $this->_aParam['action'];
-                $this->_oViewObj->$sAction();
+                if($this->_aView["class"] == "Member_Meta"){
+                    $i = strpos($sAction, '_', 0);
+                    $sMethod = trim(substr($sAction,0,$i));
+                    $sMeta = trim(substr($sAction,$i+1));
+                    $this->_oViewObj->$sMethod($sMeta);
+                }else{
+                    $this->_oViewObj->$sAction();
+                }
                 $oTemplate->display($this->_aView['tpl']);
             }else{
                 echo "not find {$sClassFile}";
