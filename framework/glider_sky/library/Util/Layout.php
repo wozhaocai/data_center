@@ -14,6 +14,7 @@ class Util_Layout{
     private $_aParams = array();
     private $_sParamXml = "";
     private $_sSeparator = "\r\n";
+    private $_aViewFalseField = array("ctime","mtime");
     
     public function __construct($aField,$aParams) {
         $this->_aField = $aField;
@@ -55,6 +56,7 @@ class Util_Layout{
 	<field>{Field}</field>
 	<name>{Name}</name>
 	<search>{Search}</search>
+        <view>{View}</view>
 </column>
 EOB;
         $sColumn = str_replace("{Field}", $row->field, $sColumn);
@@ -71,6 +73,11 @@ EOB;
             $sColumn = str_replace("{Search}", "true|day|b:e", $sColumn);
         }else{
             $sColumn = str_replace("{Search}", "false", $sColumn);
+        }
+        if(in_array($tow->field,$this->_aViewFalseField)){
+            $sColumn = str_replace("{View}", "false", $sColumn);
+        }else{
+            $sColumn = str_replace("{View}", "true", $sColumn);
         }
         $this->_aDataTableColumn[] = $sColumn;
     }
@@ -130,6 +137,7 @@ EOB;
 	<field>{Field}</field>
 	<name>{Name}</name>
 	<edit>{Edit}</edit>
+        <view>{View}</view>
 </column>
 EOB;
         $sColumn = str_replace("{Field}", $row->field, $sColumn);
@@ -144,6 +152,11 @@ EOB;
             $sColumn = str_replace("{Edit}", "true|day|b:e", $sColumn);
         }else{
             $sColumn = str_replace("{Edit}", "true", $sColumn);
+        }
+        if(in_array($tow->field,$this->_aViewFalseField)){
+            $sColumn = str_replace("{View}", "false", $sColumn);
+        }else{
+            $sColumn = str_replace("{View}", "true", $sColumn);
         }
         return $sColumn;
     }
