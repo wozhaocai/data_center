@@ -116,8 +116,8 @@ class GS_Layout {
         $this->get_data_table($oNode, $sGroupField, $aRowSpan);           
         $this->_oTemplate->assign('aRowSpan', $aRowSpan);
         $this->_oTemplate->assign('aColumn', $aColumn);
-        if ($oNode->data->add_url and (string) $oNode->data->add_url['hide'] == 'false') {
-            $sHtml = "<a href='" . (string) $oNode->data->add_url . "'>添加新记录</a>";
+        if ($oNode->data->add_url and (string) $oNode->data->add_url['hidden'] == 'false') {
+            $sHtml = "<a class='am-btn am-btn-danger am-round am-btn-xs am-icon-plus' href='" . (string) $oNode->data->add_url . "'>添加新记录</a>";
             $this->_oTemplate->assign('action_des', $sHtml);
         }
     }

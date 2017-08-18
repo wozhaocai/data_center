@@ -36,6 +36,11 @@
         }else{
             $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$this->_aParams['main_id']}"]);
         }
+        if(!empty($this->_aParams["menu_sub_title"])){
+            $this->_oTemplate->assign("current_menu",$this->_aParams["menu_sub_title"]);
+        }else{
+            $this->_oTemplate->assign("current_menu","");
+        }
     } 
      
  }

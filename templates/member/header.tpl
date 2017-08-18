@@ -96,7 +96,7 @@
 			<{if $sub_menu_val['path'] == "#" || $sub_menu_val['path'] == ""}>
 			<li><a href='javascript:void(0);'><{$sub_menu_val['title']}></a></li>
 			<{else}>
-			<li><a href='<{$sub_menu_val['path']}>'><{$sub_menu_val['title']}></a></li>
+			<li><a href='<{$sub_menu_val['path']}>&menu_sub_title=<{$sub_menu_val['title']}>'><{$sub_menu_val['title']}></a></li>
 			<{/if}>
 		<{/foreach}>
 		</ul>
