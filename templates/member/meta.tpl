@@ -4,7 +4,7 @@
     <div class="listbiaoti am-cf">
       <ul class="am-icon-flag on"> <{$current_menu}></ul>
       
-      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
+      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#"><{$current_menu}></a></dl>
       
       <dl>
         <{$action_des}>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-18 11:08:53
+/* Smarty version 3.1.30, created on 2017-08-18 11:22:37
   from "D:\wozhaocai\data_center\templates\member\meta.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59965a456d7e60_85595569',
+  'unifunc' => 'content_59965d7da3c614_85344469',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6372dbeef88ed67d2bdaec6f15002b6e975e896d' => 
     array (
       0 => 'D:\\wozhaocai\\data_center\\templates\\member\\meta.tpl',
-      1 => 1503025728,
+      1 => 1503026552,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./footer.tpl' => 1,
   ),
 ),false)) {
-function content_59965a456d7e60_85595569 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59965d7da3c614_85344469 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -32,7 +32,8 @@ $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_
       <ul class="am-icon-flag on"> <?php echo $_smarty_tpl->tpl_vars['current_menu']->value;?>
 </ul>
       
-      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
+      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#"><?php echo $_smarty_tpl->tpl_vars['current_menu']->value;?>
+</a></dl>
       
       <dl>
         <?php echo $_smarty_tpl->tpl_vars['action_des']->value;?>
