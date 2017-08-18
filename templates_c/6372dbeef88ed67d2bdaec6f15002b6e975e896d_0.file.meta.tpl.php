@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-18 14:19:32
+/* Smarty version 3.1.30, created on 2017-08-18 18:18:27
   from "D:\wozhaocai\data_center\templates\member\meta.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_599686f4bfc114_83734265',
+  'unifunc' => 'content_5996bef3959036_96804963',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6372dbeef88ed67d2bdaec6f15002b6e975e896d' => 
     array (
       0 => 'D:\\wozhaocai\\data_center\\templates\\member\\meta.tpl',
-      1 => 1503037123,
+      1 => 1503051504,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./footer.tpl' => 1,
   ),
 ),false)) {
-function content_599686f4bfc114_83734265 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5996bef3959036_96804963 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -89,7 +89,7 @@ var myForm = new MyForm();
 </a></dl>
       
       <dl>
-        <?php echo $_smarty_tpl->tpl_vars['action_des']->value;?>
+       <button type="button" class="am-btn am-btn-danger am-round am-btn-xs am-icon-plus" data-am-modal="{target: '#my-popup'}"> 添加新记录</button>
 
       </dl>
       
@@ -263,7 +263,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
       
           <hr />
           <p>注：.....</p>
-        </form>
+        </form>      
+
  <?php $_smarty_tpl->_subTemplateRender("file:./footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 

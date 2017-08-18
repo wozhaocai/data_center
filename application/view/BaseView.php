@@ -29,10 +29,13 @@
     public function initMenu(){
         if(empty($this->_aParams['main_id'])){
             if(!empty($this->_aParams["menu_sub_id"])){
-                $aPassMenus = array();
-                $this->getParentMenu($this->_aParams["menu_sub_id"], $aPassMenus);  
-                $this->_oTemplate->assign("aCheckMenu",$aPassMenus);
-                $sMainId = array_pop($aPassMenus);
+                $aPassMenusId = array();
+                $aPassMenu = array();
+                $this->getParentMenu($this->_aParams["menu_sub_id"], $aPassMenusId,$aPassMenu);  
+                $this->_oTemplate->assign("aCheckMenu",$aPassMenusId);
+                $aPassMenu = array_reverse($aPassMenu);                
+                $this->_oTemplate->assign("aPassMenu",$aPassMenu);
+                $sMainId = array_pop($aPassMenusId);
             }else{
                 $sMainId = 14;
             }
@@ -52,7 +55,7 @@
         }
     } 
     
-    function getParentMenu($id,&$arr){
+    function getParentMenu($id,&$arr,&$arr2){
         $aParams = array(
             "id" => $id
         );
@@ -60,7 +63,8 @@
         $aMenus = $oModule->run();        
         if($aMenus[0]->parent_id != "99999999"){
             $arr[]=$aMenus[0]->id;// $arr[$v['id']]=$v['name'];
-            $this->getParentMenu($aMenus[0]->parent_id,$arr);             
+            $arr2[]=$aMenus[0];
+            $this->getParentMenu($aMenus[0]->parent_id,$arr,$arr2);             
         }
         return true;
     }     
