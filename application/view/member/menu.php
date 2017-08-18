@@ -7,6 +7,9 @@
  */
 
 class Member_MenuView extends BaseView{
+    public function index(){        
+    }
+    
     public function show(){
         $aMenus = $this->query($this->_aParams);
         echo json_encode($aMenus);
