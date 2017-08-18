@@ -27,20 +27,41 @@
     }
     
     public function initMenu(){
+        if(empty($this->_aParams['main_id'])){
+            if(!empty($this->_aParams["menu_sub_id"])){
+                $aPassMenus = array();
+                $this->getParentMenu($this->_aParams["menu_sub_id"], $aPassMenus);  
+                $this->_oTemplate->assign("aCheckMenu",$aPassMenus);
+                $sMainId = array_pop($aPassMenus);
+            }else{
+                $sMainId = 14;
+            }
+        }else{
+            $sMainId = $this->_aParams['main_id'];
+        }
+        
         $this->_oTemplate->assign("username",$_SESSION["username"]);
         $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array());
         $aMenus = $oModule->run(); 
         $this->_oTemplate->assign("aMainMenu",$aMenus); 
-        if(empty($this->_aParams['main_id'])){
-            $this->_oTemplate->assign("aSubMenu",$aMenus["menu_14"]);
-        }else{
-            $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$this->_aParams['main_id']}"]);
-        }
+        $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$sMainId}"]);
         if(!empty($this->_aParams["menu_sub_title"])){
             $this->_oTemplate->assign("current_menu",$this->_aParams["menu_sub_title"]);
         }else{
             $this->_oTemplate->assign("current_menu","");
         }
     } 
-     
+    
+    function getParentMenu($id,&$arr){
+        $aParams = array(
+            "id" => $id
+        );
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","gets",$aParams);
+        $aMenus = $oModule->run();        
+        if($aMenus[0]->parent_id != "99999999"){
+            $arr[]=$aMenus[0]->id;// $arr[$v['id']]=$v['name'];
+            $this->getParentMenu($aMenus[0]->parent_id,$arr);             
+        }
+        return true;
+    }     
  }

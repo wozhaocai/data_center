@@ -17,7 +17,7 @@
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/app.js"></script>
 </head>
-<body>
+<body>    
 <!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
 </head>
 
@@ -89,14 +89,14 @@
     
     <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎会员：<{$username}></div>
     <div class="sideMenu">
-      <{foreach $aSubMenu["sub_menu"] as $key1=>$main_val1}>
-                <h3 class="<{$main_val1['css_style']}>"><em></em> <a href="<{$main_val1['path']}>"><{$main_val1['title']}></a></h3>
+      <{foreach $aSubMenu["sub_menu"] as $key1=>$main_val1}>     
+                <h3 class="<{$main_val1['css_style']}> <{if $main_val1['id']|in_array:$aCheckMenu}>am-active on<{/if}>"><em></em> <a href="<{$main_val1['path']}>"><{$main_val1['title']}></a></h3>
 		<ul>
 		<{foreach $main_val1['sub_menu'] as $sub_key=>$sub_menu_val}>
 			<{if $sub_menu_val['path'] == "#" || $sub_menu_val['path'] == ""}>
 			<li><a href='javascript:void(0);'><{$sub_menu_val['title']}></a></li>
 			<{else}>
-			<li><a href='<{$sub_menu_val['path']}>&menu_sub_title=<{$sub_menu_val['title']}>'><{$sub_menu_val['title']}></a></li>
+			<li><a href='<{$sub_menu_val['path']}>&menu_sub_id=<{$sub_menu_val['id']}>&menu_sub_title=<{$sub_menu_val['title']}>'><{$sub_menu_val['title']}></a></li>                        
 			<{/if}>
 		<{/foreach}>
 		</ul>
@@ -115,12 +115,4 @@
 				returnDefault:true //鼠标从.sideMen移走后返回默认状态（默认false）
 				});
 		</script> 
-
-    
-    
-    
-    
-    
-    
-    
 </div>

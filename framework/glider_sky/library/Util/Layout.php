@@ -93,6 +93,15 @@ EOB;
     }
 
     private function toDataTableData() {
+        $this->_aDataTableColumn[] =<<<EOB
+<column type='text'>
+    <name>操作</name>
+    <text><![CDATA[
+                <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="{$this->_aParams["layout"]["edit"]}&id={id}" target="_blank"><span class="am-icon-pencil-square-o"></span>编辑</a>
+                <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="{$this->_aParams["layout"]["delete"]}&id={id}" target="_blank"><span class="am-icon-trash-o"></span>删除</a>
+        ]]></text>
+</column>
+EOB;
         $this->_sDataTableData = <<<EOB
         <params>
             {Params}
@@ -100,14 +109,10 @@ EOB;
         <download>           
         </download>
         <get_url>Entity:{$this->_sResourceId}:gets</get_url>
-	<edit_url hidden="false"><![CDATA[{EditUrl}]]></edit_url>
 	<add_url hidden="false"><![CDATA[{AddUrl}]]></add_url>
-        <delete_url hidden="true"><![CDATA[{DeleteUrl}]]></delete_url>
 EOB;
         $this->_sDataTableData = str_replace("{Params}", $this->_sParamXml, $this->_sDataTableData);
-        $this->_sDataTableData = str_replace("{EditUrl}", $this->_aParams["layout"]["edit"], $this->_sDataTableData);
         $this->_sDataTableData = str_replace("{AddUrl}", $this->_aParams["layout"]["add"], $this->_sDataTableData);
-        $this->_sDataTableData = str_replace("{DeleteUrl}", $this->_aParams["layout"]["delete"], $this->_sDataTableData);
     }
 
     private function toFormAddColumn($row) {

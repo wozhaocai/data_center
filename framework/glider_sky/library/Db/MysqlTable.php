@@ -3,7 +3,7 @@
 class Db_MysqlTable{
     private $_sTable = '';
     private $_oDb = null;
-    private static $_aSystemFeilds = array("id","ctime","mtime");
+    private static $_aSystemFeilds = array("ctime","mtime");
     
     public function __construct($aDB,$sTable,$sAfterSetDB = false) {
         $this->_sTable = $sTable;

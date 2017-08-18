@@ -1,4 +1,54 @@
 <{include file="./header.tpl"}>
+<script>
+var MyForm = function(){
+	var syncFields = [<{$sSearchStr}>];
+	var field;
+	var i;
+	var submitForm = function(){
+		for (i in syncFields){
+			field = syncFields[i];
+			$('#' + field).val($('#qs_' + field).val());
+		}
+		$('#my_form').submit();
+	}
+	this.search = function() {
+		$('#form_act').val('search');
+		submitForm();
+		return true;
+	};
+	this.download = function() {
+		$('#form_act').val('download');
+		submitForm();
+		return true;
+	};        
+	this.import = function() {
+		$('#form_act').val('import');
+		$('#my_form').submit();
+		return true;
+	};
+        this.add = function(addUrl) {
+            alert(addUrl);
+		$('#dialog_iframe').attr({
+			src: addUrl,
+			frameborder: 0,
+			scrolling: 'no',
+			width: 800,
+			height: 750
+		});
+		var dialogOptions = {
+			minWidth: 820,
+			minHeight: 750,
+			modal: true,
+			closeText: "关闭",
+			closeOnEscape: true
+		};
+		$('#dialog_iframe').load(function() {
+			$("#my_dialog").dialog(dialogOptions);
+		});
+	};
+};
+var myForm = new MyForm();
+</script>
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
@@ -45,8 +95,7 @@
                   <th class="table-check"><input type="checkbox" /></th>
                 <{foreach $aColumn as $val}>                
                 <th class="table-title"><{$val}></th>
-                <{/foreach}>
-                <th width="20%" class="table-set">操作</th>
+                <{/foreach}>                
               </tr>
             </thead>
             <tbody>
@@ -64,15 +113,7 @@
 			<{else}>
 			<td rowspan='<{$aRowSpan[$k]}>'><{$val}></td>
 			<{/if}>
-			<{/foreach}>
-			<td><div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                  </div></td>
+			<{/foreach}>			
 		</tr>
 		<{else}>
 		<tr id="tr_<{$v}>" class="gradeA">
@@ -83,15 +124,7 @@
 			<{else}>
 				<td><{$val}></td>
 			<{/if}>
-			<{/foreach}>
-                        <td><div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                  </div></td>
+			<{/foreach}>                        
 		</tr>
 		<{/if}>
 		<{/foreach}>  
