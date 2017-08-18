@@ -103,11 +103,24 @@ EOB;
                     $aQueryField['end_month'] = '结束月份';
                     if (isset($aRequest['start_month'])) {
                         $aQueryValue['start_month'] = $aRequest['start_month'];
+                    }else{
+                        $aQueryValue['start_month'] = "";
                     }
                     if (isset($aRequest['end_month'])) {
                         $aQueryValue['end_month'] = $aRequest['end_month'];
+                    }else{
+                        $aQueryValue['end_month'] = "";
                     }
-                    return "开始月份:<input type='text' name='start_month' id='start_month' value=''>&nbsp;&nbsp;结束月份<input type='text' name='end_month' id='end_month' value=''>{$sSplit}";
+                    return <<<EOB
+<li style="margin-right: 0;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input type="text" id="start_month" name="start_month" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始月份" data-am-datepicker="{theme: 'success',viewMode: 'months',}"  readonly/>
+    </li>
+       <li style="margin-left: -4px;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input type="text" id="end_month" name="end_month" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="结束月份" data-am-datepicker="{theme: 'success',viewMode: 'months',}"  readonly/>
+    </li>
+EOB;
                 } else {
                     return "{$sSearchName}:<input type='text' name='{$sSearchKey}' id='{$sSearchKey}' value=''>{$sSplit}";
                 }
@@ -117,11 +130,24 @@ EOB;
                     $aQueryField['end_day'] = '结束日期';
                     if (isset($aRequest['start_day'])) {
                         $aQueryValue['start_day'] = $aRequest['start_day'];
+                    }else{
+                        $aQueryValue['start_day'] = "";
                     }
                     if (isset($aRequest['end_day'])) {
                         $aQueryValue['end_day'] = $aRequest['end_day'];
+                    }else{
+                        $aQueryValue['end_day'] = "";
                     }
-                    return "开始日期:<input type='text' name='start_day' id='start_day' value=''>&nbsp;&nbsp;结束日期<input type='text' name='end_day' id='end_day' value=''>{$sSplit}";
+                    return <<<EOB
+<li style="margin-right: 0;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input type="text" id="start_day" name="start_day" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}"  readonly/>
+    </li>
+       <li style="margin-left: -4px;">
+    	<span class="tubiao am-icon-calendar"></span>
+      <input type="text" id="end_day" name="end_day" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="结束日期" data-am-datepicker="{theme: 'success',}"  readonly/>
+    </li>
+EOB;
                 } else {
                     return "{$sSearchName}:<input type='text' name='{$sSearchKey}' id='{$sSearchKey}' value=''>{$sSplit}";
                 }

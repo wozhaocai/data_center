@@ -14,42 +14,26 @@
     </div>
 	
 	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+            <form id="my_form" target="_self" method="post" action="<{$form_url}>&is_divpage=1">
+	<{if count($aSearch) gt 0 }>
+	<{foreach from=$aSearch key=key item=item name=name}>
+		<input type='hidden' name='<{$key}>' id='<{$key}>' value=''>
+	<{/foreach}>
+	<{/if}>
+	<input type='hidden' name='form_act' id='form_act' value='<{$aParam.form_act}>'>
+</form>
   <ul>
-    <li>
+      <{if count($aSearch) gt 0 }>
+	<{foreach from=$aSearch key=key item=item name=name}>
+        <li>
       <div class="am-btn-group am-btn-group-xs">
-        <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
-          <option value="b">产品分类</option>
-          <option value="o">下架</option>
-        </select>
+        <input type='text' class="am-form-field am-input-sm am-input-xm" placeholder="<{$item}>"  name='qs_<{$key}>' id='qs_<{$key}>' value='<{$aSearchValue[$key]}>'>
       </div>
-    </li>
-    <li>
-      <div class="am-btn-group am-btn-group-xs">
-      <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
-        <option value="b">产品分类</option>
-        <option value="o">下架</option>
-      </select>
-      </div>
-    </li>
-    <li style="margin-right: 0;">
-    	<span class="tubiao am-icon-calendar"></span>
-      <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}"  readonly/>
-    </li>
-       <li style="margin-left: -4px;">
-    	<span class="tubiao am-icon-calendar"></span>
-      <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}"  readonly/>
-    </li>
-    
-        <li style="margin-left: -10px;">
-      <div class="am-btn-group am-btn-group-xs">
-      <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
-        <option value="b">产品分类</option>
-        <option value="o">下架</option>
-      </select>
-      </div>
-    </li>
-    <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="关键词搜索" /></li>
-    <li><button type="button" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: -1px;">搜索</button></li>
+    </li>	
+	<{/foreach}>
+            <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="关键词搜索" /></li>
+            <li><button type="button" onclick="myForm.search()" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: -1px;">搜索</button></li>
+       <{/if}>	  
   </ul>
 </div>
 

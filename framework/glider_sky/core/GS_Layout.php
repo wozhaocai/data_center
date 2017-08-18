@@ -154,20 +154,21 @@ class GS_Layout {
                 $aKey[$i]['value'] = (string) $oColumn->field;
                 $aKey[$i]['name'] = (string) $oColumn->name;
                 $sSearch = (string) $oColumn->search;
-                if ($sSearch) {
+                if ($sSearch == "true") {
                     $aSearch[$aKey[$i]['value']] = $aKey[$i]['name'];
                     if (isset($_REQUEST[$aKey[$i]['value']])) {
                         $aSearchValue[$aKey[$i]['value']] = $_REQUEST[$aKey[$i]['value']];
+                    }else{
+                        $aSearchValue[$aKey[$i]['value']] = "";
                     }
                     if (strstr($sSearch, "|")) {
-                        $aSearch[$aKey[$i]['value']] = $aKey[$i]['name'];
+                        $aSearch[$aKey[$i]['value']] = $aKey[$i]['name'];                        
                         $aSearchSpecial[$aKey[$i]['value']] = $oHtml->formatSearchByObj($sSearch, $aKey[$i]['value'], $aKey[$i]['name'], $aSearch, $aSearchValue, $_REQUEST);
                     }
                 }
             }
             $i++;
         }
-        
         $aData['num'] = 0;
 
         $sLast = '';

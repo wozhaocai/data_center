@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-18 10:44:07
+/* Smarty version 3.1.30, created on 2017-08-18 11:08:53
   from "D:\wozhaocai\data_center\templates\member\meta.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_599654776390a6_34966501',
+  'unifunc' => 'content_59965a456d7e60_85595569',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6372dbeef88ed67d2bdaec6f15002b6e975e896d' => 
     array (
       0 => 'D:\\wozhaocai\\data_center\\templates\\member\\meta.tpl',
-      1 => 1503024238,
+      1 => 1503025728,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./footer.tpl' => 1,
   ),
 ),false)) {
-function content_599654776390a6_34966501 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59965a456d7e60_85595569 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -43,42 +43,54 @@ $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_
     </div>
 	
 	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+            <form id="my_form" target="_self" method="post" action="<?php echo $_smarty_tpl->tpl_vars['form_url']->value;?>
+&is_divpage=1">
+	<?php if (count($_smarty_tpl->tpl_vars['aSearch']->value) > 0) {?>
+	<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aSearch']->value, 'item', false, 'key', 'name', array (
+));
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['item']->value) {
+?>
+		<input type='hidden' name='<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+' id='<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+' value=''>
+	<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+	<?php }?>
+	<input type='hidden' name='form_act' id='form_act' value='<?php echo $_smarty_tpl->tpl_vars['aParam']->value['form_act'];?>
+'>
+</form>
   <ul>
-    <li>
+      <?php if (count($_smarty_tpl->tpl_vars['aSearch']->value) > 0) {?>
+	<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aSearch']->value, 'item', false, 'key', 'name', array (
+));
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['item']->value) {
+?>
+        <li>
       <div class="am-btn-group am-btn-group-xs">
-        <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
-          <option value="b">产品分类</option>
-          <option value="o">下架</option>
-        </select>
+        <input type='text' class="am-form-field am-input-sm am-input-xm" placeholder="<?php echo $_smarty_tpl->tpl_vars['item']->value;?>
+"  name='qs_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+' id='qs_<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+' value='<?php echo $_smarty_tpl->tpl_vars['aSearchValue']->value[$_smarty_tpl->tpl_vars['key']->value];?>
+'>
       </div>
-    </li>
-    <li>
-      <div class="am-btn-group am-btn-group-xs">
-      <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
-        <option value="b">产品分类</option>
-        <option value="o">下架</option>
-      </select>
-      </div>
-    </li>
-    <li style="margin-right: 0;">
-    	<span class="tubiao am-icon-calendar"></span>
-      <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}"  readonly/>
-    </li>
-       <li style="margin-left: -4px;">
-    	<span class="tubiao am-icon-calendar"></span>
-      <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar" placeholder="开始日期" data-am-datepicker="{theme: 'success',}"  readonly/>
-    </li>
-    
-        <li style="margin-left: -10px;">
-      <div class="am-btn-group am-btn-group-xs">
-      <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
-        <option value="b">产品分类</option>
-        <option value="o">下架</option>
-      </select>
-      </div>
-    </li>
-    <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="关键词搜索" /></li>
-    <li><button type="button" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: -1px;">搜索</button></li>
+    </li>	
+	<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+            <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="关键词搜索" /></li>
+            <li><button type="button" onclick="myForm.search()" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: -1px;">搜索</button></li>
+       <?php }?>	  
   </ul>
 </div>
 
