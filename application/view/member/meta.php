@@ -10,6 +10,7 @@ class Member_MetaView extends BaseView{
     public function show($sMeta){
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);
         $aResource = $oModule->run();
+        $this->_aParams["meta"] = $sMeta;
         $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"show",$this->_aParams);
         $oModule->run();
     }     
