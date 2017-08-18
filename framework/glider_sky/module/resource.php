@@ -25,7 +25,7 @@ class GS_Module_Resource extends GS_Module_Base{
             $oTable = new Db_MysqlTable("", $sAction, true);
             $oTable->setDB($this->_oDB);
             $aField = $oTable->getField("full_field_list");
-            $oLayout = new Util_Layout($aField,GliderSky::$aConfig);             
+            $oLayout = new Util_Layout($aField,GliderSky::$aConfig,$sAction);             
             $sXmlContent = urlencode(urlencode($oLayout->generateLayout()));     
             $this->_aParam["query"]["content"] = $sXmlContent;
             $this->input();

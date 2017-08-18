@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-16 18:40:44
+/* Smarty version 3.1.30, created on 2017-08-18 10:27:03
   from "D:\wozhaocai\data_center\templates\member\meta.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5994212c29fdd6_39437918',
+  'unifunc' => 'content_59965077c27c97_27552447',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6372dbeef88ed67d2bdaec6f15002b6e975e896d' => 
     array (
       0 => 'D:\\wozhaocai\\data_center\\templates\\member\\meta.tpl',
-      1 => 1502880025,
+      1 => 1503023219,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./footer.tpl' => 1,
   ),
 ),false)) {
-function content_5994212c29fdd6_39437918 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59965077c27c97_27552447 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -85,45 +85,107 @@ $_smarty_tpl->_subTemplateRender("file:./header.tpl", $_smarty_tpl->cache_id, $_
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
             <thead>
               <tr class="am-success">
-                <th class="table-check"><input type="checkbox" /></th>
-                <th class="table-id">ID</th>
-                <th class="table-title">名称</th>
-                <th class="table-type">描述</th>
-                <th class="table-date am-hide-sm-only">创建日期</th>
+                  <th class="table-check"><input type="checkbox" /></th>
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aColumn']->value, 'val');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['val']->value) {
+?>                
+                <th class="table-title"><?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+</th>
+                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
                 <th width="20%" class="table-set">操作</th>
               </tr>
             </thead>
             <tbody>
                 <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aGroup']->value, 'val', false, 'key');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aData']->value, 'aValue', false, 'v', 'name', array (
+));
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['val']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->value => $_smarty_tpl->tpl_vars['aValue']->value) {
 ?>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td><?php echo $_smarty_tpl->tpl_vars['val']->value->id;?>
+		<?php if ($_smarty_tpl->tpl_vars['aDataGroup']->value[$_smarty_tpl->tpl_vars['v']->value] == "Y") {?>
+		<tr id="tr_<?php echo $_smarty_tpl->tpl_vars['v']->value;?>
+" class="gradeA">
+		<tr class="a1">
+			<td><input type="checkbox" /></td>
+			<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aValue']->value, 'val', false, 'k');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars['val']->value) {
+?>
+			<?php if ($_smarty_tpl->tpl_vars['k']->value == "id") {?>
+			<td rowspan='<?php echo $_smarty_tpl->tpl_vars['aRowSpan']->value[$_smarty_tpl->tpl_vars['k']->value];?>
+'>
+			<?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+
+			<input type="hidden" name="gp_id[]" value="<?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+"/> 
+			</td>
+			<?php } else { ?>
+			<td rowspan='<?php echo $_smarty_tpl->tpl_vars['aRowSpan']->value[$_smarty_tpl->tpl_vars['k']->value];?>
+'><?php echo $_smarty_tpl->tpl_vars['val']->value;?>
 </td>
-                <td><?php echo $_smarty_tpl->tpl_vars['val']->value->name;?>
-</td>
-                <td><?php echo $_smarty_tpl->tpl_vars['val']->value->description;?>
-</td>
-                <td class="am-hide-sm-only"><?php echo $_smarty_tpl->tpl_vars['val']->value->ctime;?>
-</td>
-                <td><div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
-                    <!--<button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>->
-                  </div>
-                  </div></td>
-              </tr>
-              <?php
+			<?php }?>
+			<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
-              
+
+			<td><div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                  </div>
+                  </div></td>
+		</tr>
+		<?php } else { ?>
+		<tr id="tr_<?php echo $_smarty_tpl->tpl_vars['v']->value;?>
+" class="gradeA">
+			<td><input type="checkbox" /></td>
+			<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['aValue']->value, 'val', false, 'k');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars['val']->value) {
+?>
+			<?php if ($_smarty_tpl->tpl_vars['k']->value == "id") {?>
+				<td><?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+<input type="hidden" name="gp_id[]" value="<?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+"/></td>
+			<?php } else { ?>
+				<td><?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+</td>
+			<?php }?>
+			<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+                        <td><div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                  </div>
+                  </div></td>
+		</tr>
+		<?php }?>
+		<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+  
             </tbody>
           </table>
           

@@ -58,32 +58,59 @@
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
             <thead>
               <tr class="am-success">
-                <th class="table-check"><input type="checkbox" /></th>
-                <th class="table-id">ID</th>
-                <th class="table-title">名称</th>
-                <th class="table-type">描述</th>
-                <th class="table-date am-hide-sm-only">创建日期</th>
+                  <th class="table-check"><input type="checkbox" /></th>
+                <{foreach $aColumn as $val}>                
+                <th class="table-title"><{$val}></th>
+                <{/foreach}>
                 <th width="20%" class="table-set">操作</th>
               </tr>
             </thead>
             <tbody>
-                <{foreach $aGroup as $key=>$val}>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td><{$val->id}></td>
-                <td><{$val->name}></td>
-                <td><{$val->description}></td>
-                <td class="am-hide-sm-only"><{$val->ctime}></td>
-                <td><div class="am-btn-toolbar">
+                <{foreach from=$aData key=v item=aValue name=name}>
+		<{if $aDataGroup[$v] == "Y"}>
+		<tr id="tr_<{$v}>" class="gradeA">
+		<tr class="a1">
+			<td><input type="checkbox" /></td>
+			<{foreach from=$aValue key=k item=val}>
+			<{if $k == "id" }>
+			<td rowspan='<{$aRowSpan[$k]}>'>
+			<{$val}>
+			<input type="hidden" name="gp_id[]" value="<{$val}>"/> 
+			</td>
+			<{else}>
+			<td rowspan='<{$aRowSpan[$k]}>'><{$val}></td>
+			<{/if}>
+			<{/foreach}>
+			<td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
                     <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
-                    <!--<button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>->
+                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                   </div>
                   </div></td>
-              </tr>
-              <{/foreach}>              
+		</tr>
+		<{else}>
+		<tr id="tr_<{$v}>" class="gradeA">
+			<td><input type="checkbox" /></td>
+			<{foreach from=$aValue key=k item=val}>
+			<{if $k == "id" }>
+				<td><{$val}><input type="hidden" name="gp_id[]" value="<{$val}>"/></td>
+			<{else}>
+				<td><{$val}></td>
+			<{/if}>
+			<{/foreach}>
+                        <td><div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 组成员</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 权限</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                  </div>
+                  </div></td>
+		</tr>
+		<{/if}>
+		<{/foreach}>  
             </tbody>
           </table>
           

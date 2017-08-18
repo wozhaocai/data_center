@@ -15,10 +15,12 @@ class Util_Layout{
     private $_sParamXml = "";
     private $_sSeparator = "\r\n";
     private $_aViewFalseField = array("ctime","mtime");
+    private $_sResourceId = "";
     
-    public function __construct($aField,$aParams) {
+    public function __construct($aField,$aParams,$sResourceId) {
         $this->_aField = $aField;
         $this->_aParams = $aParams;
+        $this->_sResourceId = $sResourceId;
         $this->loadLayoutTemplate();
     }
     
@@ -74,12 +76,12 @@ EOB;
         }else{
             $sColumn = str_replace("{Search}", "false", $sColumn);
         }
-        if(in_array($tow->field,$this->_aViewFalseField)){
+        if(in_array($row->field,$this->_aViewFalseField)){
             $sColumn = str_replace("{View}", "false", $sColumn);
         }else{
             $sColumn = str_replace("{View}", "true", $sColumn);
         }
-        $this->_aDataTableColumn[] = $sColumn;
+        $this->_aDataTableColumn[] = $sColumn;                                 
     }
     
     private function toDataTableData(){
@@ -89,9 +91,10 @@ $this->_sDataTableData =<<<EOB
         </params>
         <download>           
         </download>
+        <get_url>Entity:{$this->_sResourceId}:gets</get_url>
 	<edit_url hidden="false"><![CDATA[{EditUrl}]]></edit_url>
 	<add_url hidden="false"><![CDATA[{AddUrl}]]></add_url>
-        <delete_url hide="true"><![CDATA[{DeleteUrl}]]></delete_url>
+        <delete_url hidden="true"><![CDATA[{DeleteUrl}]]></delete_url>
 EOB;
         $this->_sDataTableData = str_replace("{Params}",$this->_sParamXml,$this->_sDataTableData);
         $this->_sDataTableData = str_replace("{EditUrl}",$this->_aParams["layout"]["edit"],$this->_sDataTableData);
@@ -153,7 +156,7 @@ EOB;
         }else{
             $sColumn = str_replace("{Edit}", "true", $sColumn);
         }
-        if(in_array($tow->field,$this->_aViewFalseField)){
+        if(in_array($row->field,$this->_aViewFalseField)){
             $sColumn = str_replace("{View}", "false", $sColumn);
         }else{
             $sColumn = str_replace("{View}", "true", $sColumn);
