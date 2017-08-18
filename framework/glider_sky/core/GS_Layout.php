@@ -115,7 +115,6 @@ class GS_Layout {
         }
         $this->get_data_table($oNode, $sGroupField, $aRowSpan);           
         $this->_oTemplate->assign('aRowSpan', $aRowSpan);
-        debugVar($aColumn);
         $this->_oTemplate->assign('aColumn', $aColumn);
         if ($oNode->data->add_url and (string) $oNode->data->add_url['hide'] == 'false') {
             $sHtml = "<a href='" . (string) $oNode->data->add_url . "'>添加新记录</a>";
@@ -239,7 +238,6 @@ class GS_Layout {
             $this->_oTemplate->assign("sSearchStr", implode(",", $aSearchStr));
         }
         $this->_oTemplate->assign("form_url", $this->_sBaseUrl);
-        debugVar($aData);
         $this->_oTemplate->assign("aData",$aData["list"]);        
     }
 
