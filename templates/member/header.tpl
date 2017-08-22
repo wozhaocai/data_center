@@ -122,6 +122,7 @@
                     $.post(url, {},
                     function(data) {   
                         $("#form_title").text(data["title"]);
+                        $("#form1").attr("action",data["meta_form_action"]);
                         $("#form1").html(data["data"]);
                         $('#my-popup').modal();
                     }, "json");
@@ -144,7 +145,7 @@
                     <span data-am-modal-close class="am-close">&times;</span> 
                 </div>
                  <div class="meta-form-bd">
-                    <form class="am-form" id="form1">      
+                    <form class="am-form" method="post" id="form1">
                     </form>
                 </div>
             </div>            
