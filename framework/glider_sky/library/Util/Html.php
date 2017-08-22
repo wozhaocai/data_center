@@ -38,7 +38,7 @@ class Util_Html{
         return $sHtml;
     }
 
-    public static function formatAmazeInputByObj($oInput, $oData) {
+    public static function formatAmazeInputByObj($oInput, $oData, &$aHiddenArr=array()) {        
         $field = (string) $oInput->field;
         $name = (string) $oInput->name;
         $edit = (string) $oInput->edit;
@@ -51,17 +51,19 @@ class Util_Html{
         }else{
             $size = 30;
         }
-        if ($oInput or $view == "false") {
-            $str = "";
+        if ($view == "false") {
+            return "";
         }    
         if($type == "textarea"){
-            $aInput = "<textarea class='' rows='5' id='doc-ipt-{$oInput->field}'>{$oData->$field}</textarea>";
+            $aInput = "<textarea class='' name='{$oInput->field}' rows='5' id='doc-ipt-{$oInput->field}'>{$oData->$field}</textarea>";
         }elseif($type == "password"){
-            $aInput = "<input type='password' class='am-input-sm' id='doc-ipt-{$oInput->field}' value='{$oData->$field}' placeholder='请输入{$name}'>";
+            $aInput = "<input type='password' name='{$oInput->field}' class='am-input-sm' id='doc-ipt-{$oInput->field}' value='{$oData->$field}' placeholder='请输入{$name}'>";
         }else{
-            $aInput = "<input type='text' size='{$size}' class='am-input-sm' id='doc-ipt-{$oInput->field}' value='{$oData->$field}' placeholder='请输入{$name}'>";
+            $aInput = "<input type='text' name='{$oInput->field}' size='{$size}' class='am-input-sm' id='doc-ipt-{$oInput->field}' value='{$oData->$field}' placeholder='请输入{$name}'>";
         }
+        $str = "";
         if ($edit == 'false') {
+            $aHiddenArr .= "\n<input type='hidden' name='{$field}' value='{$oData->$field}'>\n";
             $str .= <<<EOB
                     <div class="am-g am-margin-top-sm">
                             <div class="am-u-sm-2 meta-form-zuo">{$name}：</div>
@@ -101,12 +103,13 @@ EOB;
             $str = "";
         }    
         if($type == "textarea"){
-            $aInput = "<textarea class='' rows='5' id='doc-ipt-{$oInput->field}'></textarea>";
+            $aInput = "<textarea name='{$oInput->field}' class='' rows='5' id='doc-ipt-{$oInput->field}'></textarea>";
         }elseif($type == "password"){
-            $aInput = "<input type='password' class='am-input-sm' id='doc-ipt-{$oInput->field}' placeholder='请输入{$name}'>";
+            $aInput = "<input type='password' name='{$oInput->field}' class='am-input-sm' id='doc-ipt-{$oInput->field}' placeholder='请输入{$name}'>";
         }else{
-            $aInput = "<input type='text' size='{$size}' class='am-input-sm' id='doc-ipt-{$oInput->field}' placeholder='请输入{$name}'>";
+            $aInput = "<input type='text' name='{$oInput->field}' size='{$size}' class='am-input-sm' id='doc-ipt-{$oInput->field}' placeholder='请输入{$name}'>";
         }
+        $str = "";
         if ($edit == 'false') {
             $str .= <<<EOB
                     <div class="am-g am-margin-top-sm">
@@ -193,5 +196,16 @@ EOB;
         } else {
             return '';
         }
+    }
+    
+    public static function getHiddenForm($sHostUrl){
+        $aHost = parse_url($sHostUrl);
+        parse_str($aHost['query'],$aOutput);
+        $aHidden = array();
+        foreach($aOutput as $sKey=>$sVal){
+            $aHidden[] = "<input type='hidden' name='{$sKey}' value='{$sVal}'>";
+        }
+        $aHost["query"] = implode("\n",$aHidden);
+        return $aHost;        
     }
 }
