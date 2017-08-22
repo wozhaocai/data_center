@@ -21,19 +21,19 @@ class GS_Module_Resource extends GS_Module_Base{
             "service_id" => "tabel_$sAction"
         );
         $aResource = $this->gets();
-        if(empty($aResource)){
+        //if(empty($aResource)){
             $oTable = new Db_MysqlTable("", $sAction, true);
             $oTable->setDB($this->_oDB);
             $aField = $oTable->getField("full_field_list");
             $oLayout = new Util_Layout($aField,GliderSky::$aConfig,$sAction);             
-            $sXmlContent = urlencode(urlencode($oLayout->generateLayout()));     
+            $sXmlContent = urlencode(urlencode($oLayout->generateLayout()));    
             $this->_aParam["query"]["content"] = $sXmlContent;
-            $this->input();
+            $this->updateOrInsert();
             $aResource = $this->gets();
             return $aResource;
-        }else{
-            return $aResource;
-        }
+        //}else{
+            //return $aResource;
+        //}
     }
     
     
