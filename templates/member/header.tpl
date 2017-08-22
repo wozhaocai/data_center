@@ -14,6 +14,7 @@
         <meta name="apple-mobile-web-app-title" content="Amaze UI" />
         <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
         <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="/css/meta.css">
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/app.js"></script>
         <script src="/js/main.js"></script>
@@ -119,7 +120,8 @@
             <script type="text/javascript">   
                 function loadEditForm(url) {
                     $.post(url, {},
-                    function(data) {    
+                    function(data) {   
+                        $("#form_title").text(data["title"]);
                         $("#form1").html(data["data"]);
                         $('#my-popup').modal();
                     }, "json");
@@ -138,11 +140,11 @@
             </div>
             <div class="am-popup am-popup-inner" id="my-popup">
                 <div class="am-popup-hd">
-                    <h4 class="am-popup-title">编辑</h4>
+                    <h4 class="am-popup-title" id="form_title"></h4>
                     <span data-am-modal-close class="am-close">&times;</span> 
                 </div>
-                 <div class="am-popup-bd">
-                    <form class="am-form tjlanmu" id="form1">                        
+                 <div class="meta-form-bd">
+                    <form class="am-form" id="form1">      
                     </form>
                 </div>
             </div>            

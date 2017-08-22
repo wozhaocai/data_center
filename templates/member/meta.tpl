@@ -57,7 +57,7 @@ var myForm = new MyForm();
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#"><{$current_menu}></a></dl>
       
       <dl>
-       <button type="button" class="am-btn am-btn-danger am-round am-btn-xs am-icon-plus" data-am-modal="{target: '#my-popup'}"> 添加新记录</button>
+       <{$action_des}>
 
       </dl>
       

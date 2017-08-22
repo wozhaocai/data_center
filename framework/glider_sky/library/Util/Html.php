@@ -44,6 +44,8 @@ class Util_Html{
         $edit = (string) $oInput->edit;
         $view = (string) $oInput->view;
         $type = (string) $oInput->type;
+        //debugVar($oInput);
+        //debugVar($oData);
         if(isset($oInput->size)){
             $size = (string) $oInput->size;
         }else{
@@ -53,59 +55,78 @@ class Util_Html{
             $str = "";
         }    
         if($type == "textarea"){
-            $aInput = "<textarea class='' rows='5' id='doc-ta-1'>{$oData->$field}</textarea>";
+            $aInput = "<textarea class='' rows='5' id='doc-ipt-{$oInput->field}'>{$oData->$field}</textarea>";
         }elseif($type == "password"){
-            $aInput = "<input type='password' class='am-input-sm' id='doc-ipt-pwd-1' value='{$oData->$field}' placeholder='请输入{$name}'>";
+            $aInput = "<input type='password' class='am-input-sm' id='doc-ipt-{$oInput->field}' value='{$oData->$field}' placeholder='请输入{$name}'>";
         }else{
-            $aInput = "<input type='text' class='am-input-sm' id='doc-ipt-email-1' value='{$oData->$field}' placeholder='请输入{$name}'>";
+            $aInput = "<input type='text' size='{$size}' class='am-input-sm' id='doc-ipt-{$oInput->field}' value='{$oData->$field}' placeholder='请输入{$name}'>";
         }
         if ($edit == 'false') {
             $str .= <<<EOB
-                    <div class="am-form-group">
-                            <div class="zuo">{$name}：</div>
-                            <div class="you">
+                    <div class="am-g am-margin-top-sm">
+                            <div class="am-u-sm-2 meta-form-zuo">{$name}：</div>
+                            <div class="am-u-sm-4 meta-form-you">
                                 <span class="field">{$oData->$field}</span>
                             </div>
                     </div>
 EOB;
         } else {
             $str .= <<<EOB
-                    <div class="am-form-group">
-                            <div class="zuo">{$name}：</div>
-                            <div class="you">
+                    <div class="am-g am-margin-top-sm">
+                            <div class="am-u-sm-2 meta-form-zuo">{$name}：</div>
+                            <div class="am-u-sm-4 meta-form-you">
                                 {$aInput}
                             </div>
                     </div>
 EOB;
         }
+        //debugVar($str);
         return $str;
     }
 
-    public static function formatAmazeInputByObjNoData($oInput) {
+    public static function formatAmazeInput($oInput) {
         $field = (string) $oInput->field;
         $name = (string) $oInput->name;
         $edit = (string) $oInput->edit;
+        $view = (string) $oInput->view;
+        $type = (string) $oInput->type;
+        //debugVar($oInput);
+        //debugVar($oData);
         if(isset($oInput->size)){
             $size = (string) $oInput->size;
         }else{
             $size = 30;
         }
-        if ($oInput) {
+        if ($oInput or $view == "false") {
             $str = "";
+        }    
+        if($type == "textarea"){
+            $aInput = "<textarea class='' rows='5' id='doc-ipt-{$oInput->field}'></textarea>";
+        }elseif($type == "password"){
+            $aInput = "<input type='password' class='am-input-sm' id='doc-ipt-{$oInput->field}' placeholder='请输入{$name}'>";
+        }else{
+            $aInput = "<input type='text' size='{$size}' class='am-input-sm' id='doc-ipt-{$oInput->field}' placeholder='请输入{$name}'>";
         }
         if ($edit == 'false') {
             $str .= <<<EOB
-<label>{$name}</label>
-<span class="field">{$aData[$field]}</span>
+                    <div class="am-g am-margin-top-sm">
+                            <div class="am-u-sm-2 meta-form-zuo">{$name}：</div>
+                            <div class="am-u-sm-4 meta-form-you">
+                                <span class="field"></span>
+                            </div>
+                    </div>
 EOB;
         } else {
             $str .= <<<EOB
-<label>{$name}</label>
-<span class="field">
-<input type="text" size='{$size}' value="" name='{$field}' id="{$field}">
-</span>
+                    <div class="am-g am-margin-top-sm">
+                            <div class="am-u-sm-2 meta-form-zuo">{$name}：</div>
+                            <div class="am-u-sm-4 meta-form-you">
+                                {$aInput}
+                            </div>
+                    </div>
 EOB;
         }
+        //debugVar($str);
         return $str;
     }
 
