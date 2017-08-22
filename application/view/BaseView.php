@@ -8,6 +8,7 @@
  class BaseView{
      protected $_aParams = array();
      protected $_oTemplate = null;
+     private static $_aMenuSessionId = array("main_id","menu_main_id","menu_sub_id");
      
      public function __construct(&$oTemplate,$aParams) {
          $this->_aParams = $aParams;
@@ -27,6 +28,13 @@
     }
     
     public function initMenu(){
+        foreach(self::$_aMenuSessionId as $sField){
+            if(!empty($this->_aParams[$sField])){
+                $_SESSION[$sField] = $this->_aParams[$sField];
+            }elseif(!empty($_SESSION[$sField])){
+                $this->_aParams[$sField] = $_SESSION[$sField];
+            }
+        }
         if(empty($this->_aParams['main_id'])){
             if(!empty($this->_aParams["menu_sub_id"])){
                 $aPassMenusId = array();

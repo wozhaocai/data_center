@@ -76,7 +76,7 @@
                 <td class="am-hide-sm-only"><{$val->ctime}></td>
                 <td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
-                    <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="/service.php?business=dc&controller=member_resource&action=edit_show&id=<{$val->id}>'" target="_blank"><span class="am-icon-pencil-square-o"></span>编辑</a>
+                    <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="/service.php?business=dc&controller=member_resource&action=edit_show&id=<{$val->id}>'"><span class="am-icon-pencil-square-o"></span>编辑</a>
                   </div>
                   </div></td>
               </tr>

@@ -8,8 +8,9 @@
 
 class Member_ResourceView extends BaseView{
     public function show(){
+        $_SESSION["current_show_page"] = $_SERVER["REQUEST_URI"];
         $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","gets");
-        $aResource = $oModule->run();
+        $aResource = $oModule->run();       
         $this->_oTemplate->assign("aResource",$aResource);
     } 
     
@@ -27,7 +28,7 @@ class Member_ResourceView extends BaseView{
             $sServiceContent = "";
         }
         $this->_oTemplate->assign("service_id",$sServiceId);
-        $this->_oTemplate->assign("resource_content",urldecode(urldecode($sServiceContent)));
+        $this->_oTemplate->assign("resource_content",str_replace("\\","",urldecode(urldecode($sServiceContent))));
         $this->_oTemplate->display("member/resource_edit.tpl");
         exit(0);
     } 
@@ -38,7 +39,8 @@ class Member_ResourceView extends BaseView{
             "stype" => $this->_aParams["service_type"],
             "content" => $this->_aParams["resource_content"]
         );
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","insert",$aResource);
-        return $oModule->run();
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","update",$aResource);
+        $oModule->run();
+        Header("Location:{$_SESSION["current_show_page"]}");
     } 
 }
