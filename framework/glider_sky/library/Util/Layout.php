@@ -97,8 +97,8 @@ EOB;
 <column type='text'>
     <name>操作</name>
     <text><![CDATA[
-                <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="{$this->_aParams["layout"]["edit"]}&id={id}" target="_blank"><span class="am-icon-pencil-square-o"></span>编辑</a>
-                <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="{$this->_aParams["layout"]["delete"]}&id={id}" target="_blank"><span class="am-icon-trash-o"></span>删除</a>
+                <a data-am-modal="{target: '#my-popups-edit'}" class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:;" onclick="loadEditForm('{$this->_aParams["layout"]["edit"]}&id={id}');"><span class="am-icon-pencil-square-o"></span>编辑</a>
+                <a data-am-modal="{target: '#my-popups-delete'}" class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:;" onclick="loadDeleteForm('{$this->_aParams["layout"]["edit"]}&id={id}');"><span class="am-icon-trash-o"></span>删除</a>
         ]]></text>
 </column>
 EOB;
@@ -128,7 +128,15 @@ EOB;
     }
 
     private function toFormEditData() {
-        $this->_sFormEditData = $this->ToOnlyReturnData();
+        $this->_sFormEditData = <<<EOB
+        <params>
+            {Params}
+        </params>
+        <get_url>Entity:{$this->_sResourceId}:gets</get_url>
+        <return_url hidden="false"><![CDATA[{ReturnUrl}]]></return_url>
+EOB;
+        $this->_sFormEditData = str_replace("{Params}", $this->_sParamXml, $this->_sFormEditData);
+        $this->_sFormEditData = str_replace("{ReturnUrl}", $this->_aParams["layout"]["return"], $this->_sFormEditData);
     }
 
     private function toFormDeleteData() {
@@ -154,6 +162,7 @@ EOB;
 	<name>{Name}</name>
 	<edit>{Edit}</edit>
         <view>{View}</view>
+        <type>{Type}</type>
 </column>
 EOB;
         $sColumn = str_replace("{Field}", $row->field, $sColumn);
@@ -173,6 +182,11 @@ EOB;
             $sColumn = str_replace("{View}", "false", $sColumn);
         } else {
             $sColumn = str_replace("{View}", "true", $sColumn);
+        }
+        if(strstr($row->type,"text")){
+            $sColumn = str_replace("{Type}", "textarea", $sColumn);
+        }else{
+            $sColumn = str_replace("{Type}", "input", $sColumn);
         }
         return $sColumn;
     }

@@ -21,15 +21,7 @@ class GS_Layout {
         $this->_sNodeType = $sNodeType;
         $this->_aParams = $aParams;
     }
-
-    public function run() {
-        $oXml = new Util_Xml("", $this->_sResource);
-        $this->_oXml = $oXml->getContent();
-        if ($this->_sNodeType == "show") {
-            $this->parseDataTables($this->_oXml->datatables);
-        }
-    }
-
+    
     private function setBaseUrl() {
         list($sPageUrl, $sParam) = explode("?", $_SERVER['REQUEST_URI']);
         $aParam = explode("&", $sParam);
@@ -58,6 +50,120 @@ class GS_Layout {
             $aUrlParam[$sKey] = $sOption;
         }
         $this->_sBaseUrl = $sPageUrl . "?" . implode('&', $aUrlParam);
+    }
+
+    public function run() {
+        $oXml = new Util_Xml("", $this->_sResource);
+        $this->_oXml = $oXml->getContent();        
+        if ($this->_sNodeType == "show") {
+            $this->parseDataTables($this->_oXml->datatables);            
+        }elseif($this->_sNodeType == "edit"){
+            $this->parseFormEdit($this->_oXml->formedit);
+        }
+    }    
+    
+    public function parseFormEdit($oNode) {       
+        $sGetUrl = (string) $oNode->data->get_url;
+        $aData = $this->getData($sGetUrl);        
+        if ($aData) {
+            $aFillData = $aData[0];
+            $aColumnHtml = array();            
+            foreach ($oNode->columns->column as $oColumn) {
+                $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData);
+            }            
+            $aColumnHtml[] =<<<EOB
+                    <div class="am-form-group am-cf">
+                            <div class="you">
+                                <p>
+                                    <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
+                                </p>
+                            </div>
+                    </div>
+EOB;
+            $sColumnStr = implode("<br>\n", $aColumnHtml);
+            echo json_encode(array("data"=>$sColumnStr));
+        } else {
+            $this->_oSmarty->assign("errormsg", "没有要找的数据，请核实");
+        }
+    }
+
+    public function parseFormDelete($oNode) {
+        $return_url = (string) $oNode->data->return_url;
+        $sSuccess = $this->getData($data_url);
+        if ($sSuccess) {
+            $this->_oSmarty->assign("msg", "删除成功，请关闭本窗口，并刷新当前页面！");
+        } else {
+            $this->_oSmarty->assign("msg", "删除失败，请检查！");
+        }
+    }
+
+    public function parseFormAdd($oNode) {        
+        $return_url = (string) $oNode->data->return_url;
+        $aColumnHtml = array();
+        foreach ($oNode->columns->column as $oColumn) {
+            $aColumnHtml[] = Util_Html::formatAmazeInputByObjNoData($oColumn);
+        }
+        $aColumnHtml[] = "<input type='hidden' name='data' value='" . base64_encode($post_url) . "'>";
+        $aColumnHtml[] = "<input type='hidden' name='return' value='" . base64_encode($return_url) . "'>";
+        $aColumnHtml[] = "<input type='hidden' name='act_type' value='post'>";
+        $sColumnStr = implode("<br>\n", $aColumnHtml);
+        $this->_oSmarty->assign("htmlstr", $sColumnStr);
+    }
+    
+    public function loadFormHeaderHtml($sAction){
+        $sHeaderHtml =<<<EOB
+                <div class="am-popup-hd">
+                    <h4 class="am-popup-title">{$sAction}</h4>
+                    <span data-am-modal-close
+                          class="am-close">&times;</span> </div>
+                <div class="am-popup-bd">
+                    <form class="am-form tjlanmu">
+                        <div class="am-form-group">
+                            <div class="zuo">栏目名称：</div>
+                            <div class="you">
+                                <input type="email" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入标题">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <div class="zuo">栏目关键词：</div>
+                            <div class="you">
+                                <input type="password" class="am-input-sm" id="doc-ipt-pwd-1" placeholder="请输入关键词">
+                            </div>
+                        </div>
+                        <div class="am-form-group am-cf">
+                            <div class="zuo">栏目描述：</div>
+                            <div class="you">
+                                <textarea class="" rows="2" id="doc-ta-1"></textarea>
+                            </div>
+                        </div> 
+
+                        <div class="am-form-group am-cf">
+                            <div class="zuo">简介：</div>
+                            <div class="you">
+                                <textarea class="" rows="2" id="doc-ta-1"></textarea>
+                            </div>
+                        </div>
+                        <div class="am-form-group am-cf">
+                            <div class="zuo">状态：</div>
+                            <div class="you" style="margin-top: 3px;">
+                                <label class="am-checkbox-inline">
+                                    <input type="checkbox" value="option1">
+                                    显示 </label>
+                                <label class="am-checkbox-inline">
+                                    <input type="checkbox" value="option2">
+                                    隐藏 </label>
+                            </div>
+                        </div>
+                        <div class="am-form-group am-cf">
+                            <div class="you">
+                                <p>
+                                    <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+EOB;
     }
 
     private function parseDataTables($oNode) {

@@ -38,35 +38,50 @@ class Util_Html{
         return $sHtml;
     }
 
-    function formatAmadaInputByObj($oInput, $aData) {
+    public static function formatAmazeInputByObj($oInput, $oData) {
         $field = (string) $oInput->field;
         $name = (string) $oInput->name;
         $edit = (string) $oInput->edit;
+        $view = (string) $oInput->view;
+        $type = (string) $oInput->type;
         if(isset($oInput->size)){
             $size = (string) $oInput->size;
         }else{
             $size = 30;
         }
-        if ($oInput) {
+        if ($oInput or $view == "false") {
             $str = "";
+        }    
+        if($type == "textarea"){
+            $aInput = "<textarea class='' rows='5' id='doc-ta-1'>{$oData->$field}</textarea>";
+        }elseif($type == "password"){
+            $aInput = "<input type='password' class='am-input-sm' id='doc-ipt-pwd-1' value='{$oData->$field}' placeholder='请输入{$name}'>";
+        }else{
+            $aInput = "<input type='text' class='am-input-sm' id='doc-ipt-email-1' value='{$oData->$field}' placeholder='请输入{$name}'>";
         }
         if ($edit == 'false') {
             $str .= <<<EOB
-<label>{$name}</label>
-<span class="field">{$aData[$field]}</span>
+                    <div class="am-form-group">
+                            <div class="zuo">{$name}：</div>
+                            <div class="you">
+                                <span class="field">{$oData->$field}</span>
+                            </div>
+                    </div>
 EOB;
         } else {
             $str .= <<<EOB
-<label>{$name}</label>
-<span class="field">
-<input type="text" size='{$size}' value="{$aData[$field]}" class="width100" name='{$field}' id="{$field}">
-</span>
+                    <div class="am-form-group">
+                            <div class="zuo">{$name}：</div>
+                            <div class="you">
+                                {$aInput}
+                            </div>
+                    </div>
 EOB;
         }
         return $str;
     }
 
-    function formatAmadaInputByObjNoData($oInput) {
+    public static function formatAmazeInputByObjNoData($oInput) {
         $field = (string) $oInput->field;
         $name = (string) $oInput->name;
         $edit = (string) $oInput->edit;
@@ -94,7 +109,7 @@ EOB;
         return $str;
     }
 
-    function formatSearchByObj($sSearch, $sSeachKey, $sSearchName, &$aQueryField, &$aQueryValue, $aRequest, $sSplit = '') {
+    public static function formatSearchByObj($sSearch, $sSeachKey, $sSearchName, &$aQueryField, &$aQueryValue, $aRequest, $sSplit = '') {
         $aSearch = explode("|", $sSearch);
         if ($aSearch[0] == "true") {
             if (isset($aSearch[1]) and $aSearch[1] == "month") {
