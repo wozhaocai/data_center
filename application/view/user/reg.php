@@ -12,7 +12,7 @@ class User_RegView extends BaseView{
     
     public function register(){    
         $this->_aParams["password"] = md5($this->_aParams["password"]);
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","users","input",$this->_aParams);
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","users","insert",$this->_aParams);
         $aResult = $oModule->run();
         header("Location:/index.php");
     }
