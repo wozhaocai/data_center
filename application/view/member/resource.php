@@ -38,7 +38,7 @@ class Member_ResourceView extends BaseView{
             "stype" => $this->_aParams["service_type"],
             "content" => $this->_aParams["resource_content"]
         );
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","input",$aResource);
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","insert",$aResource);
         return $oModule->run();
     } 
 }
