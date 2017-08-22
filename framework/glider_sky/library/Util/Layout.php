@@ -38,7 +38,7 @@ class Util_Layout {
             $this->toDataTableColumn($row);
             $this->toFormAddColumn($row);
             $this->toFormEditColumn($row);
-        }
+        }        
         $this->toChartData();
         $this->toDataTableData();
         $this->toFormAddData();
@@ -133,9 +133,11 @@ EOB;
             {Params}
         </params>
         <get_url>Entity:{$this->_sResourceId}:gets</get_url>
+        <submit_url><![CDATA[{submit_url}]]></submit_url>
         <return_url hidden="false"><![CDATA[{ReturnUrl}]]></return_url>
 EOB;
         $this->_sFormEditData = str_replace("{Params}", $this->_sParamXml, $this->_sFormEditData);
+        $this->_sFormEditData = str_replace("{submit_url}", $this->_aParams["layout"]["submit"], $this->_sFormEditData);
         $this->_sFormEditData = str_replace("{ReturnUrl}", $this->_aParams["layout"]["return"], $this->_sFormEditData);
     }
 
@@ -171,7 +173,9 @@ EOB;
         } else {
             $sColumn = str_replace("{Name}", $row->field, $sColumn);
         }
-        if ($row->type == "varchar(6)") {
+        if($row->key == "PRI" or $row->key == "UNI" or in_array($row->field, $this->_aViewFalseField)){
+            $sColumn = str_replace("{Edit}", "false", $sColumn);
+        }elseif ($row->type == "varchar(6)") {
             $sColumn = str_replace("{Edit}", "true|month|b:e", $sColumn);
         } elseif ($row->type == "timestamp") {
             $sColumn = str_replace("{Edit}", "true|day|b:e", $sColumn);
@@ -196,9 +200,11 @@ EOB;
         <params>
             {Params}
         </params>
+        <submit_url><![CDATA[{submit_url}]]></submit_url>
         <return_url hidden="false"><![CDATA[{ReturnUrl}]]></return_url>
 EOB;
         $sParams = str_replace("{Params}", $this->_sParamXml, $sParams);
+        $sParams = str_replace("{submit_url}", $this->_aParams["layout"]["submit"], $sParams);
         return str_replace("{ReturnUrl}", $this->_aParams["layout"]["return"], $sParams);
     }
 
