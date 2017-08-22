@@ -50,7 +50,7 @@ class Member_MenuView extends BaseView{
     }
     
     private function insert($aMenu){
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","input",$aMenu);
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","menus","insert",$aMenu);
         return $oModule->run();   
     }
     
