@@ -58,14 +58,20 @@ abstract class GS_Module_Base {
         return $this->_oDB->gets($this->_aParam["query"]);
     }
     
-    public function input(){
+    public function insert(){
         return $this->_oDB->input($this->_aParam["query"]);
     }
     
-    public function update(){
-        $sId = $this->_aParam["query"]["id"];
-        unset($this->_aParam["query"]["id"]);
-        return $this->_oDB->updateDB($sId,$this->_aParam["query"]);
+    public function update(){        
+        unset($this->_aParam["query"]["ctime"]);
+        unset($this->_aParam["query"]["mtime"]);
+        return $this->_oDB->saveBase($this->_aParam["query"],false);
+    }
+    
+    public function updateOrInsert(){        
+        unset($this->_aParam["query"]["ctime"]);
+        unset($this->_aParam["query"]["mtime"]);
+        return $this->_oDB->saveBase($this->_aParam["query"]);
     }
     
     public function delete(){
