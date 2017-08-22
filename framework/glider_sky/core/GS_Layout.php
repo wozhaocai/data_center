@@ -61,29 +61,35 @@ class GS_Layout {
             $this->parseFormEdit($this->_oXml->formedit);
         }elseif($this->_sNodeType == "add"){
             $this->parseFormAdd($this->_oXml->formadd);
+        }elseif($this->_sNodeType == "get"){
+            $this->parseDataTables($this->_oXml->datatables);
         }
     }    
     
     public function parseFormEdit($oNode) {       
         $sGetUrl = (string) $oNode->data->get_url;
-        $aData = $this->getData($sGetUrl);        
+        $aData = $this->getData($sGetUrl);    
+        $sSubmitUrl = $this->parseUrl((string) $oNode->data->submit_url);
+        $aHost = Util_Html::getHiddenForm($sSubmitUrl);        
         if ($aData) {
             $aFillData = $aData[0];
             $aColumnHtml = array();            
             foreach ($oNode->columns->column as $oColumn) {
-                $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData);
-            }            
+                $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData, $aHost["query"]);
+            }             
             $aColumnHtml[] =<<<EOB
                     <div class="am-form-group am-cf">
                             <div class="meta-form-button">
                                 <p>
                                     <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
+                                    {$aHost["query"]}
+                                    <input type="hidden" name="submit_action" value="edit">
                                 </p>
                             </div>
                     </div>
 EOB;
             $sColumnStr = implode("\n", $aColumnHtml);
-            echo json_encode(array("data"=>$sColumnStr,"title"=>"编辑"));
+            echo json_encode(array("data"=>$sColumnStr,"title"=>"编辑","meta_form_action"=>$aHost["path"]));
         } else {
             $this->_oSmarty->assign("errormsg", "没有要找的数据，请核实");
         }
@@ -99,7 +105,9 @@ EOB;
         }
     }
 
-    public function parseFormAdd($oNode) {        
+    public function parseFormAdd($oNode) {   
+        $sSubmitUrl = $this->parseUrl((string) $oNode->data->submit_url);
+        $aHost = Util_Html::getHiddenForm($sSubmitUrl);
         $aColumnHtml = array();
         foreach ($oNode->columns->column as $oColumn) {
             $aColumnHtml[] = Util_Html::formatAmazeInput($oColumn);
@@ -109,12 +117,14 @@ EOB;
                             <div class="meta-form-button">
                                 <p>
                                     <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
+                                    {$aHost["query"]}
+                                    <input type="hidden" name="submit_action" value="add">
                                 </p>
                             </div>
                     </div>
 EOB;
         $sColumnStr = implode("\n", $aColumnHtml);
-        echo json_encode(array("data" => $sColumnStr, "title" => "添加"));
+        echo json_encode(array("data" => $sColumnStr, "title" => "添加", "meta_form_action"=>$sSubmitUrl));
     }
 
     private function parseDataTables($oNode) {
