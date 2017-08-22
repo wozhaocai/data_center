@@ -435,19 +435,19 @@ class Db_Adapter {
         }
     }
 
-    function saveBase($aInput) {
-        return $this->updateByKey($aInput);
+    function saveBase($aInput,$sIsInsert=true) {
+        return $this->updateByKey($aInput,$sIsInsert);
     }
 
-    function updateByKey($aInput) {
+    function updateByKey($aInput,$sIsInsert=true) {
         $aInput = $this->filter($this->aField, $aInput);
         if ($this->checkTrue($aInput, $this->aNotNullField)) {
             $aInputDB = $this->getByInput($aInput);
             if ($aInputDB === 0)
                 return false;
-            $aInputDBArr = (array) $aInputDB;
+            $aInputDBArr = (array) $aInputDB;            
             if (!empty($aInputDB->id)) {
-                $aData = array_diff_assoc($aInput, $aInputDBArr);
+                $aData = array_diff_assoc($aInput, $aInputDBArr);                
                 if (count($aData) > 0) {
                     $this->updateDB($aInputDB->id, $aData);
                     return $aInputDB->id;
@@ -455,7 +455,11 @@ class Db_Adapter {
                     return $aInputDB->id;
                 }
             }
-            return $this->insertDB($aInput);
+            if($sIsInsert){
+                return $this->insertDB($aInput);
+            }else{
+                return 0;
+            }
         } else {
             return 0;
         }
