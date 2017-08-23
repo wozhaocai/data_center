@@ -21,6 +21,10 @@ class GS_Module {
         $this->_aParam["query"] = $aParam;
     }
     
+    public function getParams(){
+        return $this->_aParam;
+    }
+    
     public function run(){
         $sClass = "GS_Module_".$this->_sModule;     
         if(class_exists($sClass)){
@@ -32,7 +36,9 @@ class GS_Module {
         $this->_aParam["action"] = $this->_sAction;
         $this->_aParam["module"] = $this->_sModule;
         $oObj->setParams($this->_aParam);
-        return $oObj->run();
+        $aRs = $oObj->run();
+        $this->_aParam['iDbAffectNum'] = $oObj->getDbAffectNum();
+        return $aRs;
     }
 
 }

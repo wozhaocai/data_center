@@ -13,7 +13,7 @@ class Member_MetaView extends BaseView{
         $aResource = $oModule->run();
         $this->_aParams["meta"] = $sMeta;
         $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"show",$this->_aParams);
-        $oModule->run();
+        return $oModule->run();
     }     
     
     public function edit($sMeta){        
@@ -35,7 +35,6 @@ class Member_MetaView extends BaseView{
     }    
     
     public function submit($sMeta){       
-        debugVar($this->_aParams);
         if($this->_aParams["submit_action"] == "edit"){
             $oModule = new GS_Module($this->_aParams['business'],"Entity",$sMeta,"update",$this->_aParams);
             $oModule->run();

@@ -56,13 +56,13 @@ class GS_Layout {
         $oXml = new Util_Xml("", $this->_sResource);
         $this->_oXml = $oXml->getContent();        
         if ($this->_sNodeType == "show") {
-            $this->parseDataTables($this->_oXml->datatables);            
+            return $this->parseDataTables($this->_oXml->datatables);            
         }elseif($this->_sNodeType == "edit"){
-            $this->parseFormEdit($this->_oXml->formedit);
+            return $this->parseFormEdit($this->_oXml->formedit);
         }elseif($this->_sNodeType == "add"){
-            $this->parseFormAdd($this->_oXml->formadd);
+            return $this->parseFormAdd($this->_oXml->formadd);
         }elseif($this->_sNodeType == "get"){
-            $this->parseDataTables($this->_oXml->datatables);
+            return $this->parseDataTables($this->_oXml->datatables);
         }
     }    
     
@@ -182,19 +182,20 @@ EOB;
             $aColumn[] = "{$sName}&nbsp;{$imgstr}";
             $i++;
         }
-        $this->get_data_table($oNode, $sGroupField, $aRowSpan);
+        $aData = $this->get_data_table($oNode, $sGroupField, $aRowSpan);
         $this->_oTemplate->assign('aRowSpan', $aRowSpan);
         $this->_oTemplate->assign('aColumn', $aColumn);
         if ($oNode->data->add_url and (string) $oNode->data->add_url['hidden'] == 'false') {            
             $sHtml = "<a class='am-btn am-btn-danger am-round am-btn-xs am-icon-plus' href=\"javascript:;\" onclick=\"loadEditForm('".$this->parseUrl((string)$oNode->data->add_url)."');\">添加新记录</a>";
             $this->_oTemplate->assign('action_des', $sHtml);
         }
+        return $aData;
     }
 
     private function get_data_table($oNode, $sGroupField = '', $aRowSpan = array()) {
         $sGetUrl = (string) $oNode->data->get_url;
         $data = $this->getData($sGetUrl);
-
+        
         $aKey = array();
 
         $i = 0;
@@ -238,15 +239,19 @@ EOB;
             }
             $i++;
         }
-        $aData['num'] = 0;
-
+        if(!empty($data)){
+            $aData["num"] = $data["num"];
+        }else{
+            $aData['num'] = 0;
+        }        
+        
         $sLast = '';
         $sEmpty = false;
         $aDataGroup = array();
         $iCnt = 0;
-        if (!empty($data)) {
+        if (!empty($data["list"])) {
 
-            foreach ($data as $index => $row) {
+            foreach ($data["list"] as $index => $row) {
                 $row = (array) $row;
                 if (!empty($sGroupField) and $row[$sGroupField] != $sLast) {
                     $sLast = $row[$sGroupField];
@@ -316,12 +321,19 @@ EOB;
         }else{
             $this->_oTemplate->assign("aData", array());
         }
+        return $aData;
     }
 
     private function getData($sUrl) {
         list($module, $controller, $action) = explode(":", $sUrl);
         $oModule = new GS_Module($this->_aParams['business'], $module, $controller, $action, $this->_aParams);
-        return $oModule->run();
+        $aRs = $oModule->run();
+        $aParams = $oModule->getParams();
+        $aData = array(
+            "list" => $aRs,
+            "num" => $aParams["iDbAffectNum"]
+        );
+        return $aData;
     }
     
     private function parseUrl($sUrl){

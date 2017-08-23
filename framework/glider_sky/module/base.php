@@ -13,6 +13,7 @@ abstract class GS_Module_Base {
     protected $_bIsApplication = false;
     protected $_aResult = array();
     protected $_oDB = null;
+    protected $_iDBAffectNum = 0;
 
     public abstract function run();
 
@@ -54,8 +55,13 @@ abstract class GS_Module_Base {
         $this->_oDB->setTable($this->_aParam["controller"]);
     }
     
-    public function gets(){
-        return $this->_oDB->gets($this->_aParam["query"]);
+    public function getDbAffectNum(){
+        $this->_iDBAffectNum = $this->_oDB->iAffectNum;
+        return $this->_iDBAffectNum;
+    }
+    
+    public function gets(){        
+        return $this->_oDB->gets($this->_aParam["query"]); 
     }
     
     public function insert(){
