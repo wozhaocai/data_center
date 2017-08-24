@@ -3302,7 +3302,7 @@ fieldset[disabled] .am-checkbox-inline {
 .am-pagination > li > a,
 .am-pagination > li > span {
   position: relative;
-  display: block;
+  /*display: block;*/
   padding: 0.5em 1em;
   text-decoration: none;
   line-height: 1.2;
