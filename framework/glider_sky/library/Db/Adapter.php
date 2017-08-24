@@ -311,23 +311,27 @@ class Db_Adapter {
     }
 
     function gets($aParam, $one = false) {
-        $aParam = $this->filter($this->aField, $aParam);
-
         if(!empty($aParam['order'])){
             $aParam['order'] = str_replace("<>","|",$aParam['order']);
             $this->setOrderStr(str_replace("|"," ",$aParam['order']));
             unset($aParam['order']);
         }
         if(!empty($aParam['limit'])){
-            $aParam['limit'] = str_replace("<>","|",$aParam['limit']);
-            $aLimitArr = explode("|",$aParam['limit']);
-            $aLimit = array(
-                "start_num" => $aLimitArr[0],
-                "offset" => $aLimitArr[1]
-            );
-            $this->setLimit($aLimit);
+            if(is_string($aParam["limit"])){
+                $aParam['limit'] = str_replace("<>","|",$aParam['limit']);
+                $aLimitArr = explode("|",$aParam['limit']);
+                $aLimit = array(
+                    "start_num" => $aLimitArr[0],
+                    "offset" => $aLimitArr[1]
+                );
+                $this->setLimit($aLimit);
+            }else{
+                $this->setLimit($aParam["limit"]);
+            }            
             unset($aParam['limit']);
         }      
+        $aParam = $this->filter($this->aField, $aParam);
+        $aRequest = array();
         foreach ($aParam as $sKey => $sVal) {
             if (!empty($sVal)) {
                 $aRequest[":" . $sKey] = $sVal;
