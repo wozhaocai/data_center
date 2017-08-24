@@ -131,7 +131,7 @@ var myForm = new MyForm();
 		<{/foreach}>  
             </tbody>
           </table>
-          
+          <!--
                  <div class="am-btn-group am-btn-group-xs">
 
               <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
@@ -139,7 +139,7 @@ var myForm = new MyForm();
               <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 移动</button>
               <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
-          
+          -->
           <ul class="am-pagination am-fr">
                 <{$sPageStr}>                
               </ul>
@@ -147,8 +147,8 @@ var myForm = new MyForm();
           
           
       
-          <hr />
-          <p>注：.....</p>
+         <!-- <hr />
+          <p>注：.....</p>-->
         </form>      
 
  <{include file="./footer.tpl"}>

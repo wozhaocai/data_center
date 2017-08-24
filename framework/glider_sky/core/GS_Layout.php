@@ -63,16 +63,16 @@ class GS_Layout {
             return $this->parseFormAdd($this->_oXml->formadd);
         }elseif($this->_sNodeType == "get"){
             return $this->parseDataTables($this->_oXml->datatables);
-        }
+        }        
     }    
     
     public function parseFormEdit($oNode) {       
         $sGetUrl = (string) $oNode->data->get_url;
         $aData = $this->getData($sGetUrl);    
         $sSubmitUrl = $this->parseUrl((string) $oNode->data->submit_url);
-        $aHost = Util_Html::getHiddenForm($sSubmitUrl);        
-        if ($aData) {
-            $aFillData = $aData[0];
+        $aHost = Util_Html::getHiddenForm($sSubmitUrl);     
+        if ($aData["list"]) {
+            $aFillData = $aData["list"][0];
             $aColumnHtml = array();            
             foreach ($oNode->columns->column as $oColumn) {
                 $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData, $aHost["query"]);
