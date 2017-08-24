@@ -14,20 +14,20 @@ class GS_View {
     private $_aQuery = array();
     private $_oViewObj = null;
     private $_oTemplate = null;
+    private $_iPage = 0;
+    private $_iNumPagePer = 0;
+    private $_sBaseUrl = "";    
 
     public function __construct($sBusiness="",$aView="",$sAction="",$aParam = array()) {
         $this->_sBusiness = $sBusiness;
         $this->_aView = $aView;
         $this->_sAction = $sAction;
         $this->_aParam = $aParam;
+        $this->_iNumPagePer = GliderSky::$aConfig["divpage"]["num_page_per"];
     }
     
     public function setPage($iPage) {
         $this->_iPage = $iPage;
-    }
-
-    public function setNumPagePer($iNumPagePer) {
-        $this->_iNumPagePer = $iNumPagePer;
     }
 
     public function setBaseUrl() {
@@ -66,20 +66,19 @@ class GS_View {
         $this->_aQuery["business"] = $aParams['business'];
     }
     
-    public function fetchDivPage($aData){
+    public function fetchDivPage(){
         if (empty($this->_aParam['is_divpage']) or $this->_aParam['is_divpage'] == 1) {
-            $iPage = isset($this->_aParam['page']) ? $this->_aParam['page'] : 1;
-            $iPageNum = 20;
-            list($sPageUrl, $sTemp) = explode("?", $_SERVER['REQUEST_URI']);
-            $oDivPage = new Util_DivPage($aData['num'], $iPage, $iPageNum, $sPageUrl);
-            $sPageStr = $oDivPage->GetPageStr2();
-            
-            $this->_oTemplate->assign("sPageStr", $sPageStr);
-
+            $iPage = isset($this->_aParam['page']) ? $this->_aParam['page'] : 1;  
             $this->setPage($iPage);
-            $this->setNumPagePer($iPageNum);
             $this->getPageQuery();
         }
+    }
+    
+    public function fetchDievHtml($aData){
+        list($sPageUrl, $sTemp) = explode("?", $_SERVER['REQUEST_URI']);          
+        $oDivPage = new Util_DivPage($aData['num'], $this->_iPage, $this->_iNumPagePer, $sPageUrl);
+        $sPageStr = $oDivPage->GetPageStr2();            
+        $this->_oTemplate->assign("sPageStr", $sPageStr);
     }
     
     public function run(&$oTemplate){
@@ -91,6 +90,7 @@ class GS_View {
             if(file_exists($sClassFile)){
                 require_once($sClassFile);
                 $sClass = $this->_aView["class"]."View";
+                $this->fetchDivPage();                
                 $this->_oViewObj = new $sClass($oTemplate,$this->_aQuery);
                 $sAction = $this->_aParam['action'];                
                 if($this->_aView["class"] == "Member_Meta"){
@@ -100,8 +100,8 @@ class GS_View {
                     $aRs = $this->_oViewObj->$sMethod($sMeta);                       
                 }else{
                     $aRs = $this->_oViewObj->$sAction();
-                }             
-                $this->fetchDivPage($aRs);
+                } 
+                $this->fetchDievHtml($aRs);
                 $oTemplate->display($this->_aView['tpl']);
             }else{
                 echo "not find {$sClassFile}";

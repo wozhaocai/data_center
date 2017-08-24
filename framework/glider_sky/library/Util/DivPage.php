@@ -117,6 +117,7 @@ Class Util_DivPage {
         //对URL参数进行处理:数组的键是URL变量，数组的值是URL变量的值.
         $Sque = $pagestr = '';
         $Next = 0;
+        $Prev = 0;
         foreach ($this->Aque as $key => $val) {
             switch ($key) {
                 case "page":

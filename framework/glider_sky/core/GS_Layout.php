@@ -32,7 +32,7 @@ class GS_Layout {
             if (!strstr($sOption, "="))
                 continue;
             list($sField, $sVal) = explode("=", $sOption);
-            if (strstr($sOption, "page=") and $_REQUEST["form_act"] == "search") {
+            if (strstr($sOption, "page=") and isset($this->_aParams["form_act"]) and $this->_aParams["form_act"] == "search") {
                 $sOption = "page=1";
             }
             if (!isset($aDiffKey[$sField])) {
@@ -324,7 +324,7 @@ EOB;
         return $aData;
     }
 
-    private function getData($sUrl) {
+    private function getData($sUrl) {        
         list($module, $controller, $action) = explode(":", $sUrl);
         $oModule = new GS_Module($this->_aParams['business'], $module, $controller, $action, $this->_aParams);
         $aRs = $oModule->run();
