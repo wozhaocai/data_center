@@ -116,7 +116,7 @@ EOB;
     }
 
     private function toFormAddColumn($row) {
-        $this->_aFormAddColumn[] = $this->toCommonModifyColumn($row);
+        $this->_aFormAddColumn[] = $this->toCommonModifyColumn($row,"add");
     }
 
     private function toFormAddData() {
@@ -124,7 +124,7 @@ EOB;
     }
 
     private function toFormEditColumn($row) {
-        $this->_aFormEditColumn[] = $this->toCommonModifyColumn($row);
+        $this->_aFormEditColumn[] = $this->toCommonModifyColumn($row,"edit");
     }
 
     private function toFormEditData() {
@@ -157,7 +157,7 @@ EOB;
         $this->_sContent = str_replace("<{formdelete_data}>", $this->_sFormDeleteData, $this->_sContent);
     }
 
-    private function toCommonModifyColumn($row) {
+    private function toCommonModifyColumn($row,$sAction) {
         $sColumn = <<<EOB
 <column>
 	<field>{Field}</field>
@@ -173,7 +173,9 @@ EOB;
         } else {
             $sColumn = str_replace("{Name}", $row->field, $sColumn);
         }
-        if($row->key == "PRI" or $row->key == "UNI" or in_array($row->field, $this->_aViewFalseField)){
+        if($sAction =='edit' and ($row->key == "PRI" or $row->key == "UNI" or in_array($row->field, $this->_aViewFalseField))){
+            $sColumn = str_replace("{Edit}", "false", $sColumn);
+        }elseif($sAction =='add' and ($row->field == "id" or in_array($row->field, $this->_aViewFalseField))){
             $sColumn = str_replace("{Edit}", "false", $sColumn);
         }elseif ($row->type == "varchar(6)") {
             $sColumn = str_replace("{Edit}", "true|month|b:e", $sColumn);
