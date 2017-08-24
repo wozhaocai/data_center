@@ -116,6 +116,7 @@ Class Util_DivPage {
         $url = $this->url; //获取URL
         //对URL参数进行处理:数组的键是URL变量，数组的值是URL变量的值.
         $Sque = $pagestr = '';
+        $Next = 0;
         foreach ($this->Aque as $key => $val) {
             switch ($key) {
                 case "page":
@@ -128,29 +129,31 @@ Class Util_DivPage {
         }
         if ($Next == 0)
             $Next = 2;
-        $pagestr .= "<li>总计{$this->total}条</li>";
-        $pagestr .= "<li>共{$this->pages}页</li>";
+        $pagestr .= "<li>总计{$this->total}条&nbsp;&nbsp;</li>";
+        $pagestr .= "<li>共{$this->pages}页&nbsp;&nbsp;</li>";
 
         //首 页    上一页
         switch ($this->page) {
             case $this->page <= 1:
-                $pagestr .= "<li class='am-disabled'>首 页</li>";
-                $pagestr .= "<li class='am-disabled'>上一页</li>";
+                $pagestr .= "<li class='am-disabled'>首 页&nbsp;&nbsp;</li>";
+                $pagestr .= "<li class='am-disabled'>上一页&nbsp;&nbsp;</li>";
                 break;
             default:
-                $pagestr .= "<li><a href='" . $url . "?page=1$Sque'>首 页</a></li>";
-                $pagestr .= "<li><a href='" . $url . "?page=$Prev$Sque'>上一页</a></li>";
+                $pagestr .= "<li><a href='" . $url . "?page=1$Sque'>首 页</a>&nbsp;&nbsp;</li>";
+                $pagestr .= "<li><a href='" . $url . "?page=$Prev$Sque'>上一页</a>&nbsp;&nbsp;</li>";
         }
         //下一页    末 页
         switch ($this->page) {
             case $this->page >= $this->pages:
-                $pagestr .= "<li class='am-disabled'>下一页</li>";
-                $pagestr .= "<li class='am-disabled'>末 页</li>";
+                $pagestr .= "<li class='am-disabled'>下一页&nbsp;&nbsp;</li>";
+                $pagestr .= "<li class='am-disabled'>末 页&nbsp;&nbsp;</li>";
                 break;
             default:
-                $pagestr .= "<li><a href='" . $url . "?page=$Next$Sque'>下一页</a></li>";
-                $pagestr .= "<li><a href='" . $url . "?page=$this->pages$Sque'>末 页</a></li>";
-        }        
+                $pagestr .= "<li><a href='" . $url . "?page=$Next$Sque'>下一页</a>&nbsp;&nbsp;</li>";
+                $pagestr .= "<li><a href='" . $url . "?page=$this->pages$Sque'>末 页</a>&nbsp;&nbsp;</li>";
+        }
+        $pagestr .= "<li><input id=gotopage class='am-form-field am-input-sm am-input-xm' name=gotopage type=text size=6 maxlength=10 placeholder='到第几页'></li>"
+            . "<li>&nbsp;<button type=\"button\" class=\"am-btn am-radius am-btn-xs am-btn-success\" style=\"margin-top: -1px;\" onclick=\"window.location='{$url}?1{$Sque}&page='+document.getElementById('gotopage').value\">提交</button></li>";
         //返回分页字符串.
         return $pagestr;
     }
