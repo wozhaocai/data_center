@@ -161,6 +161,7 @@ EOB;
                     }
                 }
             }
+            $sRequestStr = "";
             if (!empty($aPostParam)) {
                 $sRequestStr = "&" . http_build_query($aPostParam);
             }
