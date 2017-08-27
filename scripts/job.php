@@ -1,4 +1,5 @@
 <?php
+//php job.php -bdc -sSpider_us_china_code_list -aget
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
