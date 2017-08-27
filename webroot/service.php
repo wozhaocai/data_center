@@ -13,6 +13,7 @@ $oTemplate = new GS_Template();
 if(empty($_REQUEST["controller"])){    
     Header("Location:/service.php?business={$_SESSION['business']}&controller=member&action=index");
 }else{
-    $oView = new GS_Service($oTemplate);
+    $oView = new GS_Service();
+    $oView->setTemplate($oTemplate);
     $oView->route();
 }

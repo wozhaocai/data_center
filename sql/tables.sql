@@ -68,3 +68,25 @@ CREATE TABLE `resource` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_resource` (`service_id`,`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源';
+
+CREATE TABLE `spider` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(50) NOT NULL DEFAULT 'xml' COMMENT '抓取标识名',
+  `spider_url` varchar(100) NOT NULL DEFAULT 'to_base64' COMMENT '抓取网址',
+  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '抓取描述',
+  `keyword_rule` varchar(100) NOT NULL DEFAULT 'to_base64' COMMENT '关键字匹配规则',
+  `save_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '保存规则',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_spider` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='抓取列表';
+
+CREATE TABLE `us_china_code` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(50) NOT NULL DEFAULT 'xml' COMMENT 'code',  
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_us_china_code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='中概股代码表';

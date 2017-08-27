@@ -9,6 +9,7 @@ $oTemplate = new GS_Template();
 if(empty($_REQUEST["controller"])){    
     Header("Location:./index.php");
 }else{
-    $oView = new GS_Service($oTemplate);
+    $oView = new GS_Service();
+    $oView->setTemplate($oTemplate);
     $oView->route();
 }

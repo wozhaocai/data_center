@@ -14,6 +14,7 @@ abstract class GS_Module_Base {
     protected $_aResult = array();
     protected $_oDB = null;
     protected $_iDBAffectNum = 0;
+    protected $_aSpecialField = array();
 
     public abstract function run();
 
@@ -45,14 +46,40 @@ abstract class GS_Module_Base {
             exit;
         }
         $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);
-        if (in_array($this->_aParam["module"],array("Resource")) or in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
+        if (in_array($this->_aParam["module"],array("Resource","Spider")) or in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
             $this->_oDB->setFieldList($aFieldList);
             $aUniqueField = $oMysqlTable->getField("unique_field");
-            $this->_oDB->setNotNullField($aUniqueField);            
+            $this->_oDB->setNotNullField($aUniqueField);  
+            $this->_aSpecialField = $oMysqlTable->getField("special_field");
         }
         $this->_oDB->setTable($this->_aParam["controller"]);
+        if(!empty($this->_aSpecialField)){
+            $this->dealWithSpecialField($this->_aParam["query"]);
+        }
+    }
+    
+    public function dealWithSpecialField(&$aData){
+        foreach($aData as $sKey => $sVal){
+            if(!empty($this->_aSpecialField[$sKey])){
+                $sAction = $this->_aSpecialField[$sKey];
+                if(is_object($aData)){
+                    $aData->$sKey = $this->$sAction($sVal);
+                }else{
+                    $aData[$sKey] = $this->$sAction($sVal);
+                }
+            }
+        }
+    }
+    
+    public function to_base64($sVal){
+        if(!in_array($this->_aParam["action"],array("insert", "update", "input"))){            
+            return base64_decode($sVal);
+        }else{
+            $sVal = str_replace('\\', "", $sVal);
+            return base64_encode($sVal);
+        }
     }
     
     public function getDbAffectNum(){
@@ -61,7 +88,15 @@ abstract class GS_Module_Base {
     }
     
     public function gets(){        
-        return $this->_oDB->gets($this->_aParam["query"]); 
+        $aRs = $this->_oDB->gets($this->_aParam["query"]); 
+        $aResult = array();
+        if(!empty($aRs)){
+            foreach($aRs as $i=>$row){
+                $this->dealWithSpecialField($row);
+                $aResult[$i] = $row;
+            }
+        }
+        return $aResult;
     }
     
     public function insert(){

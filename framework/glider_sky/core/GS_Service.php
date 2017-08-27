@@ -11,18 +11,19 @@ class GS_Service {
     private $_oTemplate = null;
     private $_aRequest = array();    
 
-    public function __construct(&$oTemplate) {
-        $this->setTemplate($oTemplate);
+    public function __construct() {
         $this->filterRequest();
     }
 
-    private function setTemplate(&$oTemplate) {
+    public function setTemplate(&$oTemplate) {
         $this->_oTemplate = $oTemplate;
     }
 
-    public function route() {
+    public function route($sType="") {
         $oRoute = new GS_Route();
-        if(!empty($this->_aRequest["controller"])){
+        if($sType == "scripts"){
+            $this->callScript();
+        }elseif(!empty($this->_aRequest["controller"])){
             $sController = $this->_aRequest["controller"];
             if(isset(GS_Route::$_aConfig["view"][$sController])){
                 $aViewClass = GS_Route::$_aConfig["view"][$sController];
@@ -33,6 +34,11 @@ class GS_Service {
         }else{
             Header("Location:/index.php");
         }
+    }
+    
+    private function callScript(){
+        $oView = new GS_Script($this->_aRequest['b'],$this->_aRequest['s'],$this->_aRequest['a'],$this->_aRequest);
+        $oView->run();
     }
     
     private function callView($aViewClass){

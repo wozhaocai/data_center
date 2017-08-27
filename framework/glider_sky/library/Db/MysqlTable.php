@@ -4,6 +4,9 @@ class Db_MysqlTable{
     private $_sTable = '';
     private $_oDb = null;
     private static $_aSystemFeilds = array("ctime","mtime");
+    private static $_aFieldProperty = array(
+        "to_base64"
+    );
     
     public function __construct($aDB,$sTable,$sAfterSetDB = false) {
         $this->_sTable = $sTable;
@@ -25,9 +28,22 @@ class Db_MysqlTable{
                 return $this->getUniqueField();
             case "full_field_list":
                 return $this->getFullFieldList();
+            case "special_field":
+                return $this->getSpecialField();
             default :
                 break;
         }
+    }
+    
+    private function getSpecialField(){
+        $aRs = $this->getFullFieldList();
+        $aSpecial = array();
+        foreach($aRs as $row){
+            if(in_array($row->default,self::$_aFieldProperty)){
+                $aSpecial[$row->field] = $row->default;
+            }
+        }
+        return $aSpecial;
     }
     
     private function getFullFieldList(){      
