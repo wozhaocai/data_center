@@ -16,7 +16,7 @@ class Util_Layout {
     private $_aParams = array();
     private $_sParamXml = "";
     private $_sSeparator = "\r\n";
-    private $_aViewFalseField = array("password","ctime", "mtime");
+    private $_aViewFalseField = array("enable","password","ctime", "mtime");
     private $_sResourceId = "";
 
     public function __construct($aField, $aParams, $sResourceId) {

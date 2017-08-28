@@ -87,7 +87,8 @@ abstract class GS_Module_Base {
         return $this->_iDBAffectNum;
     }
     
-    public function gets(){        
+    public function gets(){    
+        $this->_aParam["query"]["enable"] = 1;
         $aRs = $this->_oDB->gets($this->_aParam["query"]); 
         $aResult = array();
         if(!empty($aRs)){
@@ -104,12 +105,15 @@ abstract class GS_Module_Base {
     }
     
     public function update(){        
+        unset($this->_aParam["query"]["enable"]);
         unset($this->_aParam["query"]["ctime"]);
         unset($this->_aParam["query"]["mtime"]);
-        return $this->_oDB->saveBase($this->_aParam["query"],false);
+        debugVar($this->_aParam["query"]);
+        return $this->_oDB->updateDB($this->_aParam["query"]['id'], $this->_aParam["query"]);
     }
     
     public function updateOrInsert(){        
+        unset($this->_aParam["query"]["enable"]);
         unset($this->_aParam["query"]["ctime"]);
         unset($this->_aParam["query"]["mtime"]);
         return $this->_oDB->saveBase($this->_aParam["query"]);

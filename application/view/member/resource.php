@@ -25,16 +25,25 @@ class Member_ResourceView extends BaseView{
             );
             $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","gets",$aResource);
             $aRs = $oModule->run();
+            $sSourceType = $aRs[0]->source_type;
+            $sContentType = $aRs[0]->content_type;
             $sServiceId = $aRs[0]->service_id;
             $sServiceContent = $aRs[0]->content;
             $sAction = "update";
+            $iId = $aRs[0]->id;
         }else{
             $sServiceId = "";
             $sServiceContent = "";
             $sAction = "insert";
+            $sSourceType = "";
+            $sContentType = "";
+            $iId = "";
         }
+        $this->_oTemplate->assign("id",$iId);
         $this->_oTemplate->assign("submit_action",$sAction);
         $this->_oTemplate->assign("service_id",$sServiceId);
+        $this->_oTemplate->assign("source_type",$sSourceType);
+        $this->_oTemplate->assign("content_type",$sContentType);
         $this->_oTemplate->assign("resource_content",str_replace("\\","",urldecode(urldecode($sServiceContent))));
         $this->_oTemplate->display("member/resource_edit.tpl");
         exit(0);
@@ -42,8 +51,10 @@ class Member_ResourceView extends BaseView{
     
     public function edit_submit(){
         $aResource = array(
+            "id" => $this->_aParams["id"],
             "service_id" => $this->_aParams["service_id"],
-            "stype" => $this->_aParams["service_type"],
+            "source_type" => $this->_aParams["source_type"],
+            "content_type" => $this->_aParams["content_type"],
             "content" => $this->_aParams["resource_content"]
         );
         $oModule = new GS_Module($this->_aParams['business'],"Entity","resource",$this->_aParams["submit_action"],$aResource);

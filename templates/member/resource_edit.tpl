@@ -2,9 +2,9 @@
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-flag on"> 栏目名称</ul>
+      <ul class="am-icon-flag on"> 资源列表</ul>
       
-      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
+      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">资源列表</a></dl>
 
       
       
@@ -21,8 +21,17 @@
         <div class="am-form-group am-cf">
           <div class="zuo">资源类型</div>
           <div class="you">
-            <select name="service_type" data-am-selected="{btnSize: 'sm'}">
-              <option value="xml" selected>xml</option>
+            <select name="source_type" data-am-selected="{btnSize: 'sm'}">
+              <option value="table" <{if $source_type == "table"}>selected<{/if}>>table</option>
+              <option value="workflow" <{if $source_type == "workflow"}>selected<{/if}>>workflow</option>
+            </select>
+          </div>
+        </div>
+        <div class="am-form-group am-cf">
+          <div class="zuo">文件类型</div>
+          <div class="you">
+            <select name="content_type" data-am-selected="{btnSize: 'sm'}">
+              <option value="xml" <{if $content_type == "xml"}>selected<{/if}>>xml</option>
             </select>
           </div>
         </div>
@@ -36,6 +45,7 @@
           <div class="you" style="margin-left: 11%;">
               <button type="submit" id="sub" class="am-btn am-btn-secondary am-radius">保存</button>
               <input type="hidden" id="submit_action" name="submit_action" value="<{$submit_action}>">
+              <input type="hidden" id="id" name="id" value="<{$id}>">
           </div>
         </div>
       </form>

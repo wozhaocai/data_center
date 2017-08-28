@@ -23,7 +23,8 @@
                 <th class="table-check"><input type="checkbox" /></th>
                 <th class="table-id">ID</th>
                 <th class="table-title">service_id</th>
-                <th class="table-type">类型</th>
+                <th class="table-type">资源类型</th>
+                <th class="table-type">文件类型</th>
                 <th class="table-date am-hide-sm-only">创建日期</th>
                 <th width="20%" class="table-set">操作</th>
               </tr>
@@ -34,7 +35,8 @@
                 <td><input type="checkbox" /></td>
                 <td><{$val->id}></td>
                 <td><{$val->service_id}></td>
-                <td><{$val->stype}></td>
+                <td><{$val->source_type}></td>
+                <td><{$val->content_type}></td>
                 <td class="am-hide-sm-only"><{$val->ctime}></td>
                 <td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">

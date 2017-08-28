@@ -60,13 +60,14 @@ CREATE TABLE `group_menu_map` (
 
 CREATE TABLE `resource` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '资源id',
-  `stype` varchar(50) NOT NULL DEFAULT 'xml' COMMENT '资源类型',
+  `source_type` varchar(50) NOT NULL DEFAULT 'table' COMMENT '资源类型',
+  `content_type` varchar(50) NOT NULL DEFAULT 'xml' COMMENT '文件类型',
   `service_id` varchar(100) NOT NULL DEFAULT '' COMMENT '服务id',  
   `content` text NOT NULL DEFAULT '' COMMENT '类型内容',  
   `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_resource` (`service_id`,`type`)
+  UNIQUE KEY `uk_resource` (`service_id`,`source_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源';
 
 CREATE TABLE `spider` (

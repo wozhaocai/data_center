@@ -3,7 +3,7 @@
 class Db_MysqlTable{
     private $_sTable = '';
     private $_oDb = null;
-    private static $_aSystemFeilds = array("ctime","mtime");
+    private static $_aSystemFields = array("ctime","mtime");
     private static $_aFieldProperty = array(
         "to_base64"
     );
@@ -54,7 +54,7 @@ class Db_MysqlTable{
         $aTableDesc = $this->_oDb->queryDB("desc {$this->_sTable};");
         $aFields = array();
         foreach($aTableDesc as $oField){
-            if(in_array($oField->field,self::$_aSystemFeilds)){
+            if(in_array($oField->field,self::$_aSystemFields)){
                 continue;
             }
             $aFields[] = $oField->field;

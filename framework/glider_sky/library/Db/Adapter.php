@@ -177,6 +177,7 @@ class Db_Adapter {
 
     function updateDB($iId, $aData, $sInId = false) {
         unset($aData['id']);
+        $aData = $this->filter($this->aField, $aData);
         $sSql = "update {$this->_sTable} set ";
         $aUpdate = array();
         $aParam = array();

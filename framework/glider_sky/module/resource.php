@@ -17,8 +17,9 @@ class GS_Module_Resource extends GS_Module_Base{
     
     private function fetchResource($sAction){
         $this->_aParam["query"] = array(
-            "stype" => "xml",
-            "service_id" => "tabel_$sAction"
+            "content_type" => "xml",
+            "source_type" => "table",
+            "service_id" => $sAction
         );
         $aResource = $this->gets();
         if(empty($aResource)){
