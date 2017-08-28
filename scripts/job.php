@@ -1,13 +1,15 @@
 <?php
-//php job.php -bdc -sSpider_us_china_code_list -aget
+//php job.php -bdc -tscript -sSpider_us_china_code_list -aget
+//php job.php -bdc -tworkflow -sus_china -asave_price
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
 $sHelp =<<<_HELP
 此脚本进行sql转换，拆分表的字段
-php job.php -b<business_id> -s<script_id> -a<action> [-d<YYYYmmdd>] [-m<YYYYmm>]
+php job.php -t<type> -b<business_id> -s<script_id> -a<action> [-d<YYYYmmdd>] [-m<YYYYmm>]
 
 options: 
+  t : 必选，类型,script(单个命令脚本）,workflow（工作流脚本)
   b : 必选，business_id
   s : 必选，脚本id
   a : 必选，action
@@ -17,13 +19,12 @@ options:
 _HELP;
 
 
-$aOption = checkOpt($sHelp,'b::s::a::d::m::','s');
+$aOption = checkOpt($sHelp,'t::b::s::a::d::m::','t,b,s');
 foreach($aOption as $sKey=>$sVal){
     $_POST[$sKey] = $sVal;
 }
-
 $oView = new GS_Service();
-$oView->route("scripts");
+$oView->route($aOption["t"]);
 
 function usage_help($sHelp) {
     echo str_replace("{script}", FILENAME, $sHelp);

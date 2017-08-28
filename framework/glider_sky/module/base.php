@@ -20,22 +20,28 @@ abstract class GS_Module_Base {
 
     public function setParams($aParam) {
         $this->_aParam = $aParam;
+        $this->checkApplication();
         $this->loadDB();
         $this->loadApplication();
     }
 
     public function loadApplication() {
+        if ($this->_bIsApplication) {
+            $this->_oApplicationObj->setDB($this->_oDB);
+            $sAction = $this->_aParam['action'];
+            $this->_aResult = $this->_oApplicationObj->$sAction();
+        }
+    }
+    
+    public function checkApplication(){
         if (strstr($this->_aParam["controller"], "_")) {
             list($sDirName, $sFileName) = explode("_", strtolower($this->_aParam["controller"]));
             $sClassFile = APPLICATION_PATH . "/application/controller/{$sDirName}/{$sFileName}.php";
             if (file_exists($sClassFile)) {
                 require_once($sClassFile);
                 $sClass = $this->_aParam["controller"] . "Controller";
-                $this->_oApplicationObj = new $sClass($this->_aParam);
-                $this->_oApplicationObj->setDB($this->_oDB);
-                $sAction = $this->_aParam['action'];
-                $this->_bIsApplication = true;
-                $this->_aResult = $this->_oApplicationObj->$sAction();
+                $this->_oApplicationObj = new $sClass($this->_aParam);                
+                $this->_bIsApplication = true;                
             }
         }
     }
@@ -46,7 +52,7 @@ abstract class GS_Module_Base {
             exit;
         }
         $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);
-        if (in_array($this->_aParam["module"],array("Resource","Spider","Entity")) and in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
+        if (in_array($this->_aParam["module"],array("Resource","Spider")) or ($this->_aParam["module"] == "Entity" and !$this->_bIsApplication and in_array($this->_aParam["action"], array("gets","insert", "update", "input")))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
             $this->_oDB->setFieldList($aFieldList);
@@ -77,10 +83,10 @@ abstract class GS_Module_Base {
     
     public function to_base64($sVal){
         if(!in_array($this->_aParam["action"],array("insert", "update", "input"))){            
-            return base64_decode($sVal);
+            return Util_Base64::urlsafe_b64decode($sVal);
         }else{
             $sVal = str_replace('\\', "", $sVal);
-            return base64_encode($sVal);
+            return Util_Base64::urlsafe_b64encode($sVal);
         }
     }
     
@@ -90,7 +96,7 @@ abstract class GS_Module_Base {
     }
     
     public function gets(){    
-        $this->_aParam["query"]["enable"] = 1;
+        $this->_aParam["query"]["enable"] = 1;        
         $aRs = $this->_oDB->gets($this->_aParam["query"]); 
         $aResult = array();
         if(!empty($aRs)){

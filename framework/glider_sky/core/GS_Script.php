@@ -57,7 +57,7 @@ class GS_Script {
             $this->_aQuery["code"] = trim(substr($this->_sScriptId,$i+1));
             $sController = "";
             if($sModule == "Spider"){
-                $sController = "spider";   
+                $sController = "spider";               
             }
             if(!empty($sController)){
                 $oModule = new GS_Module($this->_sBusiness,$sModule,$sController,$this->_sAction,$this->_aQuery);

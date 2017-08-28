@@ -21,8 +21,10 @@ class GS_Service {
 
     public function route($sType="") {
         $oRoute = new GS_Route();
-        if($sType == "scripts"){
+        if($sType == "script"){
             $this->callScript();
+        }elseif($sType == "workflow"){
+            $this->callWorkflow();
         }elseif(!empty($this->_aRequest["controller"])){
             $sController = $this->_aRequest["controller"];
             if(isset(GS_Route::$_aConfig["view"][$sController])){
@@ -34,6 +36,11 @@ class GS_Service {
         }else{
             Header("Location:/index.php");
         }
+    }
+    
+    private function callWorkflow(){
+        $oView = new GS_Workflow($this->_aRequest['b'],$this->_aRequest['s'],$this->_aRequest['a'],$this->_aRequest);
+        $oView->run();
     }
     
     private function callScript(){

@@ -9,13 +9,14 @@
 class GS_Module_Spider extends GS_Module_Base{
     public function run(){     
         $aSpider = $this->gets();
+        debugVar($aSpider);
         $aData = $this->getData($aSpider[0]->spider_url,$aSpider[0]->keyword_rule);
         $this->saveData($aData,$aSpider[0]->save_rule);
-        exit;
-        //return $this->fetchResource($sAction);
     }   
     
     private function getData($sSpiderUrl,$sRule){
+        debugVar($sSpiderUrl);
+        exit;
         $aContent = Util_Curl::execute($sSpiderUrl);
         $aRules = explode("|", $sRule);
         $sPrev = "";
