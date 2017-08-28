@@ -14,8 +14,12 @@ class Member_ResourceView extends BaseView{
         $this->_oTemplate->assign("aResource",$aResource);
     } 
     
+    public function add_show(){
+        
+    }
+    
     public function edit_show(){
-        if($this->_aParams["id"]){
+        if(!empty($this->_aParams["id"])){
             $aResource = array(
                 "id" => $this->_aParams["id"]            
             );
@@ -23,10 +27,13 @@ class Member_ResourceView extends BaseView{
             $aRs = $oModule->run();
             $sServiceId = $aRs[0]->service_id;
             $sServiceContent = $aRs[0]->content;
+            $sAction = "update";
         }else{
             $sServiceId = "";
             $sServiceContent = "";
+            $sAction = "insert";
         }
+        $this->_oTemplate->assign("submit_action",$sAction);
         $this->_oTemplate->assign("service_id",$sServiceId);
         $this->_oTemplate->assign("resource_content",str_replace("\\","",urldecode(urldecode($sServiceContent))));
         $this->_oTemplate->display("member/resource_edit.tpl");
@@ -39,7 +46,7 @@ class Member_ResourceView extends BaseView{
             "stype" => $this->_aParams["service_type"],
             "content" => $this->_aParams["resource_content"]
         );
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","resource","update",$aResource);
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","resource",$this->_aParams["submit_action"],$aResource);
         $oModule->run();
         Header("Location:{$_SESSION["current_show_page"]}");
     } 

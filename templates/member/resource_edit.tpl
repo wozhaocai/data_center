@@ -35,6 +35,7 @@
         <div class="am-form-group am-cf">
           <div class="you" style="margin-left: 11%;">
               <button type="submit" id="sub" class="am-btn am-btn-secondary am-radius">保存</button>
+              <input type="hidden" id="submit_action" name="submit_action" value="<{$submit_action}>">
           </div>
         </div>
       </form>
