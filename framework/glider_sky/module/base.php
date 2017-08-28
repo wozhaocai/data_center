@@ -46,7 +46,7 @@ abstract class GS_Module_Base {
             exit;
         }
         $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);
-        if (in_array($this->_aParam["module"],array("Resource","Spider")) or in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
+        if (in_array($this->_aParam["module"],array("Resource","Spider","Entity")) and in_array($this->_aParam["action"], array("gets","insert", "update", "input"))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
             $this->_oDB->setFieldList($aFieldList);
@@ -54,9 +54,11 @@ abstract class GS_Module_Base {
             $this->_oDB->setNotNullField($aUniqueField);  
             $this->_aSpecialField = $oMysqlTable->getField("special_field");
         }
-        $this->_oDB->setTable($this->_aParam["controller"]);
-        if(!empty($this->_aSpecialField)){
-            $this->dealWithSpecialField($this->_aParam["query"]);
+        if(in_array($this->_aParam["module"],array("Resource","Spider","Entity"))){
+            $this->_oDB->setTable($this->_aParam["controller"]);
+            if(!empty($this->_aSpecialField)){
+                $this->dealWithSpecialField($this->_aParam["query"]);
+            }
         }
     }
     
