@@ -40,7 +40,6 @@ class Member_ResourceView extends BaseView{
             $iId = "";
         }
         $sContent = str_replace("\\","",urldecode(urldecode($sServiceContent)));
-        $sContent = str_replace("\"","",$sContent);
         $this->_oTemplate->assign("id",$iId);
         $this->_oTemplate->assign("submit_action",$sAction);
         $this->_oTemplate->assign("service_id",$sServiceId);
