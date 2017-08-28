@@ -38,7 +38,7 @@
         <div class="am-form-group am-cf">
           <div class="zuo">内容：</div>
           <div class="you">
-            <textarea name="resource_content" id="resource_content" class="" rows="30" id="doc-ta-1"><{$resource_content}>"</textarea>
+            <textarea name="resource_content" id="resource_content" class="" rows="30" id="doc-ta-1"><{$resource_content}></textarea>
           </div>
         </div> 
         <div class="am-form-group am-cf">
