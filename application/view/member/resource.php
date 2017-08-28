@@ -39,12 +39,14 @@ class Member_ResourceView extends BaseView{
             $sContentType = "";
             $iId = "";
         }
+        $sContent = str_replace("\\","",urldecode(urldecode($sServiceContent)));
+        $sContent = str_replace("\"","",$sContent);
         $this->_oTemplate->assign("id",$iId);
         $this->_oTemplate->assign("submit_action",$sAction);
         $this->_oTemplate->assign("service_id",$sServiceId);
         $this->_oTemplate->assign("source_type",$sSourceType);
         $this->_oTemplate->assign("content_type",$sContentType);
-        $this->_oTemplate->assign("resource_content",str_replace("\\","",urldecode(urldecode($sServiceContent))));
+        $this->_oTemplate->assign("resource_content",$sContent);
         $this->_oTemplate->display("member/resource_edit.tpl");
         exit(0);
     } 
