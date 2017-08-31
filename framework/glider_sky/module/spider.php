@@ -8,15 +8,28 @@
 
 class GS_Module_Spider extends GS_Module_Base{
     public function run(){     
-        $aSpider = $this->gets();
-        debugVar($aSpider);
-        $aData = $this->getData($aSpider[0]->spider_url,$aSpider[0]->keyword_rule);
+        $aSpider = $this->gets();        
+        if(!empty($this->_aParam["query"]["data"])){
+            $sSpiderUrl = $this->parseUrlByParam($aSpider[0]->spider_url);
+        }else{
+            $sSpiderUrl = $aSpider[0]->spider_url;
+        }
+        $aData = $this->getData($sSpiderUrl,$aSpider[0]->keyword_rule);
+        debugVar($aData);
+        exit;
         $this->saveData($aData,$aSpider[0]->save_rule);
     }   
     
+    private function parseUrlByParam($sSpiderUrl){
+        $aParams = $this->_aParam["query"];
+        $sSpiderUrl = Util_DataType::replace($sSpiderUrl, $aParams["data"]);
+        unset($aParams["data"]);
+        $sSpiderUrl = Util_DataType::replace($sSpiderUrl, $aParams);  
+        $sSpiderUrl = Util_DataType::replaceDate($sSpiderUrl); 
+        return $sSpiderUrl;
+    }
+    
     private function getData($sSpiderUrl,$sRule){
-        debugVar($sSpiderUrl);
-        exit;
         $aContent = Util_Curl::execute($sSpiderUrl);
         $aRules = explode("|", $sRule);
         $sPrev = "";
@@ -50,6 +63,10 @@ class GS_Module_Spider extends GS_Module_Base{
             }else{
                 $sPrev = strpos($aContent,$aOption[1],0)+$aOption[2];
             }
+        }elseif($aOption[0] == "reg"){
+            preg_match_all(addslashes($aOption[1]), $aContent, $aMatchs);
+            $aContent = substr($aMatchs[0][0],1,-1);
+            return "";
         }elseif($aOption[0] == "substr"){
             if($aOption[1] == "start"){
                 $aContent = substr($aContent,$sPrev);
@@ -58,6 +75,12 @@ class GS_Module_Spider extends GS_Module_Base{
                 $aContent = substr($aContent,0,$sPrev);
                 return "";
             }
+        }elseif($aOption[0] == "str_replace"){
+            $aContent = str_replace($aOption[1], $aOption[2], $aContent);
+            return "";
+        }elseif($aOption[0] == "strtolower"){
+            $aContent = strtolower($aContent);
+            return "";
         }elseif($aOption[0] == "explode"){
             $aContent = explode($aOption[1],$aContent);
             return "";

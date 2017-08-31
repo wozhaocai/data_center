@@ -92,11 +92,11 @@ class GS_Workflow {
         $sIsNull = (string) $oJob->is_null;
         if($sModule == "spider"){      
             foreach($this->_aFlowData as $row){
-                debugVar($this->_aQuery);
                 $this->_aQuery["data"] = $row;
                 $this->_aQuery["code"] = $this->_aQuery["action"];
                 $oModule = new GS_Module($this->_aQuery["business"],"Spider",$this->_aQuery["controller"],"gets",$this->_aQuery);
                 $aRs = $oModule->run();
+                exit;
                 if($sIsNull == "false" and empty($aRs)){
                     echo "没找到数据，请确认\n";
                     exit(0);
