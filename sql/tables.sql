@@ -91,3 +91,69 @@ CREATE TABLE `us_china_code` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_us_china_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='中概股代码表';
+
+
+D:\wozhaocai\data_center\scripts>php job.php -bdc -tworkflow -sus_china -asave_p
+rice
+string(5) "<pre>"
+array(28) {
+  [0]=>
+  string(8) "中国铝业" 名称
+  [1]=>
+  string(7) "18.6500"   现价
+  [2]=>
+  string(4) "1.30"   涨跌幅
+  [3]=>
+  string(19) "2017-09-01 08:18:12"   抓取时间点
+  [4]=>
+  string(6) "0.2400"      涨跌价格
+  [5]=>
+  string(7) "18.5000"     开盘
+  [6]=>
+  string(7) "18.9900"     最高价
+  [7]=>
+  string(7) "18.4000"     最低价
+  [8]=>
+  string(7) "19.2700"     52周最高价
+  [9]=>
+  string(6) "8.7700"      52周最低价
+  [10]=>
+  string(6) "132180"      成交量
+  [11]=>
+  string(5) "77735"       10日均量
+  [12]=>
+  string(11) "15109670499"    市值
+  [13]=>
+  string(4) "0.10"      每股收益
+  [14]=>
+  string(6) "186.50"     市盈率
+  [15]=>
+  string(4) "0.00"
+  [16]=>
+  string(4) "0.00"
+  [17]=>
+  string(4) "0.00"
+  [18]=>
+  string(4) "0.00"
+  [19]=>
+  string(9) "810170000"    股本
+  [20]=>
+  string(4) "1.00"
+  [21]=>
+  string(7) "18.6500"    收盘价
+  [22]=>
+  string(4) "0.00"
+  [23]=>
+  string(4) "0.00"
+  [24]=>
+  string(18) "Aug 31 08:00PM EDT"    美东时间
+  [25]=>
+  string(18) "Aug 31 04:02PM EDT"
+  [26]=>
+  string(7) "18.4100"    前收盘
+  [27]=>
+  string(4) "4.00"   收盘成交量
+}
+string(6) "</pre>"
+
+D:\wozhaocai\data_center\scripts>^A
