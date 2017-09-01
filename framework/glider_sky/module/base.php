@@ -116,7 +116,6 @@ abstract class GS_Module_Base {
         unset($this->_aParam["query"]["enable"]);
         unset($this->_aParam["query"]["ctime"]);
         unset($this->_aParam["query"]["mtime"]);
-        debugVar($this->_aParam["query"]);
         return $this->_oDB->updateDB($this->_aParam["query"]['id'], $this->_aParam["query"]);
     }
     
