@@ -79,6 +79,7 @@ class Db_PDO {
         $showsql = $this->getShowSql($sql, $aParam);
         //debugVar($showsql);
         $rs = self::$_db->prepare($sql);
+        $this->setBind($rs,$aParam);
         if (!$rs) {
             return false;
         }
@@ -161,14 +162,10 @@ class Db_PDO {
         }
     }
 
-    function setBind(&$rs) {
-        foreach (self::$_db_bind as $key => $aBind) {
-            if ($aBind["type"] == "PDO::PARAM_STR") {
-                if (!$rs->bindValue($key, $aBind["value"], PDO::PARAM_STR)) {
-                    return false;
-                }
-            }else {
-                return false;
+    function setBind(&$rs,$aParam) {
+        if(!empty($aParam)){
+            foreach ($aParam as $sKey => $sVal) {
+                $rs->bindValue($sKey, $sVal, PDO::PARAM_STR);
             }
         }
         return true;
@@ -232,7 +229,11 @@ class Db_PDO {
     function getShowSql($sql, $param) {
         if (count($param) > 0) {
             foreach ($param as $key => $val) {
-                $sql = str_replace($key, "'$val'", $sql);
+                if($key != count($param)-1){
+                    $sql = str_replace($key.',', "'$val',", $sql);
+                }else{
+                    $sql = str_replace($key, "'$val'", $sql);
+                }
             }
             if ($this->debug) {
                 self::debugVar($sql);
