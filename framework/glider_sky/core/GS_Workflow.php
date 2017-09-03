@@ -96,7 +96,6 @@ class GS_Workflow {
                 $this->_aQuery["code"] = $this->_aQuery["action"];
                 $oModule = new GS_Module($this->_aQuery["business"],"Spider",$this->_aQuery["controller"],"gets",$this->_aQuery);
                 $aRs = $oModule->run();
-                exit;
                 if($sIsNull == "false" and empty($aRs)){
                     echo "没找到数据，请确认\n";
                     exit(0);

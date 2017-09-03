@@ -17,8 +17,9 @@ class GS_Module_Spider extends GS_Module_Base{
             $sSpiderUrl = $aSpider[0]->spider_url;
         }
         $aData = $this->getData($sSpiderUrl,$aSpider[0]->keyword_rule);
-        $this->saveData($aData,$aSpider[0]->save_rule);
-        exit;
+        if(!empty($aData[0])){
+            $this->saveData($aData,$aSpider[0]->save_rule);
+        }
     }   
     
     private function parseUrlByParam($sSpiderUrl){
@@ -49,12 +50,18 @@ class GS_Module_Spider extends GS_Module_Base{
                 if(strstr($sIndex,"{")){
                     $this->_aParam["query"][$sField] = Util_DataType::replace($sIndex, $this->_aParam["query"]["data"]);
                 }else{
+                    if(!isset($aData[$sIndex])){
+                        debugVar($aData);
+                        debugVar($row);
+                        debugVar($sIndex);
+                        debugVar($aFields);
+                        exit;
+                    }
                     $this->_aParam["query"][$sField] = $aData[$sIndex];
                 }                   
             }      
             $oModule = new GS_Module($this->_aParam['business'], "Entity", $aRules[1], "insert",$this->_aParam["query"]);        
             $oModule->run();
-            exit;
         }     
     }
     
