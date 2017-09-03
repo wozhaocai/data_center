@@ -452,7 +452,7 @@ class Db_Adapter {
                 return false;
             $aInputDBArr = (array) $aInputDB;            
             if (!empty($aInputDB->id)) {
-                $aData = array_diff_assoc($aInput, $aInputDBArr);                
+                $aData = array_diff_assoc($aInput, $aInputDBArr);    
                 if (count($aData) > 0) {
                     $this->updateDB($aInputDB->id, $aData);
                     return $aInputDB->id;

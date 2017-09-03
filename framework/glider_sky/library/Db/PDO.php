@@ -200,7 +200,9 @@ class Db_PDO {
         try {
             $time_start = microtime(true);
             self::$_db->beginTransaction();
+            $strSql .= ";";
             $showsql = $this->getShowSql($strSql, $aParam);
+            //debugVar($showsql);
             $stmt = self::$_db->prepare($strSql);
             if (!$stmt) {
                 return false;
@@ -229,11 +231,9 @@ class Db_PDO {
     function getShowSql($sql, $param) {
         if (count($param) > 0) {
             foreach ($param as $key => $val) {
-                if($key != count($param)-1){
-                    $sql = str_replace($key.',', "'$val',", $sql);
-                }else{
-                    $sql = str_replace($key, "'$val'", $sql);
-                }
+                $sql = str_replace($key.',', "'$val',", $sql);
+                $sql = str_replace($key.' ', "'$val' ", $sql);
+                $sql = str_replace($key, "'$val'", $sql);
             }
             if ($this->debug) {
                 self::debugVar($sql);

@@ -46,21 +46,21 @@ class GS_Module_Spider extends GS_Module_Base{
         if($aRules[0] == "table"){
             $aFields = explode(",", $aRules[2]);
             foreach($aFields as $row){
-                list($sField,$sIndex) = explode("@",$row);               
+                $aOption = explode("@",$row);    
+                $sField = $aOption[0];
+                $sIndex = $aOption[1];
                 if(strstr($sIndex,"{")){
                     $this->_aParam["query"][$sField] = Util_DataType::replace($sIndex, $this->_aParam["query"]["data"]);
-                }else{
-                    if(!isset($aData[$sIndex])){
-                        debugVar($aData);
-                        debugVar($row);
-                        debugVar($sIndex);
-                        debugVar($aFields);
-                        exit;
-                    }
+                }else{   
                     $this->_aParam["query"][$sField] = $aData[$sIndex];
+                    if(!empty($aOption[2])){    
+                        $aOption[2] = str_replace("-", "@", $aOption[2]);
+                        $sPrev = "";
+                        $this->parseRule($aOption[2], $this->_aParam["query"][$sField], $sPrev);
+                    }
                 }                   
             }      
-            $oModule = new GS_Module($this->_aParam['business'], "Entity", $aRules[1], "insert",$this->_aParam["query"]);        
+            $oModule = new GS_Module($this->_aParam['business'], "Entity", $aRules[1], "updateOrInsert",$this->_aParam["query"]);        
             $oModule->run();
         }     
     }
@@ -83,6 +83,9 @@ class GS_Module_Spider extends GS_Module_Base{
                 return "";
             }elseif($aOption[1] == "0" and $aOption[2] == "end"){
                 $aContent = substr($aContent,0,$sPrev);
+                return "";
+            }else{
+                $aContent = substr($aContent,$aOption[1],$aOption[2]);
                 return "";
             }
         }elseif($aOption[0] == "str_replace"){
