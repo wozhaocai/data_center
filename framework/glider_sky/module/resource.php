@@ -21,7 +21,9 @@ class GS_Module_Resource extends GS_Module_Base{
             "source_type" => "table",
             "service_id" => $sAction
         );
-        $aResource = $this->gets();
+        $aParam = $this->_aParam["query"];
+        $oModule = new GS_Module($this->_aParam['business'], "Entity", "resource", "gets",$aParam);        
+        $aResource = $oModule->run();
         if(empty($aResource)){
             $oTable = new Db_MysqlTable("", $sAction, true);
             $oTable->setDB($this->_oDB);
@@ -29,8 +31,11 @@ class GS_Module_Resource extends GS_Module_Base{
             $oLayout = new Util_Layout($aField,GliderSky::$aConfig,$sAction);             
             $sXmlContent = urlencode(urlencode($oLayout->generateLayout()));    
             $this->_aParam["query"]["content"] = $sXmlContent;
-            $this->updateOrInsert();
-            $aResource = $this->gets();
+            $aParam = $this->_aParam["query"];
+            $oModule = new GS_Module($this->_aParam['business'], "Entity", "resource", "updateOrInsert",$aParam);        
+            $oModule->run();
+            $oModule = new GS_Module($this->_aParam['business'], "Entity", "resource", "gets",$aParam);        
+            $aResource = $oModule->run();
             return $aResource;
         }else{
             return $aResource;

@@ -37,7 +37,9 @@ class GS_Module {
         $this->_aParam["module"] = $this->_sModule;
         $oObj->setParams($this->_aParam);
         $aRs = $oObj->run();
-        $this->_aParam['iDbAffectNum'] = $oObj->getDbAffectNum();
+        if($this->_sModule == "Entity"){
+            $this->_aParam['iDbAffectNum'] = $oObj->getDbAffectNum();
+        }
         return $aRs;
     }
 

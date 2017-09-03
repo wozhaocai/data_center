@@ -92,68 +92,29 @@ CREATE TABLE `us_china_code` (
   UNIQUE KEY `uk_us_china_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='中概股代码表';
 
-
-D:\wozhaocai\data_center\scripts>php job.php -bdc -tworkflow -sus_china -asave_p
-rice
-string(5) "<pre>"
-array(28) {
-  [0]=>
-  string(8) "中国铝业" 名称
-  [1]=>
-  string(7) "18.6500"   现价
-  [2]=>
-  string(4) "1.30"   涨跌幅
-  [3]=>
-  string(19) "2017-09-01 08:18:12"   抓取时间点
-  [4]=>
-  string(6) "0.2400"      涨跌价格
-  [5]=>
-  string(7) "18.5000"     开盘
-  [6]=>
-  string(7) "18.9900"     最高价
-  [7]=>
-  string(7) "18.4000"     最低价
-  [8]=>
-  string(7) "19.2700"     52周最高价
-  [9]=>
-  string(6) "8.7700"      52周最低价
-  [10]=>
-  string(6) "132180"      成交量
-  [11]=>
-  string(5) "77735"       10日均量
-  [12]=>
-  string(11) "15109670499"    市值
-  [13]=>
-  string(4) "0.10"      每股收益
-  [14]=>
-  string(6) "186.50"     市盈率
-  [15]=>
-  string(4) "0.00"
-  [16]=>
-  string(4) "0.00"
-  [17]=>
-  string(4) "0.00"
-  [18]=>
-  string(4) "0.00"
-  [19]=>
-  string(9) "810170000"    股本
-  [20]=>
-  string(4) "1.00"
-  [21]=>
-  string(7) "18.6500"    收盘价
-  [22]=>
-  string(4) "0.00"
-  [23]=>
-  string(4) "0.00"
-  [24]=>
-  string(18) "Aug 31 08:00PM EDT"    美东时间
-  [25]=>
-  string(18) "Aug 31 04:02PM EDT"
-  [26]=>
-  string(7) "18.4100"    前收盘
-  [27]=>
-  string(4) "4.00"   收盘成交量
-}
-string(6) "</pre>"
-
-D:\wozhaocai\data_center\scripts>^A
+CREATE TABLE `us_china_price` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `day` varchar(10) NOT NULL DEFAULT '' COMMENT '抓取日期',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '股票名称',
+  `now_price` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '现价',
+  `up_rate` varchar(20) NOT NULL DEFAULT '0' COMMENT '涨跌幅',
+  `up_price` varchar(20) NOT NULL DEFAULT '0' COMMENT '涨跌价格',
+  `start_price` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '开盘价',
+  `highest_price` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '最高价',
+  `lowest_price` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '最低价',
+  `highest_price_52week` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '52周最高价',
+  `lowest_price_52week` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '52周最低价',
+  `buy_sum` int(10) NOT NULL DEFAULT '0' COMMENT '交易量',
+  `buy_sum_avg_10day` int(10) NOT NULL DEFAULT '0' COMMENT '10日均量',
+  `market_cap` bigint(20) NOT NULL DEFAULT '0' COMMENT '市值',
+  `earn_per` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '每股收益',
+  `market_rate` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '市盈率',
+  `pager_sum` bigint(20) NOT NULL DEFAULT '0' COMMENT '股本',
+  `end_price` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '收盘价',
+  `yesterday_price` float(10,4) NOT NULL DEFAULT '0.000' COMMENT '昨收盘',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_us_china_price` (`code`,`day`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='中概股价表';

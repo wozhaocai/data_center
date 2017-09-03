@@ -7,17 +7,18 @@
  */
 
 class GS_Module_Spider extends GS_Module_Base{
-    public function run(){     
-        $aSpider = $this->gets();        
+    public function run(){ 
+        $aParam = $this->_aParam["query"];
+        $oModule = new GS_Module($this->_aParam['business'], "Entity", "spider", "gets",$aParam);        
+        $aSpider = $oModule->run();
         if(!empty($this->_aParam["query"]["data"])){
             $sSpiderUrl = $this->parseUrlByParam($aSpider[0]->spider_url);
         }else{
             $sSpiderUrl = $aSpider[0]->spider_url;
         }
         $aData = $this->getData($sSpiderUrl,$aSpider[0]->keyword_rule);
-        debugVar($aData);
-        exit;
         $this->saveData($aData,$aSpider[0]->save_rule);
+        exit;
     }   
     
     private function parseUrlByParam($sSpiderUrl){
@@ -42,16 +43,18 @@ class GS_Module_Spider extends GS_Module_Base{
     private function saveData($aData,$sSaveRule){        
         $aRules = explode(":", $sSaveRule);
         if($aRules[0] == "table"){
-            $this->_oDB->setTable($aRules[1]);
             $aFields = explode(",", $aRules[2]);
-            if(count($aFields) == 1 and count($aData) > 1){
-                foreach($aData as $sVal){
-                    $this->_aParam["query"] = array(
-                        $aRules[2] => $sVal
-                    );
-                    $this->insert();
-                }                
-            }
+            foreach($aFields as $row){
+                list($sField,$sIndex) = explode("@",$row);               
+                if(strstr($sIndex,"{")){
+                    $this->_aParam["query"][$sField] = Util_DataType::replace($sIndex, $this->_aParam["query"]["data"]);
+                }else{
+                    $this->_aParam["query"][$sField] = $aData[$sIndex];
+                }                   
+            }      
+            $oModule = new GS_Module($this->_aParam['business'], "Entity", $aRules[1], "insert",$this->_aParam["query"]);        
+            $oModule->run();
+            exit;
         }     
     }
     
