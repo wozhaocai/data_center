@@ -143,10 +143,39 @@ var myForm = new MyForm();
           <ul class="am-pagination am-fr">
                 <{$sPageStr}>                
               </ul>
-          
-          
-          
-      
+              <style>
+.tablemain table{width:400px; padding:10px; margin-top:50px; overflow:hidden; border:1px solid #CCC;} 
+.tablemain thead{background:#eee;font-size:14px;} 
+.tablemain th, .tablemain td {border:1px solid #ccc;padding: 0.3em;}
+.tablemain td label{padding:0.2em;margin-right:0.1em;font-size:12px;font-family:Arial;}
+.tablemain tr.line td{border-top:2px solid #999;font-size:12px;font-family:Arial;}
+.tablemain img{border-top:2px solid #999;font-size:12px;font-family:Arial;}
+</style>
+              <table class="tablemain">
+                    <tr>
+                      <th>分时线</th>
+                      <th>日k线</th>
+                      <th>周k线</th>
+                      <th>月k线</th>
+                    </tr>
+                    <tr>
+                        <td><img src='http://image2.sinajs.cn/newchart/min/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/daily/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/weekly/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/monthly/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                    </tr>
+                    <tr>
+                        <td><img src='http://image2.sinajs.cn/newchart/min/n/hk_01063.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://222.73.54.228/EM_Quote2007/PictureK.aspx?StockCode=hk_01063&StockMarket=1&StockLayer=2&StockCurve=9&StockStyle=1' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/weekly/n/ccih.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/monthly/n/ccih.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                    </tr>
+              </table>
+              
+              
+          <iframe src="http://stockpage.10jqka.com.cn/HQ.html#usa_CCIH#prefix_1#prefix_0#hqt_zkx" width="580" height="565" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+                <iframe style="margin-left:-5px" width="770" height="460" name="myiframe" marginheight="0" marginwidth="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="http://hkquote.stock.hexun.com/CandleLine.aspx?stockid=01013&type=1&period=5&segment=7"></iframe>
+      <iframe style="margin-left:-5px" width="770" height="460" name="myiframe" marginheight="0" marginwidth="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="http://hkquote.stock.hexun.com/CandleLine.aspx?stockid=01013&type=1&period=6&segment=7"></iframe>
          <!-- <hr />
           <p>注：.....</p>-->
         </form>      
