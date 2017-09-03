@@ -14,7 +14,7 @@ class GS_Module_Entity extends GS_Module_Base{
             exit;
         }
         $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);
-        if (in_array($this->_aParam["module"],array("Resource","Spider")) or ($this->_aParam["module"] == "Entity" and !$this->_bIsApplication and in_array($this->_aParam["action"], array("gets","insert", "update", "input")))) {
+        if (in_array($this->_aParam["module"],array("Resource","Spider")) or ($this->_aParam["module"] == "Entity" and !$this->_bIsApplication and in_array($this->_aParam["action"], array("updateOrInsert","gets","insert", "update", "input")))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
             $this->_oDB->setFieldList($aFieldList);
