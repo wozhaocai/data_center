@@ -288,6 +288,7 @@ EOB;
                         }
                         $sTextValue = Util_DataType::replace($sTextValue, $row);
                         $sTextValue = Util_DataType::replace($sTextValue, $this->_aParams);
+                        $sTextValue = Util_DataType::special_replace($sTextValue);
                         $aData['list'][$index][] = $sTextValue;
                     } else {
                         if (isset($row[$val['value']]) and $row[$val['value']]) {

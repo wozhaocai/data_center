@@ -48,5 +48,45 @@
             </tbody>
           </table>    
         </form>
+            <style>
+.tablemain table{width:400px; padding:10px; margin-top:50px; overflow:hidden; border:1px solid #CCC;} 
+.tablemain thead{background:#eee;font-size:14px;} 
+.tablemain th, .tablemain td {border:1px solid #ccc;padding: 0.3em;}
+.tablemain td label{padding:0.2em;margin-right:0.1em;font-size:12px;font-family:Arial;}
+.tablemain tr.line td{border-top:2px solid #999;font-size:12px;font-family:Arial;}
+.tablemain img{border-top:2px solid #999;font-size:12px;font-family:Arial;}
+</style>
+              <table class="tablemain">
+                    <tr>
+                      <th>分时线</th>
+                      <th>日k线</th>
+                      <th>周k线</th>
+                      <th>月k线</th>
+                    </tr>
+                    <tr>
+                        <td><img src='http://image2.sinajs.cn/newchart/min/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/daily/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/weekly/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://image2.sinajs.cn/newchart/monthly/n/sh000001.gif?' onload="AutoResizeImage(400,0,this)"></td>
+                    </tr>
+                    <tr>
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?id=ccih7&imageType=rf&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=ccih7&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=D&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>   
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=ccih7&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=W&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>   
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=ccih7&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=M&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>                        
+                    </tr>
+                    <tr>
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?imageType=RF&id=3000592&token=4f1862fc3b5e77c150a2b985b12db0fd&_=0.6366265496689063' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=3000592&Formula=RSI&EF=&ImageType=KXL&UnitWidth=-6&type=D&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>   
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=3000592&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=W&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>   
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=3000592&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=M&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>                        
+                    </tr>
+                    <tr>
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?imageType=RF&id=022025&token=4f1862fc3b5e77c150a2b985b12db0fd&_=0.6366265496689063' onload="AutoResizeImage(400,0,this)"></td>
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=022025&Formula=RSI&EF=&ImageType=KXL&UnitWidth=-6&type=D&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>   
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=022025&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=W&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>   
+                        <td><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID=022025&UnitWidth=-6&imageType=KXL&EF=&Formula=RSI&type=M&token=44c9d251add88e27b65ed86506f6e5da&r=0.005832342597346329' onload="AutoResizeImage(400,0,this)"></td>                        
+                    </tr>
+              </table>
  <{include file="./footer.tpl"}>
  

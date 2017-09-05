@@ -1,6 +1,10 @@
 <?php
 
 class Util_DataType {
+    
+    private static $_aSpicial = array(
+        "{date|microtime|concat}"        
+    );
 
     public static function replace($string, $data) {
         preg_match_all('/\{(\w)+\}/', $string, $matches);
@@ -17,6 +21,17 @@ class Util_DataType {
                 $string = str_replace($val, $replace_string, $string);
             }
         }
+        return $string;
+    }
+    
+    public static function special_replace($string) {
+        foreach(self::$_aSpicial as $sSpecialStr){
+            if(strstr($sSpecialStr,$sSpecialStr)){
+                if($sSpecialStr == "{date|microtime|concat}"){
+                    $string = str_replace($sSpecialStr, str_replace(' ','',microtime()), $string);
+                }
+            }
+        }        
         return $string;
     }
     
