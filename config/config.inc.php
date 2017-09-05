@@ -9,7 +9,7 @@ session_start();
 date_default_timezone_set('PRC');
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 require_once APPLICATION_PATH."/application/view/BaseView.php";
-require_once APPLICATION_PATH."/application/controller/BaseController.php";
+require_once APPLICATION_PATH."/application/entity/BaseEntity.php";
 ServiceLocator::attachLocator(new PearLocator(APPLICATION_PATH."/framework/glider_sky"), 'PEAR');
 function debugVar($sVal){
     var_dump("<pre>");

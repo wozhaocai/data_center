@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class Admin_MenusController Extends BaseController {
+class Admin_MenusEntity Extends BaseEntity {
 
     public function getMenus() {
         if (!empty($this->_aParams["name"])) {

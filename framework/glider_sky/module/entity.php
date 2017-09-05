@@ -35,7 +35,7 @@ class GS_Module_Entity extends GS_Module_Base{
         if($this->_bIsApplication){
             $this->_oApplicationObj->setDB($this->_oDB);
             $sAction = $this->_aParam['action'];
-            $this->_aResult = $this->_oApplicationObj->$sAction();
+            $this->_aResult = $this->_oApplicationObj->$sAction();            
             return $this->_aResult;
         }
         $sAction = $this->_aParam['action'];

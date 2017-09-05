@@ -24,6 +24,7 @@
             <select name="source_type" data-am-selected="{btnSize: 'sm'}">
               <option value="table" <{if $source_type == "table"}>selected<{/if}>>table</option>
               <option value="workflow" <{if $source_type == "workflow"}>selected<{/if}>>workflow</option>
+              <option value="layout" <{if $source_type == "layout"}>selected<{/if}>>layout</option>
             </select>
           </div>
         </div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf8"?>
+<root>
+    <layout>datatables_1</layout>
+    <chart id="1">
+        <x key="date">
+
+        </x>
+        <y>
+
+        </y>
+    </chart>
+    <datatables id='1'>
+        <columns>
+            <column type='text'>
+                <name>详情</name>
+                <text><![CDATA[现价：{now_price}<br>涨跌幅：{up_rate}<br>涨跌价格：{up_price}<br>开盘价；{start_price}<br>最高价：{highest_price}<br>最低价：{lowest_price}<br>昨收盘：{yesterday_price}<br>市值：{market_cap}<br>每股收益：{earn_per}<br>市盈率：{market_rate}<br>收盘价：{end_price}  ]]></text>
+            </column>
+            <column type='text'>
+                <name>分时线|日线</name>
+                <text><![CDATA[分时线：<br><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?id={code}7&imageType=rf&token=44c9d251add88e27b65ed86506f6e5da&r={date|microtime|concat}' onload="AutoResizeImage(400, 0, this)">]]><br>日线：<br><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID={code}7&Formula=RSI&EF=&ImageType=KXL&UnitWidth=-6&type=D&token=44c9d251add88e27b65ed86506f6e5da&r={date|microtime|concat}' onload="AutoResizeImage(400, 0, this)">]]></text>
+                                                                                        </column>
+                                                                                        <column type='text'>
+                                                                                            <name>周线|月线</name>
+                                                                                            <text><![CDATA[周线：<br><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID={code}7&Formula=RSI&EF=&ImageType=KXL&UnitWidth=-6&type=W&token=44c9d251add88e27b65ed86506f6e5da&r={date|microtime|concat}' onload="AutoResizeImage(400, 0, this)"><br>月线：<br><img src='http://pifm3.eastmoney.com/EM_Finance2014PictureInterface/Index.aspx?ID={code}7&Formula=RSI&EF=&ImageType=KXL&UnitWidth=-6&type=M&token=44c9d251add88e27b65ed86506f6e5da&r={date|microtime|concat}' onload="AutoResizeImage(400, 0, this)">]]></text>
+                                                                                                                    </column>
+                                                                                                                    </columns>
+                                                                                                                    <data>
+                                                                                                                        <params>
+                                                                                                                            <param>business</param>
+                                                                                                                            <param>controller</param>
+                                                                                                                        </params>
+                                                                                                                        <download>           
+                                                                                                                        </download>
+                                                                                                                        <get_url>Entity:us_china_price:gets</get_url>	
+                                                                                                                    </data>
+                                                                                                                    </datatables>
+                                                                                                                    </root>

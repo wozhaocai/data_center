@@ -53,6 +53,7 @@ class Db_MysqlTable{
     private function getFieldList(){      
         $aTableDesc = $this->_oDb->queryDB("desc {$this->_sTable};");
         $aFields = array();
+        //debugVar($this->_sTable);
         foreach($aTableDesc as $oField){
             if(in_array($oField->field,self::$_aSystemFields)){
                 continue;

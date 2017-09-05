@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- class BaseController{
+ class BaseEntity{
      protected $_aParams = array();
      protected $_oDB = null;
      

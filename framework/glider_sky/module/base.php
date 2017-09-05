@@ -35,11 +35,12 @@ abstract class GS_Module_Base {
     
     public function checkApplication(){
         if (strstr($this->_aParam["controller"], "_")) {
+            $sModule = strtolower($this->_aParam["module"]);
             list($sDirName, $sFileName) = explode("_", strtolower($this->_aParam["controller"]));
-            $sClassFile = APPLICATION_PATH . "/application/controller/{$sDirName}/{$sFileName}.php";
+            $sClassFile = APPLICATION_PATH . "/application/{$sModule}/{$sDirName}/{$sFileName}.php";   
             if (file_exists($sClassFile)) {
                 require_once($sClassFile);
-                $sClass = $this->_aParam["controller"] . "Controller";
+                $sClass = $this->_aParam["controller"] . $this->_aParam["module"];   
                 $this->_oApplicationObj = new $sClass($this->_aParam);                
                 $this->_bIsApplication = true;                
             }

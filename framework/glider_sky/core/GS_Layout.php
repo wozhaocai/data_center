@@ -11,15 +11,17 @@ class GS_Layout {
     private $_oTemplate = "";
     private $_sResource = "";
     private $_sNodeType = "";
+    private $_sLayout = "";
     private $_oXml = null;
     private $_sBaseUrl = "";
     private $_aParams = array();
 
-    public function __construct(&$oTemplate, $sReource, $sNodeType, $aParams) {
+    public function __construct(&$oTemplate, $sReource, $sNodeType, $aParams, $sLayout="") {
         $this->_oTemplate = $oTemplate;
         $this->_sResource = $sReource;
         $this->_sNodeType = $sNodeType;
         $this->_aParams = $aParams;
+        $this->_sLayout = $sLayout;
     }
     
     private function setBaseUrl() {
@@ -55,7 +57,7 @@ class GS_Layout {
     public function run() {
         $this->_sResource = str_replace("\\","",$this->_sResource);
         $oXml = new Util_Xml("", $this->_sResource);
-        $this->_oXml = $oXml->getContent();        
+        $this->_oXml = $oXml->getContent();   
         if ($this->_sNodeType == "show") {
             return $this->parseDataTables($this->_oXml->datatables);            
         }elseif($this->_sNodeType == "edit"){
