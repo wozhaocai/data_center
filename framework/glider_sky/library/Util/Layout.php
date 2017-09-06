@@ -93,12 +93,12 @@ EOB;
     }
 
     private function toDataTableData() {
+        //<a data-am-modal="{target: '#my-popups-delete'}" class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:;" onclick="loadDeleteForm('{$this->_aParams["layout"]["edit"]}&id={id}');"><span class="am-icon-trash-o"></span>删除</a>
         $this->_aDataTableColumn[] =<<<EOB
 <column type='text'>
     <name>操作</name>
     <text><![CDATA[
-                <a data-am-modal="{target: '#my-popups-edit'}" class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:;" onclick="loadEditForm('{$this->_aParams["layout"]["edit"]}&id={id}');"><span class="am-icon-pencil-square-o"></span>编辑</a>
-                <a data-am-modal="{target: '#my-popups-delete'}" class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:;" onclick="loadDeleteForm('{$this->_aParams["layout"]["edit"]}&id={id}');"><span class="am-icon-trash-o"></span>删除</a>
+                <a data-am-modal="{target: '#my-popups-edit'}" class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:;" onclick="loadEditForm('{$this->_aParams["layout"]["edit"]}&id={id}');"><span class="am-icon-pencil-square-o"></span>编辑</a>                
         ]]></text>
 </column>
 EOB;
