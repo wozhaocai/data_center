@@ -19,10 +19,10 @@ class GS_Module_Resource extends GS_Module_Base{
         $this->_aParam["query"] = array(
             "service_id" => $sAction
         );
-        $aParam = $this->_aParam["query"];
+        $aParam = $this->_aParam["query"];        
         $oModule = new GS_Module($this->_aParam['business'], "Entity", "resource", "gets",$aParam);        
         $aResource = $oModule->run();
-        if(empty($aResource)){
+        if($aResource[0]->source_type == "table" and empty($aResource)){
             $oTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $sAction);
             $aField = $oTable->getField("full_field_list");
             $oLayout = new Util_Layout($aField,GliderSky::$aConfig,$sAction);             
