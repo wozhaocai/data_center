@@ -15,6 +15,7 @@ class GS_Layout {
     private $_oXml = null;
     private $_sBaseUrl = "";
     private $_aParams = array();
+    private static $_iInputSizeUnit = 60;
 
     public function __construct(&$oTemplate, $sReource, $sNodeType, $aParams, $sLayout="") {
         $this->_oTemplate = $oTemplate;
@@ -75,8 +76,7 @@ class GS_Layout {
         $sSubmitUrl = $this->parseUrl((string) $oNode->data->submit_url);
         $aHost = Util_Html::getHiddenForm($sSubmitUrl);     
         if ($aData["list"]) {
-            $aFillData = $aData["list"][0];
-            $popup_form_max_height = count($aFillData) * 50;
+            $aFillData = $aData["list"][0];            
             $aColumnHtml = array();            
             foreach ($oNode->columns->column as $oColumn) {
                 $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData, $aHost["query"]);
@@ -92,7 +92,8 @@ class GS_Layout {
                             </div>
                     </div>
 EOB;
-            $sColumnStr = implode("\n", $aColumnHtml);            
+            $popup_form_max_height = count($aColumnHtml) * self::$_iInputSizeUnit;
+            $sColumnStr = implode("\n", $aColumnHtml);          
             echo json_encode(array("data"=>$sColumnStr,"title"=>"编辑","meta_form_action"=>$aHost["path"],"popup_form_max_height"=>$popup_form_max_height."px"));
         } else {
             $this->_oTemplate->assign("errormsg", "没有要找的数据，请核实");
@@ -127,8 +128,9 @@ EOB;
                             </div>
                     </div>
 EOB;
+        $popup_form_max_height = count($aColumnHtml) * self::$_iInputSizeUnit;       
         $sColumnStr = implode("\n", $aColumnHtml);
-        echo json_encode(array("data" => $sColumnStr, "title" => "添加", "meta_form_action"=>$sSubmitUrl));
+        echo json_encode(array("data" => $sColumnStr, "title" => "添加", "meta_form_action"=>$sSubmitUrl,"popup_form_max_height"=>$popup_form_max_height."px"));
     }
 
     private function parseDataTables($oNode) {
