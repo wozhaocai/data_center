@@ -12,7 +12,8 @@ class Member_GroupView extends BaseView{
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);
         $aResource = $oModule->run();
         $this->_aParams["meta"] = $sMeta;
-        $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"show",$this->_aParams);
+        $this->_aParams["group_action"] = "show";
+        $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"group",$this->_aParams);
         return $oModule->run();
     }     
     

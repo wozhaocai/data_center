@@ -243,7 +243,14 @@ class Db_Adapter {
         if (isset($aParam['where']) and count($aParam['where']) > 0) {
             $sSql .= ' where ';
             foreach ($aParam['where'] as $sKey => $sVal) {
-                $aWhere[] = " " . substr($sKey, 1) . " = {$sKey} ";
+                if(strstr($sKey,".")){
+                    $sTempKey = str_replace(".","_",$sKey);
+                    $aWhere[] = " " . substr($sKey, 1) . " = {$sTempKey} ";
+                    $aParam["where"][$sTempKey] = $sVal;
+                    unset($aParam["where"][$sKey]);
+                }else{
+                    $aWhere[] = " " . substr($sKey, 1) . " = {$sKey} ";
+                }
             }
             $sSql .= implode("and", $aWhere);
         }

@@ -67,8 +67,37 @@ class GS_Layout {
             return $this->parseFormAdd($this->_oXml->formadd);
         }elseif($this->_sNodeType == "get"){
             return $this->parseDataTables($this->_oXml->datatables);
-        }        
+        }elseif($this->_sNodeType == "group") {
+            return $this->parseGroup($this->_oXml->group_form,$this->_aParams["group_action"]);      
+        }
     }    
+    
+    public function parseGroup($oNode,$action="show"){
+        if($action == "show"){
+            foreach($oNode->input->params->param as $oParam){
+                $sMapField = (string)$oParam["map_field"];
+                $sInputField = (string)$oParam;
+                $this->_aParams["where"][":".$sMapField] = $this->_aParams[$sInputField];
+            }
+            $sEntityStr = " ";
+            $this->_aParams["select"] = (string)$oNode->input->data->select;
+            foreach($oNode->input->data->entity as $oEntity){
+                $sEntity = (string)$oEntity;
+                if(!empty($oEntity["union"])){
+                    $sUnion = (string)$oEntity["union"];
+                    $sEntityStr .= " left join {$sEntity} on {$sUnion} ";
+                }else{
+                    $sEntityStr .= $sEntity;
+                }                
+            }
+            $this->_aParams["action"] = "getUnionResult";
+            $this->_aParams["table"] = $sEntityStr;
+            $oModule = new GS_Module($this->_aParams['business'], "Entity", "Union", $this->_aParams["action"], $this->_aParams);
+            $aRs = $oModule->run();
+        }
+        debugVar($aParams);
+        exit;
+    }
     
     public function parseFormEdit($oNode) {       
         $sGetUrl = (string) $oNode->data->get_url;

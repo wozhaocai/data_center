@@ -14,6 +14,9 @@ class GS_Module_Entity extends GS_Module_Base{
             exit;
         }
         $this->_oDB = new Db_Adapter(GliderSky::$aConfig['mysql'][$this->_aParam['business']]);
+        if($this->_aParam["controller"] == "Union"){
+            return true;
+        }
         if (in_array($this->_aParam["module"],array("Resource","Spider")) or ($this->_aParam["module"] == "Entity" and !$this->_bIsApplication and in_array($this->_aParam["action"], array("updateOrInsert","gets","insert", "update", "input")))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
@@ -22,7 +25,7 @@ class GS_Module_Entity extends GS_Module_Base{
             $this->_oDB->setNotNullField($aUniqueField);  
             $this->_aSpecialField = $oMysqlTable->getField("special_field");
         }
-        if(in_array($this->_aParam["module"],array("Resource","Spider","Entity"))){
+        if(in_array($this->_aParam["module"],array("Resource","Spider","Entity"))){            
             $this->_oDB->setTable($this->_aParam["controller"]);
             if(!empty($this->_aSpecialField)){
                 $this->dealWithSpecialField($this->_aParam["query"]);
@@ -37,11 +40,23 @@ class GS_Module_Entity extends GS_Module_Base{
             $sAction = $this->_aParam['action'];
             $this->_aResult = $this->_oApplicationObj->$sAction();            
             return $this->_aResult;
+        }elseif($this->_aParam["controller"] == "Union"){
+            $sAction = $this->_aParam['action'];
+            $this->_aResult = $this->$sAction();            
+            return $this->_aResult;
         }
         $sAction = $this->_aParam['action'];
         return $this->$sAction();
     }         
     
+    private function getUnionResult(){
+        debugVar($this->_aParam);
+        $this->_oDB->setTable($this->_aParam["query"]["table"]);
+        $aRs = $this->_oDB->selectDB($this->_aParam["query"], false, '', $this->_aParam["query"]["select"]);
+        debugVar($aRs);
+        exit;
+    }
+
     public function dealWithSpecialField(&$aData){
         foreach($aData as $sKey => $sVal){
             if(!empty($this->_aSpecialField[$sKey])){
