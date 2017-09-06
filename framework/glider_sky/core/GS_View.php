@@ -93,7 +93,7 @@ class GS_View {
                 $this->fetchDivPage();                
                 $this->_oViewObj = new $sClass($oTemplate,$this->_aQuery);
                 $sAction = $this->_aParam['action'];                
-                if($this->_aView["class"] == "Member_Meta"){
+                if(in_array($this->_aView["class"],array("Member_Meta","Member_Group"))){
                     $i = strpos($sAction, '_', 0);
                     $sMethod = trim(substr($sAction,0,$i));
                     $sMeta = trim(substr($sAction,$i+1));
