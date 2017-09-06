@@ -50,11 +50,8 @@ class GS_Module_Entity extends GS_Module_Base{
     }         
     
     private function getUnionResult(){
-        debugVar($this->_aParam);
         $this->_oDB->setTable($this->_aParam["query"]["table"]);
-        $aRs = $this->_oDB->selectDB($this->_aParam["query"], false, '', $this->_aParam["query"]["select"]);
-        debugVar($aRs);
-        exit;
+        return $this->_oDB->selectDB($this->_aParam["query"], false, '', $this->_aParam["query"]["select"]);
     }
 
     public function dealWithSpecialField(&$aData){
