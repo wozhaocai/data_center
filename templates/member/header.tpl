@@ -121,6 +121,7 @@
                 function loadEditForm(url) {
                     $.post(url, {},
                     function(data) {   
+                        $("#my-popup").css("max-height",$data["popup_form_max_height"]);
                         $("#form_title").text(data["title"]);
                         $("#form1").attr("action",data["meta_form_action"]);
                         $("#form1").html(data["data"]);
