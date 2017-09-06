@@ -76,6 +76,7 @@ class GS_Layout {
         $aHost = Util_Html::getHiddenForm($sSubmitUrl);     
         if ($aData["list"]) {
             $aFillData = $aData["list"][0];
+            $popup_form_max_height = count($aFillData) * 50;
             $aColumnHtml = array();            
             foreach ($oNode->columns->column as $oColumn) {
                 $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData, $aHost["query"]);
@@ -91,10 +92,10 @@ class GS_Layout {
                             </div>
                     </div>
 EOB;
-            $sColumnStr = implode("\n", $aColumnHtml);
-            echo json_encode(array("data"=>$sColumnStr,"title"=>"编辑","meta_form_action"=>$aHost["path"]));
+            $sColumnStr = implode("\n", $aColumnHtml);            
+            echo json_encode(array("data"=>$sColumnStr,"title"=>"编辑","meta_form_action"=>$aHost["path"],"popup_form_max_height"=>$popup_form_max_height."px"));
         } else {
-            $this->_oSmarty->assign("errormsg", "没有要找的数据，请核实");
+            $this->_oTemplate->assign("errormsg", "没有要找的数据，请核实");
         }
     }
 
@@ -102,9 +103,9 @@ EOB;
         $return_url = (string) $oNode->data->return_url;
         $sSuccess = $this->getData($data_url);
         if ($sSuccess) {
-            $this->_oSmarty->assign("msg", "删除成功，请关闭本窗口，并刷新当前页面！");
+            $this->_oTemplate->assign("msg", "删除成功，请关闭本窗口，并刷新当前页面！");
         } else {
-            $this->_oSmarty->assign("msg", "删除失败，请检查！");
+            $this->_oTemplate->assign("msg", "删除失败，请检查！");
         }
     }
 
