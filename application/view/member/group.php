@@ -7,15 +7,27 @@
  */
 
 class Member_GroupView extends BaseView{
-    public function show($sMeta){
-        $_SESSION["current_show_page"] = $_SERVER["REQUEST_URI"];
+    public function show($sMeta){ 
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);
-        $aResource = $oModule->run();
-        $this->_aParams["meta"] = $sMeta;
+        $aResource = $oModule->run();        
+        $this->_aParams["meta"] = $sMeta;        
+        if(!empty($this->_aParams["main_form_act"])){
+            $sAction = $this->_aParams["main_form_act"];
+            $this->$sAction($aResource);
+            Header("Location:{$_SESSION["current_show_page"]}");
+        }else{
+            $_SESSION["current_show_page"] = $_SERVER["REQUEST_URI"];
+        }  
         $this->_aParams["group_action"] = "show";
         $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"group",$this->_aParams);
         return $oModule->run();
     }     
+    
+    private function save($aResource){
+        $this->_aParams["group_action"] = "save";        
+        $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"group",$this->_aParams);
+        $oModule->run();
+    }
     
     public function edit($sMeta){        
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);

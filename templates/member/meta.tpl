@@ -89,7 +89,7 @@ var myForm = new MyForm();
 </div>
 
 
-    <form class="am-form am-g">
+    <form class="am-form am-g" id="main_form" action="<{$main_form_url}>" method="post">
           <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
             <thead>
               <tr class="am-success">
@@ -118,28 +118,21 @@ var myForm = new MyForm();
 		</tr>
 		<{else}>
 		<tr id="tr_<{$v}>" class="gradeA">
-			<td><input type="checkbox" /></td>
+                    <td><input name='ids[]' type="checkbox" value="<{$aValue[0]}>" <{$aOptionHtml[$v]}>/></td>
 			<{foreach from=$aValue key=k item=val}>
 			<{if $k == "id" }>
 				<td><{$val}><input type="hidden" name="gp_id[]" value="<{$val}>"/></td>
 			<{else}>
 				<td><{$val}></td>
 			<{/if}>
-			<{/foreach}>                        
+			<{/foreach}>    
+                        <{$sHiddenHtml}>
 		</tr>
 		<{/if}>
 		<{/foreach}>  
             </tbody>
           </table>
-          <!--
-                 <div class="am-btn-group am-btn-group-xs">
-
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 移动</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-            </div>
-          -->
+          <{$ext_action}>
           <ul class="am-pagination am-fr">
                 <{$sPageStr}>                
               </ul>

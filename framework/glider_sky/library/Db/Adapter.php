@@ -413,13 +413,16 @@ class Db_Adapter {
         if (count($aParam) < 1) {
             return false;
         } else {
+            $aParam = $this->filter($this->aField, $aParam);
             $sSql = "delete from {$this->_sTable} where ";
+            $aInput = array();
             foreach ($aParam as $sKey => $sVal) {
-                $aWhere[] = " " . substr($sKey, 1) . " = {$sKey} ";
+                $aWhere[] = " " . $sKey . " = :{$sKey} ";
+                $aInput[":".$sKey] = $sVal;
             }
             $sSql .= implode("and", $aWhere) . ";";
         }
-        return self::$oDB[$this->_sCurrentDb]->query($sSql, $aParam);
+        return self::$oDB[$this->_sCurrentDb]->query($sSql, $aInput);
     }       
 
     function isExist($aKeys, $aValues) {

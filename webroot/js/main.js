@@ -6,6 +6,11 @@ function outputObj(obj) {
     alert(description);
 }
 
+function ext_action(act){
+    $('#main_form_act').val(act);
+    $('#main_form').submit();
+}
+
 function AutoResizeImage(maxWidth, maxHeight, objImg) {
     var img = new Image();
     img.src = objImg.src;

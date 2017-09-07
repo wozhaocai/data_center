@@ -17,7 +17,7 @@ class GS_Module_Entity extends GS_Module_Base{
         if($this->_aParam["controller"] == "Union"){
             return true;
         }
-        if (in_array($this->_aParam["module"],array("Resource","Spider")) or ($this->_aParam["module"] == "Entity" and !$this->_bIsApplication and in_array($this->_aParam["action"], array("updateOrInsert","gets","insert", "update", "input")))) {
+        if (in_array($this->_aParam["module"],array("Resource","Spider")) or ($this->_aParam["module"] == "Entity" and !$this->_bIsApplication and in_array($this->_aParam["action"], array("updateOrInsert","gets","insert", "update", "input",'deleteByParam')))) {
             $oMysqlTable = new Db_MysqlTable(GliderSky::$aConfig['mysql'][$this->_aParam['business']], $this->_aParam["controller"]);
             $aFieldList = $oMysqlTable->getField("field_list");
             $this->_oDB->setFieldList($aFieldList);
@@ -115,10 +115,14 @@ class GS_Module_Entity extends GS_Module_Base{
     public function delete(){
         $iId = intval($this->_aParam["query"]["id"]);
         if($iId > 0){
-            return $this->_oDB->deleteByParam(array(":id"=>$iId));
+            return $this->_oDB->deleteByParam(array("id"=>$iId));
         }else{
             return false;
         }
+    }
+    
+    public function deleteByParam(){
+        return $this->_oDB->deleteByParam($this->_aParam["query"]);
     }
     
 }

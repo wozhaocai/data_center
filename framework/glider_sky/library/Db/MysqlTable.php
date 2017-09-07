@@ -63,17 +63,32 @@ class Db_MysqlTable{
         return $aFields;        
     }
     
-    private function getUniqueField(){     
-        $aTableDesc = $this->_oDb->queryDB("show index from {$this->_sTable};");
-        $aFields = array();
-        foreach($aTableDesc as $oField){
-            if($oField->non_unique == "0" and $oField->key_name != "PRIMARY"){
-                //if(!in_array($oField->column_name,array('since','till'))){                    
-                    $aFields[] = $oField->column_name;
-                //}
-            } 
+    private function getUniqueField(){   
+        $aFields = $this->getView();
+        if($aFields == false){  
+            $aTableDesc = $this->_oDb->queryDB("show index from {$this->_sTable};");
+            $aFields = array();
+            foreach($aTableDesc as $oField){
+                if($oField->non_unique == "0" and $oField->key_name != "PRIMARY"){
+                    //if(!in_array($oField->column_name,array('since','till'))){                    
+                        $aFields[] = $oField->column_name;
+                    //}
+                } 
+            }
         }
         return $aFields;
+    }
+    
+    private function getView(){
+        $aTableDesc = $this->_oDb->queryDB("select * from  information_schema.VIEWS;");
+        if(!empty($aTableDesc)){
+            foreach($aTableDesc as $oField){
+                if($oField->table_name == $this->_sTable){
+                    return $this->getFieldList();
+                } 
+            }
+        }
+        return false;
     }
     
 }
