@@ -7,16 +7,14 @@
  */
 
 class Member_IframeView extends BaseView{    
-    public static $_aMap = array(
-        "menu" => "/service.php?business=dc&controller=member_menu&action=index"
-    );
     
-    public function show(){
-        if(!empty($this->_aParams['page'])){
-            $this->_oTemplate->assign("iframe_url",self::$_aMap[$this->_aParams['page']]);
-        }else{
-            $this->_oTemplate->assign("iframe_url","#");
-        }    
-    }    
-    
+    public function show($sMeta){ 
+        $sUrl = "/service.php?";   
+        $this->_aParams["controller"] = $sMeta;
+        $this->_aParams["action"] = $this->_aParams["method"];
+        unset($this->_aParams["method"]);
+        unset($this->_aParams["limit"]);
+        $sUrl .= http_build_query($this->_aParams);
+        $this->_oTemplate->assign("iframe_url",$sUrl);
+    }  
 }
