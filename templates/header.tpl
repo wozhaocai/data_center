@@ -19,7 +19,7 @@
 			<div class="content">
 				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
-                                        <div class="logo_main"><img src="img/wozhaocai.png"/></div>
+                                        <div class="logo_main"><img src="img/wozhaocai1.png"/></div>
 					<div class="logo_box">
                                             <h3></h3>
                                                 <p>&nbsp;</p>
