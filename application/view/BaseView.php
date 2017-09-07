@@ -50,8 +50,9 @@
         }else{
             $sMainId = $this->_aParams['main_id'];
         }
-        
-        $this->_oTemplate->assign("username",$_SESSION["username"]);
+        if(!empty($_SESSION["username"])){
+            $this->_oTemplate->assign("username",$_SESSION["username"]);
+        }
         $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array());
         $aMenus = $oModule->run(); 
         $this->_oTemplate->assign("aMainMenu",$aMenus); 
