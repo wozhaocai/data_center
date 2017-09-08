@@ -10,7 +10,7 @@
             url: submit_url,
             data: $(':checkbox').serializeArray()
         }, function(){
-            Qadmin.FW.Url.goToUrl(return_url);
+            location.reload();
         });
     }   
 })(using("Qadmin.App.Resource"));
