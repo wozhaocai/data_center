@@ -14,11 +14,11 @@ class Member_DTreeView extends BaseView{
         if(!empty($this->_aParams["main_form_act"])){
             $sAction = $this->_aParams["main_form_act"];
             $this->$sAction($aResource);
-            Header("Location:{$_SESSION["current_show_page"]}");
+            return true;
         }else{
             $_SESSION["current_show_page"] = $_SERVER["REQUEST_URI"];
         }  
-        $this->_aParams["group_action"] = "show";
+        $this->_aParams["dtree_action"] = "show";
         $oModule = new GS_Layout($this->_oTemplate,urldecode(urldecode($aResource[0]->content)),"dtree",$this->_aParams);
         return $oModule->run();
     }    

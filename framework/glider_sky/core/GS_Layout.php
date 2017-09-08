@@ -68,7 +68,7 @@ class GS_Layout {
         } elseif ($this->_sNodeType == "group") {
             return $this->parseGroup($this->_oXml->group_form, $this->_aParams["group_action"]);
         } elseif ($this->_sNodeType == "dtree"){
-            return $this->parseDtree($this->_oXml->dtree, $this->_aParams["group_action"]);
+            return $this->parseDtree($this->_oXml->dtree, $this->_aParams["dtree_action"]);
         }
     }
     
@@ -78,7 +78,7 @@ class GS_Layout {
             $aGroupResource = $oDtreeXml->parseInputNode($oNode);            
             return $this->generateDtreeHtml($oNode,$oDtreeXml,$aGroupResource);
         }elseif($action == "save"){
-            return $this->saveDtreeData($oNode);
+            return $this->saveNodeData($oNode);
         }
     }
     
@@ -88,15 +88,19 @@ class GS_Layout {
         $this->_oTemplate->assign("sGroupResource",$sGroupResource);
         $sResource = $oDtreeXml->getAllResource($oNode);
         $this->_oTemplate->assign("sDtreeHtml",$sResource);
+        $sSubmitUrl = Util_DataType::replace((string)$oNode->save->data->submit_url, $this->_aParams);
+        $this->_oTemplate->assign("sSubmitUrl",$sSubmitUrl);
+        $sReturnUrl = Util_DataType::replace((string)$oNode->save->data->return_url, $this->_aParams);
+        $this->_oTemplate->assign("sReturnUrl",$sReturnUrl);
         return true;
     }
     
-    private function saveDtreeData($oNode){
+    private function saveNodeData($oNode){
         $aParams = array();
         foreach($oNode->save->params->param as $oParam){
             $sField = (string)$oParam;
             $sMapField = empty($oParam["map_field"]) ? $sField : (string)$oParam["map_field"];
-            if($sField != "ids"){                
+            if($sField != "ids" and $sField != "node"){                
                 $aParams[$sMapField] = $this->_aParams[$sField];
             }else{
                 $aIds[$sMapField] = $this->_aParams[$sField];
@@ -122,32 +126,7 @@ class GS_Layout {
             $aRsNow = $oGroupXml->parseInputNode($oNode);
             return $this->generateGroupHtml($oNode,$aRsNow);
         }elseif($action == "save"){
-            return $this->saveGroupData($oNode);
-        }
-    }
-    
-    private function saveGroupData($oNode){
-        $aParams = array();
-        foreach($oNode->save->params->param as $oParam){
-            $sField = (string)$oParam;
-            $sMapField = empty($oParam["map_field"]) ? $sField : (string)$oParam["map_field"];
-            if($sField != "ids"){                
-                $aParams[$sMapField] = $this->_aParams[$sField];
-            }else{
-                $aIds[$sMapField] = $this->_aParams[$sField];
-            }
-        }
-        $sEntity = (string)$oNode->save->data->entity;
-        $oModule = new GS_Module($this->_aParams['business'],"Entity",$sEntity,"deleteByParam",$this->_aParams);
-        $oModule->run();
-        if(!empty($aIds)){
-            foreach($aIds as $sKey => $aRow){
-                foreach($aRow as $sVal){
-                    $aParams[$sKey] = $sVal;
-                    $oModule = new GS_Module($this->_aParams['business'],"Entity",$sEntity,"insert",$aParams);
-                    $oModule->run();
-                }
-            }
+            return $this->saveNodeData($oNode);
         }
     }
 

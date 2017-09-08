@@ -20,7 +20,7 @@
 <table class="comm_tree">
 	<thead>
         <tr>
-            <th><{form_title}>绑定</th>
+            <th><{$form_title}>绑定</th>
         </tr>
     </thead>
 	<{$sDtreeHtml}>
@@ -28,8 +28,8 @@
 	 <tfoot>
         <tr>
             <td>
-                <input type="button" class="button_style" value="更新权限绑定" onclick="bindGroupResource()"/>
-                <input type="button" class="button_style" value="刷新" onclick="location.reload();"/>
+                <input type="button" class="button_style" value="更新权限绑定" onclick="Qadmin.App.Resource.bindGroupResource('<{$sSubmitUrl}>','<{$sReturnUrl}>');"/>
+                <input type="button" class="button_style" value="刷新" onclick="location.reload();"/>             
             </td>
         </tr>
     </tfoot>
