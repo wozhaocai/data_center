@@ -3,27 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>系统菜单树列表</title>
-<link href="css/admin.css?v=2011019131226" type="text/css" rel="stylesheet" />
-<link href="css/customer.css?v=2011019131226" type="text/css" rel="stylesheet" />
-<link href="css/core.css?v=2011019131226" type="text/css" rel="stylesheet" />
-<link href="css/treeview.css?v=2011019131226" type="text/css" rel="stylesheet" />
-<script src="js/jquery.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/core.js"></script>
-<script src="js/ajax.js"></script>
-<script src="js/url.js"></script>
-<script src="js/dialog.js"></script>
-<script src="js/resource.js"></script>
-<script src="js/optlog.js"></script>
+<link href="/jstree/css/admin.css?v=2011019131226" type="text/css" rel="stylesheet" />
+<link href="/jstree/css/customer.css?v=2011019131226" type="text/css" rel="stylesheet" />
+<link href="/jstree/css/core.css?v=2011019131226" type="text/css" rel="stylesheet" />
+<link href="/jstree/css/treeview.css?v=2011019131226" type="text/css" rel="stylesheet" />
+<script src="/jstree/js/jquery.js"></script>
+<script src="/jstree/js/jquery-ui.js"></script>
+<script src="/jstree/js/core.js"></script>
+<script src="/jstree/js/ajax.js"></script>
+<script src="/jstree/js/url.js"></script>
+<script src="/jstree/js/dialog.js"></script>
+<script src="/jstree/js/resource.js"></script>
+<script src="/jstree/js/optlog.js"></script>
 </head>
 <body>
 <table class="comm_tree">
 	<thead>
         <tr>
-            <th>用 户 组 权 限 绑 定</th>
+            <th><{form_title}>绑定</th>
         </tr>
     </thead>
-	<{$sMenu}>
+	<{$sDtreeHtml}>
     </tbody>
 	 <tfoot>
         <tr>
@@ -36,7 +36,7 @@
 </table>
     
 <script>
-var bindRidList = [$<{sGroupResource}>]; // binded resource id list
+var bindRidList = [<{$sGroupResource}>]; // binded resource id list
 $(document).ready(function() {
     for(var i =0; i<bindRidList.length; i++) {
         $('#node_'+ bindRidList[i]).attr("checked", true);
