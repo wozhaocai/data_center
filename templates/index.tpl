@@ -32,7 +32,7 @@
   <div class="login-top">
   <div style="height: 60px;background-color: white;">
 	<div style=";margin-left: 251px;">
-		<img src="img/log_1.png" />	
+		<img src="img/log_2.png" />	
 	</div>
 	<div style="float:right;margin-right:60px;margin-top: -34px;width: 360px;font-size: 12px;">
 		<span>首页</span>
