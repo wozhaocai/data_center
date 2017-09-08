@@ -58,8 +58,7 @@ class Util_DtreeXml extends Util_XmlParse{
             $aQuery = array(
                 "parent_id" => $aResource->id
             );
-            $aResource1 = $this->getEntity($this->_sTreeEntity, $aQuery);
-            $sChild = $this->getChild($aResource1[0]);
+            $sChild = $this->getChild($aResource);
         }else{
             $sChild = 0;
         }
