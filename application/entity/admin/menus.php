@@ -9,11 +9,11 @@
 class Admin_MenusEntity Extends BaseEntity {
 
     public function getMenus() {
-        if (!empty($this->_aParams["name"])) {
-            $aMenus = $this->getMenuByName($name);
+        if (!empty($this->_aParams["query"]["username"])) {
+            $aMenus = $this->getMenuByName($this->_aParams["query"]["username"]);
         } else {
-            $aMenus = $this->getAll();
-        }
+            return false;
+        }        
         $aTree = $this->getTree($aMenus, 99999999);
         foreach ($aTree as $key => $val) {
             $aMenu = $val['sub_menu'];
@@ -23,11 +23,11 @@ class Admin_MenusEntity Extends BaseEntity {
     }
 
     private function getMenuByName($name) {
-        return $this->_oDB->queryDB("select gm.* from user gu "
+        return $this->_oDB->queryDB("select gm.* from users gu "
                         . "join user_group_map gugm on gu.id=gugm.uid "
                         . "join group_menu_map ggmm on gugm.gid=ggmm.gid "
                         . "join menus gm on ggmm.mid=gm.id "
-                        . "where gu.name=:name", array(":name" => $name));
+                        . "where gu.username=:username", array(":username" => $name));
     }
 
     private function getAll() {
