@@ -38,9 +38,9 @@
             }
         }
         if(empty($this->_aParams['main_id'])){
+            $aPassMenusId = array();
+            $aPassMenu = array();
             if(!empty($this->_aParams["menu_sub_id"])){
-                $aPassMenusId = array();
-                $aPassMenu = array();
                 $this->getParentMenu($this->_aParams["menu_sub_id"], $aPassMenusId,$aPassMenu);  
                 $this->_oTemplate->assign("aCheckMenu",$aPassMenusId);
                 $aPassMenu = array_reverse($aPassMenu);                
@@ -48,6 +48,8 @@
                 $sMainId = array_pop($aPassMenusId);
             }else{
                 $sMainId = 14;
+                $this->_oTemplate->assign("aCheckMenu",$aPassMenusId);
+                $this->_oTemplate->assign("aPassMenu",$aPassMenu);
             }
         }else{
             $sMainId = $this->_aParams['main_id'];
@@ -61,7 +63,11 @@
                 exit;
             }
             $this->_oTemplate->assign("aMainMenu",$aMenus); 
-            $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$sMainId}"]);
+            if(!empty($aMenus["menu_{$sMainId}"])){
+                $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$sMainId}"]);
+            }else{
+                $this->_oTemplate->assign("aSubMenu",array());
+            }
             if(!empty($this->_aParams["menu_sub_title"])){
                 $this->_oTemplate->assign("current_menu",$this->_aParams["menu_sub_title"]);
             }else{

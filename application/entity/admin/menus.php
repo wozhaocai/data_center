@@ -35,9 +35,9 @@ class Admin_MenusEntity Extends BaseEntity {
     }
 
     private function getTree($data, $pId) {
-        $tree = '';
-        $temp = array();
+        $tree = '';        
         foreach ($data as $k => $v) {
+            $temp = array();
             if ($v->parent_id == $pId) {         //父亲找到儿子
                 if ($v->child_count != 0) {
                     $temp['id'] = $v->id;
@@ -52,6 +52,7 @@ class Admin_MenusEntity Extends BaseEntity {
                     $temp['title'] = $v->title;
                     $temp['css_style'] = $v->css_style;
                     $temp['path'] = $v->path;
+                    $temp['sub_menu'] = array();
                 }
                 $tree['menu_' . $v->id] = $temp;
             }
