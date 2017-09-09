@@ -152,9 +152,17 @@ a.btnStyle.btnregister:hover {
 .login_reme a.reme2 {
 	font-size: 12px;
 	vertical-align: top;
-	margin-left: 97px;
+	margin-left: 20px;
+	color: #ff0000;
+}
+
+.login_reme a.reme3 {
+	font-size: 12px;
+	vertical-align: top;
+	margin-left: 20px;
 	color: #ffffff;
 }
+
 span.error_xinxi {
 	font-size: 14px;
 	line-height: 22px;
