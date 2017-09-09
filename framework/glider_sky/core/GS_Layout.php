@@ -59,121 +59,125 @@ class GS_Layout {
         $this->_sResource = str_replace("\\", "", $this->_sResource);
         $oXml = new Util_Xml("", $this->_sResource);
         $this->_oXml = $oXml->getContent();
-        if ($this->_sNodeType == "show") {
+        if ($this->_sNodeType == "show" or $this->_sNodeType == "get") {
             return $this->parseDataTables($this->_oXml->datatables);
         } elseif ($this->_sNodeType == "edit") {
             return $this->parseFormEdit($this->_oXml->formedit);
         } elseif ($this->_sNodeType == "add") {
             return $this->parseFormAdd($this->_oXml->formadd);
-        } elseif ($this->_sNodeType == "get") {
-            return $this->parseDataTables($this->_oXml->datatables);
         } elseif ($this->_sNodeType == "group") {
             return $this->parseGroup($this->_oXml->group_form, $this->_aParams["group_action"]);
+        } elseif ($this->_sNodeType == "dtree") {
+            return $this->parseDtree($this->_oXml->dtree, $this->_aParams["dtree_action"]);
         }
     }
 
-    public function parseGroup($oNode, $action = "show") {
+    public function parseDtree($oNode, $action = "show") {
+        $oDtreeXml = new Util_DtreeXml($oNode, $this->_aParams);
         if ($action == "show") {
-            $this->getGroupData($oNode);
-            return $this->generateGroupHtml($oNode);
-        }elseif($action == "save"){
-            return $this->saveGroupData($oNode);
+            $aGroupResource = $oDtreeXml->parseInputNode($oNode);
+            return $this->generateDtreeHtml($oNode, $oDtreeXml, $aGroupResource);
+        } elseif ($action == "save") {
+            return $this->saveNodeData($oNode);
         }
     }
-    
-    private function saveGroupData($oNode){
+
+    private function generateDtreeHtml($oNode, Util_DtreeXml &$oDtreeXml, $aGroupResource) {
+        $sGroupResource = $oDtreeXml->getResourceByParam($aGroupResource);
+        $this->_oTemplate->assign("form_title", (string) $oNode->show["name"]);
+        $this->_oTemplate->assign("sGroupResource", $sGroupResource);
+        $sResource = $oDtreeXml->getAllResource($oNode);
+        $this->_oTemplate->assign("sDtreeHtml", $sResource);
+        $sSubmitUrl = Util_DataType::replace((string) $oNode->save->data->submit_url, $this->_aParams);
+        $this->_oTemplate->assign("sSubmitUrl", $sSubmitUrl);
+        $sReturnUrl = Util_DataType::replace((string) $oNode->save->data->return_url, $this->_aParams);
+        $this->_oTemplate->assign("sReturnUrl", $sReturnUrl);
+        return true;
+    }
+
+    private function saveNodeData($oNode) {
         $aParams = array();
-        foreach($oNode->save->params->param as $oParam){
-            $sField = (string)$oParam;
-            $sMapField = empty($oParam["map_field"]) ? $sField : (string)$oParam["map_field"];
-            if($sField != "ids"){                
+        foreach ($oNode->save->params->param as $oParam) {
+            $sField = (string) $oParam;
+            $sMapField = empty($oParam["map_field"]) ? $sField : (string) $oParam["map_field"];
+            if ($sField != "ids" and $sField != "node") {
                 $aParams[$sMapField] = $this->_aParams[$sField];
-            }else{
+            } else {
                 $aIds[$sMapField] = $this->_aParams[$sField];
             }
         }
-        $sEntity = (string)$oNode->save->data->entity;
-        $oModule = new GS_Module($this->_aParams['business'],"Entity",$sEntity,"deleteByParam",$this->_aParams);
+        $sEntity = (string) $oNode->save->data->entity;
+        $oModule = new GS_Module($this->_aParams['business'], "Entity", $sEntity, "deleteByParam", $this->_aParams);
         $oModule->run();
-        if(!empty($aIds)){
-            foreach($aIds as $sKey => $aRow){
-                foreach($aRow as $sVal){
+        if (!empty($aIds)) {
+            foreach ($aIds as $sKey => $aRow) {
+                foreach ($aRow as $sVal) {
                     $aParams[$sKey] = $sVal;
-                    debugVar($aParams);
-                    $oModule = new GS_Module($this->_aParams['business'],"Entity",$sEntity,"insert",$aParams);
+                    $oModule = new GS_Module($this->_aParams['business'], "Entity", $sEntity, "insert", $aParams);
                     $oModule->run();
                 }
             }
         }
     }
 
-    private function getGroupData($oNode) {
-        foreach ($oNode->input->params->param as $oParam) {
-            $sMapField = (string) $oParam["map_field"];
-            $sInputField = (string) $oParam;
-            $this->_aParams["where"][":" . $sMapField] = $this->_aParams[$sInputField];
+    public function parseGroup($oNode, $action = "show") {
+        $oGroupXml = new Util_GroupXml($oNode, $this->_aParams);
+        if ($action == "show") {
+            $aRsNow = $oGroupXml->parseInputNode($oNode);
+            return $this->generateGroupHtml($oNode, $aRsNow);
+        } elseif ($action == "save") {
+            return $this->saveNodeData($oNode);
         }
-        $sEntityStr = " ";
-        $this->_aParams["select"] = (string) $oNode->input->data->select;
-        foreach ($oNode->input->data->entity as $oEntity) {
-            $sEntity = (string) $oEntity;
-            if (!empty($oEntity["union"])) {
-                $sUnion = (string) $oEntity["union"];
-                $sEntityStr .= " left join {$sEntity} on {$sUnion} ";
-            } else {
-                $sEntityStr .= $sEntity;
-            }
-        }
-        $this->_aParams["action"] = "getUnionResult";
-        $this->_aParams["table"] = $sEntityStr;
     }
 
-    private function generateGroupHtml($oNode) {
-        $oModule = new GS_Module($this->_aParams['business'], "Entity", "Union", $this->_aParams["action"], $this->_aParams);
-        $aRsNow = $oModule->run();        
-        $sShowEntity = (string)$oNode->show->data->entity;
+    private function generateGroupHtml($oNode, $aRsNow) {
+        $sShowEntity = (string) $oNode->show->data->entity;
         $oModule = new GS_Module($this->_aParams['business'], "Entity", $sShowEntity, "gets", $this->_aParams);
         $aRs = $oModule->run();
         $aParams = $oModule->getParams();
         $data = $this->getDataList($aRs, $aParams);
         $aData = $this->parseDataTables($oNode->show, $data);
-        $this->generateOptionHtml($aData["list"],$aRsNow,(string)$oNode->show->columns["option_field"]);
+        $this->generateOptionHtml($aData["list"], $aRsNow, (string) $oNode->show->columns["option_field"]);
         $this->_oTemplate->assign("action_des", (string) $oNode->show["name"]);
         $this->generateExtAction($oNode->show);
         return $aData;
     }
-    
-    private function generateOptionHtml($aData,$aRsNow=array(),$sOptionField=""){
-        $aOptionHtml = array();        
-        foreach($aData as $i=>$row){
-            if(!empty($aRsNow[$i]) and !empty($sOptionField)){
-                list($sFieldName,$sFieldNum) = explode(":", $sOptionField);
-                if($aRsNow[$i]->$sFieldName == $row[$sFieldNum]){
-                    $aOptionHtml[$i] = " checked ";
-                }else{
-                    $aOptionHtml[$i] = "";
-                }
-            }else{
+
+    private function generateOptionHtml($aData, $aRsNow = array(), $sOptionField = "") {
+        $aOptionHtml = array();
+        if(!empty($sOptionField)){
+            list($sFieldName, $sFieldNum) = explode(":", $sOptionField);
+        }
+        $aCheckOptionId = array();
+        if (!empty($aRsNow)) {
+            foreach ($aRsNow as $row) {
+                $aCheckOptionId[] = $row->$sFieldName;
+            }
+        } 
+        foreach ($aData as $i => $row) {
+            if (!empty($sOptionField) and in_array($row[$sFieldNum], $aCheckOptionId)) {
+                $aOptionHtml[$i] = " checked ";
+            } else {
                 $aOptionHtml[$i] = "";
             }
         }
         $this->_oTemplate->assign("aOptionHtml", $aOptionHtml);
     }
-    
-    private function generateExtAction($oNode){
-        $sExtAction =<<<EOB
+
+    private function generateExtAction($oNode) {
+        $sExtAction = <<<EOB
             <div class="am-btn-group am-btn-group-xs">
                 {ext_action}            
                  <input type='hidden' name='main_form_act' id='main_form_act' value=''>
             </div>
 EOB;
         $aHtml = array();
-        if(!empty($oNode->ext_action)){
-            foreach($oNode->ext_action->option as $oAction){                
-                $aHtml[]= '<button type="button" onclick="ext_action(\''. (string)$oAction["act"] .'\')" class="am-btn am-btn-default"><span class="am-icon-save"></span>&nbsp;&nbsp;' .(string)$oAction . '</button>';
+        if (!empty($oNode->ext_action)) {
+            foreach ($oNode->ext_action->option as $oAction) {
+                $aHtml[] = '<button type="button" onclick="ext_action(\'' . (string) $oAction["act"] . '\')" class="am-btn am-btn-default"><span class="am-icon-save"></span>&nbsp;&nbsp;' . (string) $oAction . '</button>';
             }
         }
-        $this->_oTemplate->assign("ext_action",  str_replace("{ext_action}", implode("\n",$aHtml), $sExtAction));
+        $this->_oTemplate->assign("ext_action", str_replace("{ext_action}", implode("\n", $aHtml), $sExtAction));
     }
 
     public function parseFormEdit($oNode) {
@@ -215,8 +219,8 @@ EOB;
             $this->_oTemplate->assign("msg", "删除失败，请检查！");
         }
     }
-    
-    private function parseHidden($sUrl){
+
+    private function parseHidden($sUrl) {
         $sSubmitUrl = $this->parseUrl($sUrl);
         return Util_Html::getHiddenForm($sSubmitUrl);
     }
@@ -309,7 +313,7 @@ EOB;
             $data = $this->get_data($oNode);
         }
         $aData = $this->get_data_table($data, $oNode, $sGroupField, $aRowSpan);
-        $this->generateOptionHtml($aData["list"],array(),(string)$oNode->columns["option_field"]);
+        $this->generateOptionHtml($aData["list"], array(), (string) $oNode->columns["option_field"]);
         $this->generateExtAction($oNode);
         return $aData;
     }
@@ -440,8 +444,6 @@ EOB;
         if (!empty($aSearchStr)) {
             $this->_oTemplate->assign("sSearchStr", implode(",", $aSearchStr));
         }
-        //debugVar($this->_sBaseUrl);
-        //exit;
         $this->_oTemplate->assign("form_url", $this->_sBaseUrl);
         if (!empty($aData["list"])) {
             $this->_oTemplate->assign("aData", $aData["list"]);
@@ -449,8 +451,8 @@ EOB;
             $this->_oTemplate->assign("aData", array());
         }
         $aHost = $this->parseHidden($this->_sBaseUrl);
-        $this->_oTemplate->assign("main_form_url",$aHost["path"]);
-        $this->_oTemplate->assign("sHiddenHtml",$aHost["query"]);
+        $this->_oTemplate->assign("main_form_url", $aHost["path"]);
+        $this->_oTemplate->assign("sHiddenHtml", $aHost["query"]);
         return $aData;
     }
 

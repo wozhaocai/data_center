@@ -52,15 +52,19 @@
         }
         if(!empty($_SESSION["username"])){
             $this->_oTemplate->assign("username",$_SESSION["username"]);
-        }
-        $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array());
-        $aMenus = $oModule->run(); 
-        $this->_oTemplate->assign("aMainMenu",$aMenus); 
-        $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$sMainId}"]);
-        if(!empty($this->_aParams["menu_sub_title"])){
-            $this->_oTemplate->assign("current_menu",$this->_aParams["menu_sub_title"]);
-        }else{
-            $this->_oTemplate->assign("current_menu","");
+            $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array("username"=>$_SESSION["username"]));
+            $aMenus = $oModule->run(); 
+            if(empty($aMenus)){
+                header("Location:/index.php?err_msg=请核实用户权限");
+                exit;
+            }
+            $this->_oTemplate->assign("aMainMenu",$aMenus); 
+            $this->_oTemplate->assign("aSubMenu",$aMenus["menu_{$sMainId}"]);
+            if(!empty($this->_aParams["menu_sub_title"])){
+                $this->_oTemplate->assign("current_menu",$this->_aParams["menu_sub_title"]);
+            }else{
+                $this->_oTemplate->assign("current_menu","");
+            }
         }
     } 
     

@@ -19,7 +19,7 @@ class Admin_MenusController Extends BaseController {
         $aQuery = array(
             "gid" => $this->_aParams["gid"]
         );
-        $oModule = new GS_Module($this->_aParams['business'], "Entity", "group_menu_map", "gets", $aQuery);
+        $oModule = new GS_Module($this->_aParams['business'], "Entity", $this->_aParams["table"], $this->_aParams["action"], $aQuery);
         $aGroupResource = $oModule->run();
         $aGroupR = array();
         foreach($aGroupResource["list"] as $oGroupResource){

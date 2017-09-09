@@ -9,7 +9,7 @@
     </div>
 	
 	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
-            <iframe src="<{$iframe_url}>" id="iframe1" width="700" height="500" frameborder="0" scrolling="auto"></iframe>
+            <iframe src="<{$iframe_url}>" id="iframe1" width="100%" height="850" frameborder="0" scrolling="auto"></iframe>
         </div>     
 </div>  
       
