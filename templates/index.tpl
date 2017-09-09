@@ -51,17 +51,22 @@
           <div class="login-topStyle3" id="loginStyle" style="margin-top: 75px;">
             <h3>用户平台登录</h3>
             <!--输入错误提示信息，默认是隐藏的，把display:none，变成block可看到-->
+            <form action="/guest.php" method="post" name="f" id="f">
             <div class="error-information" style="display:none;">您输入的密码不正确，请重新输入</div>
             <div class="ui-form-item loginUsername">
-              <input type="username" placeholder="用户名/手机号/密码">
+              <input type="username" id="username" name="username" placeholder="用户名" onChange='check("username")'>
             </div>
             <div class="ui-form-item loginPassword">
-              <input type="password" placeholder="请输入密码">
+              <input type="password" name="password" id="password" placeholder="请输入密码" onChange='check("password")'>
             </div>
             <div class="login_reme">
               <input type="checkbox">
-              <a class="reme1">记住账号</a> <a class="reme2" href="password.html">忘记密码?</a> </div>
-            <span class="error_xinxi" style="display:none;">您输入的密码不正确，请重新输入</span> <a class="btnStyle btn-register" href="register.html"> 立即登录</a> </div>
+              <a class="reme1">记住账号</a> <a class="reme3" href="password.html">忘记密码?</a>  <a class="reme2" href="password.html">立即注册</a> </div>
+            <span class="error_xinxi" id="error_xinxi">您输入的密码不正确，请重新输入</span> <a class="btnStyle btn-register" href="href="javascript:void(0);" onclick="login();"> 立即登录</a> </div>
+            <input type="hidden" id="business" name="business" value="dc">
+            <input type="hidden" id="controller" name="controller" value="reg">
+            <input type="hidden" id="action" name="action" value="login">
+           </form>
         </div>
       </div>
     </div>
