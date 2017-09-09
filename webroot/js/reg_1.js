@@ -81,7 +81,7 @@ function validate()
     {
         if (!check(arr[i]))
         {
-            //alert(arr[i] + " wrong!");
+            alert(arr[i] + " wrong!");
             submitOK = false;
             break;
         }
@@ -89,10 +89,6 @@ function validate()
     }
     if (submitOK)
     {
-        if(!$("#regsign").is(':checked')){            
-            document.getElementById("regsignCheck").hidden = false;
-            return false;
-        }
         document.getElementById("f").submit();
         return true;
     }
@@ -111,7 +107,7 @@ function login()
     {
         if (!check(arr[i]))
         {
-            //alert(arr[i] + " wrong!");
+            alert(arr[i] + " wrong!");
             submitOK = false;
             break;
         }

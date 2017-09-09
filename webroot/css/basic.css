@@ -136,9 +136,24 @@ a.btnStyle.btnregister:hover {
 	padding: 8px 0px 8px 5px;
 	
 }
+
+.ui-form-item.loginUsernameReg input[type="username"], .ui-form-item.loginPasswordReg input[type="password"] {
+	width: 30%;
+	text-align: left;
+	border: 1px;
+	padding: 8px 0px 8px 5px;	
+}
 .ui-form-item.loginPassword {
 }
 .ui-form-item.loginPassword input[type="password"] {
+}
+.ui-form-item.input_text{
+	width: 30%;
+	border: none;
+	text-align: right;
+	padding: 8px 0px 8px 5px;
+        font-size: 14px;
+        color:#000000;
 }
 .login_reme {
 	padding-bottom: 8px;
@@ -166,6 +181,7 @@ a.btnStyle.btnregister:hover {
 span.error_xinxi {
 	font-size: 14px;
 	line-height: 22px;
+        color:#ff0000;
 }
 a.btn-Login, a.btn-register {
 	width: 228px;

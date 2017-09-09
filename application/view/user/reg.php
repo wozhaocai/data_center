@@ -10,11 +10,16 @@ class User_RegView extends BaseView{
     public function show(){
     }
     
-    public function register(){    
+    public function register(){     
         $this->_aParams["password"] = md5($this->_aParams["password"]);
         $oModule = new GS_Module($this->_aParams['business'],"Entity","users","insert",$this->_aParams);
+        $this->_aParams["uid"] = $oModule->run();
+        $this->_aParams["gid"] = GliderSky::$aConfig["group"]["init_id"];
+        $oModule = new GS_Module($this->_aParams['business'],"Entity","user_group_map","insert",$this->_aParams);
         $aResult = $oModule->run();
-        header("Location:/index.php");
+        $_SESSION["username"] = $this->_aParams["username"];
+        $_SESSION["business"] = $this->_aParams["business"];
+        header("Location:/service.php?business={$this->_aParams['business']}&controller=member&action=index");
     }
     
     public function login() {

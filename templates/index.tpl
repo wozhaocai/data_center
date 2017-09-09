@@ -1,52 +1,7 @@
-<!DOCTYPE html><html>
-<head>
-<title>我招财-开启财富之门</title>
-
-<!-- 页面基本设置禁止随意更改 -->
-<meta charset="utf-8">
-<meta name="author" content="forework">
-<meta name="format-detection" content="telephone=no">
-<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="msapplication-tap-highlight" content="no">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<!-- 页面基本设置禁止随意更改 -->
-<!-- 基础CSS类库可随意更改 -->
-<link rel="stylesheet" type="text/css" href="css/less.css">
-<link rel="stylesheet" type="text/css" href="css/basic.css">
-<!--[if IE 8]>
-<link rel="stylesheet" type="text/css" href="css/ie8.css">
-<![endif]-->
-<!--[if gte IE 9]> 
-<link rel="stylesheet" type="text/css" href="css/ie.css"> 
-<![endif]-->
-<!-- 基础CSS类库可随意更改 -->
-<!-- 基础js类库可随意更改 -->
-
-<!-- 基础js类库可随意更改 -->
-</head>
-<body>
-<div class="wrapper" style="background-color: white;">
-  <div class="login-top">
-  <div style="height: 60px;background-color: white;">
-	<div style=";margin-left: 251px;">
-		<img src="img/log_2.png" />	
-	</div>
-	<div style="float:right;margin-right:60px;margin-top: -34px;width: 360px;font-size: 12px;">
-		<span>首页</span>
-		<span>|</span>
-		<span>登录帮助</span>
-		<span>|</span>
-		<span>在线答疑</span>                
-	</div>
-  </div>
+<{include file="./header.tpl"}>    
     <div class="login-topBg">
-      <div class="login-topBg1">
-        
-        <div class="login-topStyle" >
-          
+      <div class="login-topBg1">        
+        <div class="login-topStyle" >          
           <!--在点击注册时出现样式login-topStyle3登录框，而login-topStyle2则消失-->
           <div class="login-topStyle3" id="loginStyle" style="margin-top: 75px;">
             <h3>用户平台登录</h3>
@@ -55,17 +10,21 @@
             <div class="error-information" style="display:none;">您输入的密码不正确，请重新输入</div>
             <div class="ui-form-item loginUsername">
               <input type="username" id="username" name="username" placeholder="用户名" onChange='check("username")'>
+              <input id="is_reg" name="is_reg" type="hidden" value="login">
             </div>
             <div class="ui-form-item loginPassword">
               <input type="password" name="password" id="password" placeholder="请输入密码" onChange='check("password")'>
             </div>
             <div class="login_reme">
               <input type="checkbox">
-              <a class="reme1">记住账号</a> <a class="reme3" href="password.html">忘记密码?</a>  <a class="reme2" href="password.html">立即注册</a> </div>
-            <span class="error_xinxi" id="error_xinxi">您输入的密码不正确，请重新输入</span> <a class="btnStyle btn-register" href="href="javascript:void(0);" onclick="login();"> 立即登录</a> </div>
+              <a class="reme1">记住账号</a> <a class="reme3" href="password.html">忘记密码?</a>  <a class="reme2" href="./guest.php?business=dc&controller=reg&action=show&vendor=guest">立即注册</a> </div>
+            <span class="error_xinxi" id="usernameCheck" hidden="false">用户名不能为空</span> 
+            <span class="error_xinxi" id="passwordCheck" hidden="false">密码长度不能少于8位</span> 
+            <a class="btnStyle btn-register" href="javascript:void(0);" onclick="login();"> 立即登录</a> </div>
             <input type="hidden" id="business" name="business" value="dc">
             <input type="hidden" id="controller" name="controller" value="reg">
             <input type="hidden" id="action" name="action" value="login">
+            <input type="hidden" id="action" name="vendor" value="guest"> 
            </form>
         </div>
       </div>
@@ -108,8 +67,5 @@
              </div>
       </div>
     </div>
-  </div>
-  <div class="footer"> <span class="footerText">Copyright © 2017 </span> </div>
-</div>
-</body>
-</html>
+  </div>  
+  <{include file="./footer.tpl"}>

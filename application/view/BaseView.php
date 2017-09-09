@@ -13,7 +13,9 @@
      public function __construct(&$oTemplate,$aParams) {
          $this->_aParams = $aParams;
          $this->_oTemplate = $oTemplate;
-         $this->initMenu();
+         if(!isset($this->_aParams["vendor"]) or $this->_aParams["vendor"] != "guest"){
+            $this->initMenu();
+        }         
      }
      
      protected function checkVar($sOption){
@@ -27,7 +29,7 @@
         exit(0);
     }
     
-    public function initMenu(){
+    public function initMenu(){        
         foreach(self::$_aMenuSessionId as $sField){
             if(!empty($this->_aParams[$sField])){
                 $_SESSION[$sField] = $this->_aParams[$sField];

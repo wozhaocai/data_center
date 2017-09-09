@@ -90,7 +90,7 @@ class GS_View {
             if(file_exists($sClassFile)){
                 require_once($sClassFile);
                 $sClass = $this->_aView["class"]."View";
-                $this->fetchDivPage();                
+                $this->fetchDivPage();           
                 $this->_oViewObj = new $sClass($oTemplate,$this->_aQuery);
                 $sAction = $this->_aParam['action'];                
                 if(in_array($this->_aView["class"],array("Member_Meta","Member_Group","Member_DTree","Member_Iframe"))){                    
