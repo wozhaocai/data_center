@@ -29,7 +29,7 @@
 
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
             <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
-
+                <!--
                 <li class="am-dropdown tognzhi" data-am-dropdown>
                     <button class="am-btn am-btn-primary am-dropdown-toggle am-btn-xs am-radius am-icon-bell-o" data-am-dropdown-toggle> 消息管理<span class="am-badge am-badge-danger am-round">6</span></button>
                     <ul class="am-dropdown-content">
@@ -52,13 +52,13 @@
 
                     </ul>
                 </li>
-
+                -->
                 <li class="kuanjie">
                     <{foreach $aMainMenu as $main_val}>
-                    <a href="/service.php?business=dc&controller=member&action=index&main_id=<{$main_val.id}>"><{$main_val.title}></a>
+                    <a href="/service.php?business=dc&controller=member&action=index&main_id=<{$main_val.id}>"> 【<{$main_val.title}>】</a>
                     <{/foreach}>
                 </li>
-
+                <!--
                 <li class="soso">
 
                     <p>   
@@ -71,14 +71,11 @@
                         </select>
 
                     </p>
-
+                    
                     <p class="ycfg"><input type="text" class="am-form-field am-input-sm" placeholder="圆角表单域" /></p>
                     <p><button class="am-btn am-btn-xs am-btn-default am-xiao"><i class="am-icon-search"></i></button></p>
                 </li>
-
-
-
-
+                 -->
                 <li class="am-hide-sm-only" style="float: right;"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
             </ul>
         </div>
