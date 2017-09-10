@@ -48,6 +48,10 @@ class User_RegView extends BaseView{
         $this->checkVar("username");
     }
     
+    public function check_nickname(){
+        $this->checkVar("nickname");
+    }
+    
     public function check_email(){
         $this->checkVar("email");
     }

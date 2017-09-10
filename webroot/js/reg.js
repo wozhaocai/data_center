@@ -1,20 +1,20 @@
-function query_has_reg(id) {
+function query_has_reg(id,name) {
     var regVar = $("#" + id).val();
     $.post("/guest.php?business=dc&controller=reg&action=check_" + id, {query_id: regVar}, function (result) { 
         var oUser = eval('(' + result + ')');
         if (oUser.id) {
-            alert(regVar + "已经注册过了", '提示');
+            alert(name+regVar + "已经注册过了", '提示');
             $("#"+id).val("");
         }
     });
 }
 
-function query_to_reg(id) {
+function query_to_reg(id,name) {
     var regVar = $("#" + id).val();
     $.post("/guest.php?business=dc&controller=reg&action=check_" + id, {query_id: regVar}, function (result) { 
         var oUser = eval('(' + result + ')');
         if (oUser == "") {
-            alert(regVar + "用户不存在，请先注册", '提示');
+            alert(name+regVar + "用户不存在，请先注册", '提示');
             $("#"+id).val("");
         }
     });
@@ -34,12 +34,27 @@ function check(str)
         }        
         if(y.hidden == true){
             if($("#is_reg").val() == "reg"){
-                query_has_reg("username");  
+                query_has_reg("username","用户名");  
             }else{
-                query_to_reg("username");
+                query_to_reg("username","用户名");
+            }
+        }   
+    }
+    else if (str == "nickname")
+    {        
+        if (x.value == ""){
+            y.hidden = false;
+        }else{
+            y.hidden = true;
+        }        
+        if(y.hidden == true){
+            if($("#is_reg").val() == "reg"){
+                query_has_reg("nickname","昵称");  
+            }else{
+                query_to_reg("nickname","昵称");
             }
         }         
-    }   
+    } 
     else if (str == "password")
     {
         x = x.value.length;

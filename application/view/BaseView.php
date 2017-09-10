@@ -53,9 +53,14 @@
             }
         }else{
             $sMainId = $this->_aParams['main_id'];
-        }
+        }        
         if(!empty($_SESSION["username"])){
             $this->_oTemplate->assign("username",$_SESSION["username"]);
+            if(empty($_SESSION["userinfo"])){
+                $oModule = new GS_Module($this->_aParams['business'],"Entity","users","gets",array("username"=>$_SESSION["username"]));
+                $_SESSION["userinfo"] = $oModule->run(true);  
+            }
+            $this->_oTemplate->assign("userinfo",$_SESSION["userinfo"]);
             $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array("username"=>$_SESSION["username"]));
             $aMenus = $oModule->run(); 
             if(empty($aMenus)){

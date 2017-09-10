@@ -25,7 +25,7 @@ class GS_Module {
         return $this->_aParam;
     }
     
-    public function run(){
+    public function run($one=false){
         $sClass = "GS_Module_".$this->_sModule;     
         if(class_exists($sClass)){
             $oObj = new $sClass();
@@ -39,6 +39,9 @@ class GS_Module {
         $aRs = $oObj->run();
         if($this->_sModule == "Entity"){
             $this->_aParam['iDbAffectNum'] = $oObj->getDbAffectNum();
+            if($one){
+                return $aRs[0];
+            }
         }
         return $aRs;
     }

@@ -9,6 +9,7 @@
                     <!--输入错误提示信息，默认是隐藏的，把display:none，变成block可看到-->
                     <form action="/guest.php" method="post" name="f" id="f">
                     <span class="error-information" id="usernameCheck" hidden="false">用户名不能为空</span> 
+                    <span class="error-information" id="nicknameCheck" hidden="false">昵称不能为空</span> 
                     <span class="error-information" id="passwordCheck" hidden="false">密码长度不能少于8位</span> 
                     <span class="error-information" id="cpasswordCheck" hidden="false">两次密码不一致</span> 
                     <span class="error-information" id="emailCheck" hidden="false">邮箱名不合法</span> 
@@ -18,6 +19,10 @@
                         <span class="ui-form-item input_text">&nbsp;&nbsp;&nbsp;&nbsp用户名</span> 
                         <input type="username" id="username" name="username" placeholder="" onChange='check("username")'>
                         <input id="is_reg" name="is_reg" type="hidden" value="reg">
+                    </div>
+                    <div class="ui-form-item loginUsernameReg">
+                        <span class="ui-form-item input_text">&nbsp;&nbsp;&nbsp;&nbsp昵称</span> 
+                        <input type="nickname" id="nickname" name="nickname" placeholder="" onChange='check("nickname")'>
                     </div>
                     <div class="ui-form-item loginPasswordReg">
                         <span class="ui-form-item input_text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码</span> 
