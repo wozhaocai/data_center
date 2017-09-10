@@ -244,7 +244,7 @@ EOB;
 EOB;
         $popup_form_max_height = count($aColumnHtml) * self::$_iInputSizeUnit;
         $sColumnStr = implode("\n", $aColumnHtml);
-        echo json_encode(array("data" => $sColumnStr, "title" => "添加", "meta_form_action" => $sSubmitUrl, "popup_form_max_height" => $popup_form_max_height . "px"));
+        echo json_encode(array("data" => $sColumnStr, "title" => "添加", "meta_form_action" => $aHost["path"], "popup_form_max_height" => $popup_form_max_height . "px"));
     }
 
     private function parseDataTables($oNode, $data = array()) {

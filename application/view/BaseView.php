@@ -59,8 +59,12 @@
             if(empty($_SESSION["userinfo"])){
                 $oModule = new GS_Module($this->_aParams['business'],"Entity","users","gets",array("username"=>$_SESSION["username"]));
                 $_SESSION["userinfo"] = $oModule->run(true);  
+                $oModule = new GS_Module($this->_aParams['business'],"Entity","user_group_map","gets",array("uid"=>$_SESSION["userinfo"]->id));
+                $_SESSION["groupinfo"] = $oModule->run(true);  
             }
+            $this->_oTemplate->assign("groupinfo",$_SESSION["groupinfo"]);
             $this->_oTemplate->assign("userinfo",$_SESSION["userinfo"]);
+            
             $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array("username"=>$_SESSION["username"]));
             $aMenus = $oModule->run(); 
             if(empty($aMenus)){

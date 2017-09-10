@@ -44,6 +44,5 @@ class GS_Module {
             }
         }
         return $aRs;
-    }
-
+    }    
 }

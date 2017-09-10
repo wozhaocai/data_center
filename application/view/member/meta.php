@@ -7,7 +7,20 @@
  */
 
 class Member_MetaView extends BaseView{
+    public function initParam($sMeta){
+        if($sMeta = "member_userinfo"){
+            if(empty($this->_aParams["id"])){
+                $this->_aParams["id"] = $_SESSION["userinfo"]->id;
+            }
+        }else{
+            if(empty($this->_aParams["id"])){
+                $this->_aParams["uid"] = $_SESSION["userinfo"]->id;
+            }
+        }
+    }
+    
     public function show($sMeta){
+        $this->initParam($sMeta);
         $_SESSION["current_show_page"] = $_SERVER["REQUEST_URI"];
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);
         $aResource = $oModule->run();
@@ -16,7 +29,8 @@ class Member_MetaView extends BaseView{
         return $oModule->run();
     }     
     
-    public function edit($sMeta){        
+    public function edit($sMeta){     
+        $this->initParam($sMeta);
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);
         $aResource = $oModule->run();
         $this->_aParams["meta"] = $sMeta;
@@ -25,7 +39,8 @@ class Member_MetaView extends BaseView{
         exit(0);
     }     
     
-    public function add($sMeta){        
+    public function add($sMeta){       
+        $this->initParam($sMeta);
         $oModule = new GS_Module($this->_aParams['business'],"Resource","resource",$sMeta);
         $aResource = $oModule->run();
         $this->_aParams["meta"] = $sMeta;
@@ -34,7 +49,8 @@ class Member_MetaView extends BaseView{
         exit(0);
     }    
     
-    public function submit($sMeta){      
+    public function submit($sMeta){  
+        $this->initParam($sMeta);
         if($this->_aParams["submit_action"] == "edit"){
             $oModule = new GS_Module($this->_aParams['business'],"Entity",$sMeta,"update",$this->_aParams);
             $oModule->run();
