@@ -8,14 +8,12 @@
 
 class Member_MetaView extends BaseView{
     public function initParam($sMeta){
-        if($sMeta = "member_userinfo"){
+        if($sMeta == "member_userinfo"){
             if(empty($this->_aParams["id"])){
                 $this->_aParams["id"] = $_SESSION["userinfo"]->id;
             }
         }else{
-            if(empty($this->_aParams["id"])){
-                $this->_aParams["uid"] = $_SESSION["userinfo"]->id;
-            }
+            $this->_aParams["uid"] = $_SESSION["userinfo"]->id;
         }
     }
     
