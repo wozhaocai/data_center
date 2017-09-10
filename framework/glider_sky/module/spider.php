@@ -16,6 +16,28 @@ class GS_Module_Spider extends GS_Module_Base{
         }else{
             $sSpiderUrl = $aSpider[0]->spider_url;
         }
+        $aParamScope = array();
+        if(!empty($aSpider[0]->spider_url_param)){
+            $aParamScope = $this->parseUrlParam($sSpiderUrl,$aSpider[0]->spider_url_param);
+        }
+        if(empty($aParamScope)){
+            debugVar($sSpiderUrl);
+            $this->dealWithData($sSpiderUrl, $aSpider);
+        }else{
+            foreach($aParamScope as $sKey => $sVal){
+                list($sStart,$sEnd) = explode(",",$sVal);
+                for($i=$sStart;$i<= $sEnd;$i++){
+                    $sTempSpiderUrl = str_replace("{".$sKey."}", $i, $sSpiderUrl);
+                    sleep(1);
+                    debugVar($sTempSpiderUrl);
+                    $this->dealWithData($sTempSpiderUrl, $aSpider);
+                }
+            }
+        }
+        
+    }   
+    
+    private function dealWithData($sSpiderUrl,$aSpider){
         $aData = $this->getData($sSpiderUrl,$aSpider[0]->keyword_rule);
         if(!empty($aData[0])){
             if(strstr($aSpider[0]->save_rule,":more:")){
@@ -26,7 +48,24 @@ class GS_Module_Spider extends GS_Module_Base{
                 $this->saveData($aData,$aSpider[0]->save_rule);
             }
         }
-    }   
+    }
+    
+    private function parseUrlParam($sSpiderUrl,$sSpiderUrlParam){
+        $aParams = explode(":",$sSpiderUrlParam);
+        $aParamScope = array();
+        foreach($aParams as $sParam){
+            list($sField,$sRule) = explode("@",$sParam);
+            $aOption = explode("-",$sRule);
+            if($aOption[0] == "Controller"){
+                $this->_aParam["spider_url"] = $sSpiderUrl;
+                $this->_aParam["spider_field"] = $sField;
+                $this->_aParam["spider_init_value"] = $aOption[3];
+                $oModule = new GS_Module($this->_aParam["business"],"Controller",$aOption[1],$aOption[2],$this->_aParam);
+                $aParamScope[$sField] = $oModule->run();
+            }
+        }
+        return $aParamScope;
+    }
     
     private function parseUrlByParam($sSpiderUrl){
         $aParams = $this->_aParam["query"];

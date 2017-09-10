@@ -5,10 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- class BaseController{
-     protected $_aParams = array();
-     
-     public function __construct($aParams) {
-         $this->_aParams = $aParams;
-     }
- }
+
+class GS_Module_Controller extends GS_Module_Base{
+    public function run(){ 
+        return $this->_aResult;
+    }   
+}
