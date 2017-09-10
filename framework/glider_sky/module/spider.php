@@ -18,7 +18,13 @@ class GS_Module_Spider extends GS_Module_Base{
         }
         $aData = $this->getData($sSpiderUrl,$aSpider[0]->keyword_rule);
         if(!empty($aData[0])){
-            $this->saveData($aData,$aSpider[0]->save_rule);
+            if(strstr($aSpider[0]->save_rule,":more:")){
+                foreach($aData as $row){
+                    $this->saveData(array($row),$aSpider[0]->save_rule);
+                }
+            }else{
+                $this->saveData($aData,$aSpider[0]->save_rule);
+            }
         }
     }   
     
@@ -44,7 +50,7 @@ class GS_Module_Spider extends GS_Module_Base{
     private function saveData($aData,$sSaveRule){        
         $aRules = explode(":", $sSaveRule);
         if($aRules[0] == "table"){
-            $aFields = explode(",", $aRules[2]);
+            $aFields = explode(",", $aRules[3]);
             foreach($aFields as $row){
                 $aOption = explode("@",$row);    
                 $sField = $aOption[0];
@@ -75,7 +81,11 @@ class GS_Module_Spider extends GS_Module_Base{
             }
         }elseif($aOption[0] == "reg"){
             preg_match_all(addslashes($aOption[1]), $aContent, $aMatchs);
-            $aContent = substr($aMatchs[0][0],1,-1);
+            if(!empty($aOption[2])){                
+                $aContent = $aMatchs[0][$aOption[2]];
+            }else{
+                $aContent = $aMatchs[0];
+            }
             return "";
         }elseif($aOption[0] == "substr"){
             if($aOption[1] == "start"){
