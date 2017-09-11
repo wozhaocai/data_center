@@ -29,6 +29,7 @@ class Admin_MenusController Extends BaseController {
     }
 
     private function getAllMenus($aMenu) {
+        $aMenu["order"] = "sort<>asc";
         $oModule = new GS_Module($this->_aParams['business'], "Entity", "menus", "gets", $aMenu);
         return $oModule->run();
     }

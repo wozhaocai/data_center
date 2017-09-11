@@ -27,7 +27,7 @@ class Admin_MenusEntity Extends BaseEntity {
                         . "join user_group_map gugm on gu.id=gugm.uid "
                         . "join group_menu_map ggmm on gugm.gid=ggmm.gid "
                         . "join menus gm on ggmm.mid=gm.id "
-                        . "where gu.username=:username", array(":username" => $name));
+                        . "where gu.username=:username order by sort asc", array(":username" => $name));
     }
 
     private function getAll() {
