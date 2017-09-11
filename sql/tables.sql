@@ -120,10 +120,10 @@ CREATE TABLE `china_sh_code` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='沪市代码表';
 
 #
-# Structure for table "china_sh_code"
+# Structure for table "us_china_price"
 #
 
-CREATE TABLE `china_sh_code` (
+CREATE TABLE `us_china_price` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `day` varchar(10) NOT NULL DEFAULT '' COMMENT '抓取日期',
   `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
@@ -153,7 +153,7 @@ CREATE TABLE `china_sh_code` (
   `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_china_sh_code` (`code`,`day`)
+  UNIQUE KEY `uk_us_china_price` (`code`,`day`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='中概股价表';
 
 #
