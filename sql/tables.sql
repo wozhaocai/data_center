@@ -123,36 +123,7 @@ CREATE TABLE `china_sh_code` (
 # Structure for table "china_sh_code"
 #
 
-CREATE TABLE `china_sz_code` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `code` varchar(50) NOT NULL DEFAULT '' COMMENT 'code',
-  `enable` tinyint(3) NOT NULL DEFAULT '1' COMMENT '启用',
-  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_china_sz_code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='深市代码表';
-
-#
-# Structure for table "china_hk_code"
-#
-
-CREATE TABLE `china_hk_code` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `code` varchar(50) NOT NULL DEFAULT '' COMMENT 'code',
-  `enable` tinyint(3) NOT NULL DEFAULT '1' COMMENT '启用',
-  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_china_hk_code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='港股主板代码表';
-
-
-#
-# Structure for table "us_china_price"
-#
-
-CREATE TABLE `us_china_price` (
+CREATE TABLE `china_sh_code` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `day` varchar(10) NOT NULL DEFAULT '' COMMENT '抓取日期',
   `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
@@ -166,18 +137,61 @@ CREATE TABLE `us_china_price` (
   `highest_price_52week` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '52周最高价',
   `lowest_price_52week` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '52周最低价',
   `buy_sum` int(10) NOT NULL DEFAULT '0' COMMENT '交易量',
+  `buy_money` int(10) NOT NULL DEFAULT '0' COMMENT '交易额',
+  `hand_rate` varchar(20) NOT NULL DEFAULT '0' COMMENT '换手率',
   `buy_sum_avg_10day` int(10) NOT NULL DEFAULT '0' COMMENT '10日均量',
   `market_cap` bigint(20) NOT NULL DEFAULT '0' COMMENT '市值',
+  `seller_market_cap` bigint(20) NOT NULL DEFAULT '0' COMMENT '流通市值',
   `earn_per` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '每股收益',
+  `earn_rate` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '市净率',
+  `compare_num` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '量比',
   `market_rate` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '市盈率',
+  `swing_rate` varchar(20) NOT NULL DEFAULT '0' COMMENT '振幅',
   `pager_sum` bigint(20) NOT NULL DEFAULT '0' COMMENT '股本',
   `end_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '收盘价',
   `yesterday_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '昨收盘',
   `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_us_china_price` (`code`,`day`)
+  UNIQUE KEY `uk_china_sh_code` (`code`,`day`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='中概股价表';
+
+#
+# Structure for table "china_sh_price"
+#
+
+CREATE TABLE `china_sh_price` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `day` varchar(10) NOT NULL DEFAULT '' COMMENT '抓取日期',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
+  `cname` varchar(100) NOT NULL DEFAULT '' COMMENT '股票名称',
+  `now_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '现价',
+  `up_rate` varchar(20) NOT NULL DEFAULT '0' COMMENT '涨跌幅',
+  `up_price` varchar(20) NOT NULL DEFAULT '0' COMMENT '涨跌价格',
+  `start_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '开盘价',
+  `highest_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '最高价',
+  `lowest_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '最低价',
+  `highest_price_52week` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '52周最高价',
+  `lowest_price_52week` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '52周最低价',
+  `buy_sum` int(10) NOT NULL DEFAULT '0' COMMENT '交易量',
+  `buy_money` int(10) NOT NULL DEFAULT '0' COMMENT '交易额',
+  `hand_rate` varchar(20) NOT NULL DEFAULT '0' COMMENT '换手率',
+  `buy_sum_avg_10day` int(10) NOT NULL DEFAULT '0' COMMENT '10日均量',
+  `market_cap` bigint(20) NOT NULL DEFAULT '0' COMMENT '市值',
+  `seller_market_cap` bigint(20) NOT NULL DEFAULT '0' COMMENT '流通市值',
+  `earn_per` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '每股收益',
+  `earn_rate` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '市净率',
+  `compare_num` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '量比',
+  `market_rate` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '市盈率',
+  `swing_rate` varchar(20) NOT NULL DEFAULT '0' COMMENT '振幅',
+  `pager_sum` bigint(20) NOT NULL DEFAULT '0' COMMENT '股本',
+  `end_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '收盘价',
+  `yesterday_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '昨收盘',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_china_sh_price` (`code`,`day`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='上证股价表';
 
 #
 # Structure for table "user_group_map"
