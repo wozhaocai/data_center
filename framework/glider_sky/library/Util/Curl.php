@@ -16,6 +16,9 @@ class Util_Curl{
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout); // 设置超时限制防止死循环    
         curl_setopt($ch, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-HTTP-Method-Override: $method")); //设置HTTP头信息
+        if(substr($url,0,6) == "https:"){
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
         $document = curl_exec($ch); //执行预定义的CURL 
         if (!curl_errno($ch)) {
             $info = curl_getinfo($ch);

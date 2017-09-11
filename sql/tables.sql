@@ -133,6 +133,20 @@ CREATE TABLE `china_sz_code` (
   UNIQUE KEY `uk_china_sz_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='深市代码表';
 
+#
+# Structure for table "china_hk_code"
+#
+
+CREATE TABLE `china_hk_code` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT 'code',
+  `enable` tinyint(3) NOT NULL DEFAULT '1' COMMENT '启用',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_china_hk_code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='港股主板代码表';
+
 
 #
 # Structure for table "us_china_price"

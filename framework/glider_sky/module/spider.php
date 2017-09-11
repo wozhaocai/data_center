@@ -19,7 +19,7 @@ class GS_Module_Spider extends GS_Module_Base{
         $aParamScope = array();
         if(!empty($aSpider[0]->spider_url_param)){
             $aParamScope = $this->parseUrlParam($sSpiderUrl,$aSpider[0]->spider_url_param);
-        }
+        }        
         if(empty($aParamScope)){
             debugVar($sSpiderUrl);
             $this->dealWithData($sSpiderUrl, $aSpider);
@@ -80,8 +80,19 @@ class GS_Module_Spider extends GS_Module_Base{
         $aContent = Util_Curl::execute($sSpiderUrl);
         $aRules = explode("|", $sRule);
         $sPrev = "";
+        $sIsArray = false;
         foreach($aRules as $sRuleOption){
-            $this->parseRule($sRuleOption,$aContent,$sPrev);
+            if(!$sIsArray){
+                $this->parseRule($sRuleOption,$aContent,$sPrev); 
+                if(is_array($aContent)){
+                    $sIsArray = true;
+                }
+            }else{
+                foreach($aContent as $i=>$row){
+                    $this->parseRule($sRuleOption,$row,$sPrev);
+                    $aContent[$i] = $row;
+                }
+            }
         }
         return $aContent;        
     }

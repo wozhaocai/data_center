@@ -3,6 +3,7 @@
 //php job.php -bdc -tworkflow -sus_china -asave_price
 //php job.php -bdc -tscript -sSpider_china_sh_code_list -aget
 //php job.php -bdc -tscript -sSpider_china_sz_code_list -aget
+//php job.php -bdc -tscript -sSpider_china_hk_code_list -aget
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
