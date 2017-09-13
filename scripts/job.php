@@ -5,6 +5,9 @@
 //php job.php -bdc -tscript -sSpider_china_sz_code_list -aget
 //php job.php -bdc -tscript -sSpider_china_hk_code_list -aget
 //php job.php -bdc -tworkflow -schina_sh -asave_price
+//php job.php -bdc -tworkflow -schina_sz -asave_price
+//php job.php -bdc -tworkflow -schina_hk -asave_price
+
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 include_once(APPLICATION_PATH."/config/config.inc.php");
 

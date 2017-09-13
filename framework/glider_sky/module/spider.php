@@ -97,7 +97,7 @@ class GS_Module_Spider extends GS_Module_Base{
         return $aContent;        
     }
     
-    private function saveData($aData,$sSaveRule){        
+    private function saveData($aData,$sSaveRule){  
         $aRules = explode(":", $sSaveRule);
         if($aRules[0] == "table"){
             $aFields = explode(",", $aRules[3]);
@@ -131,7 +131,7 @@ class GS_Module_Spider extends GS_Module_Base{
             }
         }elseif($aOption[0] == "reg"){
             preg_match_all(addslashes($aOption[1]), $aContent, $aMatchs);
-            if(!empty($aOption[2])){                
+            if(isset($aOption[2])){                
                 $aContent = $aMatchs[0][$aOption[2]];
             }else{
                 $aContent = $aMatchs[0];
