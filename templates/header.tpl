@@ -1,6 +1,6 @@
 <!DOCTYPE html><html>
 <head>
-<title>我招财-开启财富之门</title>
+<title><{$site["title"]}></title>
 
 <!-- 页面基本设置禁止随意更改 -->
 <meta charset="utf-8">

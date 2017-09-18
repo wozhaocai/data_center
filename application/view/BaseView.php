@@ -13,6 +13,7 @@
      public function __construct(&$oTemplate,$aParams) {
          $this->_aParams = $aParams;
          $this->_oTemplate = $oTemplate;
+         $this->_oTemplate->assign("site",  GliderSky::$aConfig["site"]);
          if(!isset($this->_aParams["vendor"]) or $this->_aParams["vendor"] != "guest"){
             $this->initMenu();
         }         
