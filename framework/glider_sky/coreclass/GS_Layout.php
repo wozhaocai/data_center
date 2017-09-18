@@ -138,7 +138,11 @@ class GS_Layout {
         $data = $this->getDataList($aRs, $aParams);
         $aData = $this->parseDataTables($oNode->show, $data);
         $this->generateOptionHtml($aData["list"], $aRsNow, (string) $oNode->show->columns["option_field"]);
-        $this->_oTemplate->assign("action_des", (string) $oNode->show["name"]);
+        if(!empty($oNode->show["name"])){
+            $this->_oTemplate->assign("action_des", (string) $oNode->show["name"]);
+        }else{
+            $this->_oTemplate->assign("action_des", "");
+        }
         $this->generateExtAction($oNode->show);
         return $aData;
     }
@@ -308,12 +312,16 @@ EOB;
         if ($oNode->data->add_url and (string) $oNode->data->add_url['hidden'] == 'false') {
             $sHtml = "<a class='am-btn am-btn-danger am-round am-btn-xs am-icon-plus' href=\"javascript:;\" onclick=\"loadEditForm('" . $this->parseUrl((string) $oNode->data->add_url) . "');\">添加新记录</a>";
             $this->_oTemplate->assign('action_des', $sHtml);
+        }else{
+            $this->_oTemplate->assign('action_des', "");
         }
         if (empty($data)) {
             $data = $this->get_data($oNode);
         }
         $aData = $this->get_data_table($data, $oNode, $sGroupField, $aRowSpan);
-        $this->generateOptionHtml($aData["list"], array(), (string) $oNode->columns["option_field"]);
+        if(!empty($aData["list"])){
+            $this->generateOptionHtml($aData["list"], array(), (string) $oNode->columns["option_field"]);
+        }
         $this->generateExtAction($oNode);
         return $aData;
     }
