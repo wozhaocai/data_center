@@ -13,6 +13,7 @@ class GS_Template {
     
     public function __construct() {
         $this->loadTemplate();
+        $this->_oTemplate->assign("site",  GliderSky::$aConfig["site"]);
     }
 
     public function loadTemplate() {
