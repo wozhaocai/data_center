@@ -28,7 +28,7 @@ class GS_Module_Spider extends GS_Module_Base{
                 list($sStart,$sEnd) = explode(",",$sVal);
                 for($i=$sStart;$i<= $sEnd;$i++){
                     $sTempSpiderUrl = str_replace("{".$sKey."}", $i, $sSpiderUrl);
-                    sleep(1);
+                    usleep(100000);
                     debugVar($sTempSpiderUrl);
                     $this->dealWithData($sTempSpiderUrl, $aSpider);
                 }
