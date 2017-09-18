@@ -21,7 +21,6 @@ function debugVar($sVal){
 register_shutdown_function(function() {
     
 });
-
 $oApp = new GliderSky(APPLICATION_PATH . "/config/application.ini");
 $oApp->run();
 
