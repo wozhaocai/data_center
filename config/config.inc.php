@@ -7,6 +7,7 @@
  */
 session_start();
 date_default_timezone_set('PRC');
+require_once APPLICATION_PATH."/framework/glider_sky/module/base.php";
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 require_once APPLICATION_PATH."/application/view/BaseView.php";
 require_once APPLICATION_PATH."/application/entity/BaseEntity.php";
@@ -21,6 +22,7 @@ function debugVar($sVal){
 register_shutdown_function(function() {
     
 });
+
 $oApp = new GliderSky(APPLICATION_PATH . "/config/application.ini");
 $oApp->run();
 
