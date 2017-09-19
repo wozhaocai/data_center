@@ -1,19 +1,19 @@
 <?php
-///usr/local/bin/php php_job.php -bdc -tscript -sSpider_us_china_code_list -aget
-///usr/local/bin/php php_job.php -bdc -tworkflow -sus_china -asave_price
-///usr/local/bin/php php_job.php -bdc -tscript -sSpider_china_sh_code_list -aget
-///usr/local/bin/php php_job.php -bdc -tscript -sSpider_china_sz_code_list -aget
-///usr/local/bin/php php_job.php -bdc -tscript -sSpider_china_hk_code_list -aget
-///usr/local/bin/php php_job.php -bdc -tworkflow -schina_sh -asave_price
-///usr/local/bin/php php_job.php -bdc -tworkflow -schina_sz -asave_price
-///usr/local/bin/php php_job.php -bdc -tworkflow -schina_hk -asave_price
+//php job.php -bdc -tscript -sSpider_us_china_code_list -aget
+//php job.php -bdc -tworkflow -sus_china -asave_price
+//php job.php -bdc -tscript -sSpider_china_sh_code_list -aget
+//php job.php -bdc -tscript -sSpider_china_sz_code_list -aget
+//php job.php -bdc -tscript -sSpider_china_hk_code_list -aget
+//php job.php -bdc -tworkflow -schina_sh -asave_price
+//php job.php -bdc -tworkflow -schina_sz -asave_price
+//php job.php -bdc -tworkflow -schina_hk -asave_price
 
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
 $sHelp =<<<_HELP
 此脚本进行sql转换，拆分表的字段
-/usr/local/bin/php php_job.php -t<type> -b<business_id> -s<script_id> -a<action> [-d<YYYYmmdd>] [-m<YYYYmm>]
+php job.php -t<type> -b<business_id> -s<script_id> -a<action> [-d<YYYYmmdd>] [-m<YYYYmm>]
 
 options: 
   t : 必选，类型,script(单个命令脚本）,workflow（工作流脚本)
