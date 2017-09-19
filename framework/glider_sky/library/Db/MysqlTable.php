@@ -5,7 +5,8 @@ class Db_MysqlTable{
     private $_oDb = null;
     private static $_aSystemFields = array("ctime","mtime");
     private static $_aFieldProperty = array(
-        "to_base64"
+        "to_base64",
+        "to_urlencode"
     );
     
     public function __construct($aDB,$sTable,$sAfterSetDB = false) {
