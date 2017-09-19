@@ -42,6 +42,12 @@ class Db_MysqlTable{
         foreach($aRs as $row){
             if(in_array($row->default,self::$_aFieldProperty)){
                 $aSpecial[$row->field] = $row->default;
+            } else {
+                foreach (self::$_aFieldProperty as $sAction) {
+                    if (strstr($row->comment, $sAction)) {
+                        $aSpecial[$row->field] = $sAction;
+                    }
+                }
             }
         }
         return $aSpecial;
