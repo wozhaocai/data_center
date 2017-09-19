@@ -16,8 +16,8 @@
               <input type="password" name="password" id="password" placeholder="请输入密码" onChange='check("password")'>
             </div>
             <div class="login_reme">
-              <input type="checkbox">
-              <a class="reme1">记住账号</a> <a class="reme3" href="password.html">忘记密码?</a>  <a class="reme2" href="./guest.php?business=dc&controller=reg&action=show&vendor=guest">立即注册</a> </div>
+              <!--<input type="checkbox">
+              <a class="reme1">记住账号</a> <a class="reme3" href="password.html">忘记密码?</a>--><a class="reme2" href="./guest.php?business=dc&controller=reg&action=show&vendor=guest">立即注册</a> </div>
             <span class="error_xinxi" id="usernameCheck" hidden="false">用户名不能为空</span> 
             <span class="error_xinxi" id="passwordCheck" hidden="false">密码长度不能少于8位</span> 
             <a class="btnStyle btn-register" href="javascript:void(0);" onclick="login();"> 立即登录</a> </div>
