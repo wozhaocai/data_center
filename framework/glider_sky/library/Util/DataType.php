@@ -41,7 +41,12 @@ class Util_DataType {
         foreach ($matches[0] as $val) {
             $replace_string = '';
             $key = substr($val, 1, -1);
-            list($sType,$sFormat) = explode("|",$key);
+            if(strstr($key,"|")){
+                list($sType,$sFormat) = explode("|",$key);
+            }else{
+                $sType = $key;
+                $sFormat = "";
+            }
             if($sType == "date"){
                 if(!empty($sFormat)){
                     $replace_string = date($sFormat);
