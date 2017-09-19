@@ -29,6 +29,8 @@ class GS_Module {
         $sClass = "GS_Module_".$this->_sModule;     
         if(class_exists($sClass)){
             $oObj = new $sClass();
+        }else{
+            return false;
         }
         $sAction = $this->_sAction;
         $this->_aParam["business"] = $this->_sBusiness;
