@@ -41,8 +41,12 @@ class GS_Module_Spider extends GS_Module_Base{
         $aData = $this->getData($sSpiderUrl,$aSpider[0]->keyword_rule);
         if(!empty($aData[0])){
             if(strstr($aSpider[0]->save_rule,":more:")){
-                foreach($aData as $row){
-                    $this->saveData(array($row),$aSpider[0]->save_rule);
+                foreach($aData as $row){     
+                    if(!is_array($row)){
+                        $this->saveData(array($row),$aSpider[0]->save_rule);
+                    }else{
+                        $this->saveData($row,$aSpider[0]->save_rule);
+                    }
                 }
             }else{
                 $this->saveData($aData,$aSpider[0]->save_rule);
@@ -104,18 +108,30 @@ class GS_Module_Spider extends GS_Module_Base{
             foreach($aFields as $row){
                 $aOption = explode("@",$row);    
                 $sField = $aOption[0];
-                $sIndex = $aOption[1];
-                if(strstr($sIndex,"{")){
-                    $this->_aParam["query"][$sField] = Util_DataType::replace($sIndex, $this->_aParam["query"]["data"]);
-                }else{   
-                    $this->_aParam["query"][$sField] = $aData[$sIndex];
-                    if(!empty($aOption[2])){    
-                        $aOption[2] = str_replace("-", "@", $aOption[2]);
-                        $sPrev = "";
-                        $this->parseRule($aOption[2], $this->_aParam["query"][$sField], $sPrev);
+                if(substr($aOption[1],0,10) == "Controller"){
+                    list($sType,$sModule,$sAction) = explode("-",$aOption[1]);
+                    $oModule = new GS_Module($this->_aParam["business"],"Controller",$sModule,$sAction,$aData);
+                    $this->_aParam["query"][$sField] = $oModule->run();
+                }elseif(strstr($aOption[1],"const")){
+                    list($sType,$sConstVal) = explode("-", $aOption[1]);
+                    $this->_aParam["query"][$sField] = $sConstVal;
+                }else{                    
+                    $sIndex = $aOption[1];
+                    if(strstr($sIndex,"{")){
+                        $this->_aParam["query"][$sField] = Util_DataType::replace($sIndex, $this->_aParam["query"]["data"]);
+                    }else{   
+                        $this->_aParam["query"][$sField] = $aData[$sIndex];
+                        if(!empty($aOption[2])){    
+                            $aOption[2] = str_replace("-", "@", $aOption[2]);
+                            $sPrev = "";
+                            $this->parseRule($aOption[2], $this->_aParam["query"][$sField], $sPrev);
+                        }
                     }
-                }                   
-            }      
+                }
+                if(isset($aOption[2]) and strstr($aOption[2],"notnull") and empty($this->_aParam["query"][$sField])){
+                    return false;
+                }
+            }   
             $oModule = new GS_Module($this->_aParam['business'], "Entity", $aRules[1], "updateOrInsert",$this->_aParam["query"]);        
             $oModule->run();
         }     
@@ -123,14 +139,22 @@ class GS_Module_Spider extends GS_Module_Base{
     
     private function parseRule($sRuleOption,&$aContent,&$sPrev){
         $aOption = explode("@",$sRuleOption);
-        if($aOption[0] == "strpos"){
+        if($aOption[0] == "iconv"){
+            $aContent = iconv($aOption[1],$aOption[2],$aContent);
+        }elseif($aOption[0] == "json_decode"){
+            $aContent = json_decode($aContent);
+        }elseif($aOption[0] == "strpos"){
             if(empty($aOption[2])){
                 $sPrev = strpos($aContent,$aOption[1],0);
             }else{
                 $sPrev = strpos($aContent,$aOption[1],0)+$aOption[2];
             }
         }elseif($aOption[0] == "reg"){
-            preg_match_all(addslashes($aOption[1]), $aContent, $aMatchs);
+            if($aOption[1] == "json"){
+                preg_match_all("/\[(.*)\]/", $aContent, $aMatchs);                
+            }else{
+                preg_match_all(addslashes($aOption[1]), $aContent, $aMatchs);
+            }
             if(isset($aOption[2])){                
                 $aContent = $aMatchs[0][$aOption[2]];
             }else{
@@ -139,13 +163,13 @@ class GS_Module_Spider extends GS_Module_Base{
             return "";
         }elseif($aOption[0] == "substr"){
             if($aOption[1] == "start"){
-                $aContent = substr($aContent,$sPrev);
+                $sPrev = $aContent = substr($aContent,$sPrev);
                 return "";
             }elseif($aOption[1] == "0" and $aOption[2] == "end"){
-                $aContent = substr($aContent,0,$sPrev);
+                $sPrev = $aContent = substr($aContent,0,$sPrev);
                 return "";
             }else{
-                $aContent = substr($aContent,$aOption[1],$aOption[2]);
+                $sPrev = $aContent = substr($aContent,$aOption[1],$aOption[2]);
                 return "";
             }
         }elseif($aOption[0] == "str_replace"){
