@@ -91,7 +91,7 @@ class Db_Adapter {
     }
 
     function setOrderSql(&$sql) {
-        if (!empty($this->_sOrderStr)) {
+        if (!strstr($sql,"order by") and !empty($this->_sOrderStr)) {
             if(substr($sql,-1,1) == ";"){
                 $sql = substr($sql,0,-1)." order by {$this->_sOrderStr};";
             }else{
@@ -256,6 +256,8 @@ class Db_Adapter {
         }
         if (isset($aParam['order']) and count($aParam['order']) > 0) {
             $sSql .= " order by " . implode(",", $aParam['order']);
+        }elseif (!empty($this->_sOrderStr)){
+            $sSql .= " order by " . $this->_sOrderStr;
         }
         if(empty($aParam["where"])){
             return $this->queryDB(trim($sSql) . ";", array(), $one, $debug);
@@ -323,6 +325,11 @@ class Db_Adapter {
             $aParam['order'] = str_replace("<>","|",$aParam['order']);
             $this->setOrderStr(str_replace("|"," ",$aParam['order']));
             unset($aParam['order']);
+        }elseif(!empty($aParam['c_order']) and !empty($aParam['order_status'])){
+            $sOrder = "{$aParam['c_order']} {$aParam['order_status']}";
+            $this->setOrderStr($sOrder);
+            unset($aParam['c_order']);
+            unset($aParam['order_status']);
         }
         if(!empty($aParam['limit'])){
             if(is_string($aParam["limit"])){
