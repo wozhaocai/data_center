@@ -7,6 +7,7 @@
  */
 
 class GS_Module_Entity extends GS_Module_Base{
+    private static $_sSpecialAction = array("insert", "update", "input", "updateOrInsert");
     
     public function loadDB() {
         if (empty($this->_aParam['business'])) {
@@ -25,7 +26,7 @@ class GS_Module_Entity extends GS_Module_Base{
             $this->_oDB->setNotNullField($aUniqueField);  
             $this->_aSpecialField = $oMysqlTable->getField("special_field");
         }
-        if(in_array($this->_aParam["module"],array("Resource","Spider","Entity"))){            
+        if(in_array($this->_aParam["module"],array("Resource","Spider","Entity"))){    
             $this->_oDB->setTable($this->_aParam["controller"]);
             if(!empty($this->_aSpecialField)){
                 $this->dealWithSpecialField($this->_aParam["query"]);
@@ -67,8 +68,16 @@ class GS_Module_Entity extends GS_Module_Base{
         }
     }
     
+    public function to_urlencode($sVal){
+        if(!in_array($this->_aParam["action"],self::$_sSpecialAction)){            
+            return urldecode(urldecode($sVal));
+        }else{
+            return urlencode(urlencode($sVal));
+        }
+    }
+    
     public function to_base64($sVal){
-        if(!in_array($this->_aParam["action"],array("insert", "update", "input"))){            
+        if(!in_array($this->_aParam["action"],self::$_sSpecialAction)){            
             return Util_Base64::urlsafe_b64decode($sVal);
         }else{
             $sVal = str_replace('\\', "", $sVal);
