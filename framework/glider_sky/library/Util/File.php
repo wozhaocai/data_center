@@ -181,5 +181,39 @@ class Util_File {
             @mkdir($parentdir);
         }
     }
+    
+    public function findByUrl($sUrl,$sFind,$sStart,$sEnd,$sIsHtml=false){
+        $aRs = array();
+        $handle = fopen($sUrl, 'r');
+        $sStartFlag = false;
+        $sEndFlag = false;
+        if ($handle) {
+            while (($buffer = strtolower(fgets($handle, 8192))) != false) {
+                if(strstr($buffer,strtolower($sStart))){
+                    $sStartFlag = true;
+                }
+                if(strstr($buffer,strtolower($sEnd))){
+                    $sEndFlag = true;
+                    fclose($handle);
+                    return $aRs;
+                }
+                if($sStartFlag and strstr($buffer,strtolower($sFind))){
+                    if($sIsHtml){
+                        $buffer = $this->deleteHtmlTag($buffer);
+                    }
+                    $aRs[] = $buffer;
+                }
+            }
+            fclose($handle);
+        }
+        return $aRs;
+    }
+    
+    public function deleteHtmlTag($content){
+        $subject = strip_tags($content);//去除html标签
+        $pattern = '/\s/';//去除空白
+        $content = preg_replace($pattern, '', $subject);
+        return $content;
+    }
 
 }
