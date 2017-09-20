@@ -34,6 +34,10 @@ class Util_Layout {
     public function generateLayout() {
         $this->toParamXml();
         foreach ($this->_aField as $row) {
+            if(strstr($row->comment,"|")){
+                list($sComment,$sCommentType) = explode("|",$row->comment);
+                $row->comment = $sComment;
+            }
             $this->toChartColumn($row);
             $this->toDataTableColumn($row);
             $this->toFormAddColumn($row);
