@@ -332,3 +332,18 @@ CREATE TABLE `china_hk_news` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_china_hk_news` (`code`,`news_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='港股新闻';
+
+CREATE TABLE `us_china_news` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '资源id',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
+  `news_type` varchar(20) NOT NULL DEFAULT 'finance' COMMENT '新闻类型',
+  `publish_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '发布时间',
+  `news_name` varchar(500) NOT NULL DEFAULT 'to_urlencode' COMMENT '新闻标题',
+  `news_url` varchar(100) NOT NULL DEFAULT 'to_urlencode' COMMENT '新闻url',
+  `content` text NOT NULL COMMENT '新闻内容|to_urlencode',
+  `enable` tinyint(3) NOT NULL DEFAULT '1' COMMENT '启用',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_us_china_news` (`code`,`news_url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='美股中概股新闻';
