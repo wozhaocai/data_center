@@ -1,3 +1,11 @@
+$(function(){   
+    setInterval(function(){   
+        $("#currentTime").text(new Date().toLocaleString());   
+        $("#currentServerTime").text(new Date(new Date().getTime() - 1000*60*60*8).toLocaleString());
+        $("#currentAmericanTime").text(new Date(new Date().getTime() - 1000*60*60*12).toLocaleString());   
+    },1000);   
+});   
+
 function outputObj(obj) {
     var description = "";
     for (var i in obj) {

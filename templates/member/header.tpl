@@ -54,6 +54,9 @@
                 </li>
                 -->
                 <li class="kuanjie">
+                    <a href="#">北京时间:<span  id="currentTime"></span></a>
+                    <a href="#">标准时间:<span  id="currentServerTime"></span></a>
+                    <a href="#">美东时间:<span  id="currentAmericanTime"></span></a>
                     <{foreach $aMainMenu as $main_val}>
                     <a href="/service.php?business=dc&controller=member&action=index&main_id=<{$main_val.id}>"> 【<{$main_val.title}>】</a>
                     <{/foreach}>
