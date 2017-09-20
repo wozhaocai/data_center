@@ -432,6 +432,9 @@ EOB;
                         }
                         if ($val['format'] == "amount_round_div_100") {
                             $sTempVal = $this->format_money($sTempVal / 100);
+                        }elseif(strstr($val['format'],"href_field:")){
+                            list($sHrefType,$sHrefField) = explode(":", $val['format']);
+                            $sTempVal = "<a href='{$row[$sHrefField]}' target='_blank'>". $sTempVal ."</a>";
                         }
                         $aData['list'][$index][] = $sTempVal;
                     }

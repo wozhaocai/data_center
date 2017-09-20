@@ -21,7 +21,7 @@ class Business_SpiderController Extends BaseController {
         $sSpiderUrl = $this->_aParams["query"][3]; 
         if(!empty($sSpiderUrl)){
             $oFile = new Util_File();
-            $aContent = $oFile->findByUrl($sSpiderUrl, "TEXT-INDENT: 2em", "Cnt-Main-Article-QQ", "正文已结束", true);   
+            $aContent = $oFile->findByUrl($sSpiderUrl, "TEXT-INDENT: 2em", "Cnt-Main-Article-QQ", "正文已结束", "GBK", true);   
             $sContent = implode("\n",$aContent);
             return $sContent;
         }else{

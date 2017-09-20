@@ -182,13 +182,13 @@ class Util_File {
         }
     }
     
-    public function findByUrl($sUrl,$sFind,$sStart,$sEnd,$sIsHtml=false){
+    public function findByUrl($sUrl,$sFind,$sStart,$sEnd,$sFormat="utf-8",$sIsHtml=false){
         $aRs = array();
         $handle = fopen($sUrl, 'r');
         $sStartFlag = false;
         $sEndFlag = false;
         if ($handle) {
-            while (($buffer = strtolower(fgets($handle, 8192))) != false) {
+            while (($buffer = strtolower(fgets($handle, 8192))) != false) {                
                 if(strstr($buffer,strtolower($sStart))){
                     $sStartFlag = true;
                 }
@@ -200,6 +200,9 @@ class Util_File {
                 if($sStartFlag and strstr($buffer,strtolower($sFind))){
                     if($sIsHtml){
                         $buffer = $this->deleteHtmlTag($buffer);
+                    }
+                    if($sFormat != "utf-8"){
+                        $buffer = iconv($sFormat,"utf-8",$buffer);
                     }
                     $aRs[] = $buffer;
                 }

@@ -140,6 +140,9 @@ class GS_Module_Spider extends GS_Module_Base{
     private function parseRule($sRuleOption,&$aContent,&$sPrev){
         $aOption = explode("@",$sRuleOption);
         if($aOption[0] == "iconv"){
+            if($aOption[2] == "utf_8"){
+                $aOption[2] = "utf-8";
+            }
             $aContent = iconv($aOption[1],$aOption[2],$aContent);
         }elseif($aOption[0] == "json_decode"){
             $aContent = json_decode($aContent);

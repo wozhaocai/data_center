@@ -8,6 +8,12 @@
 //php job.php -bdc -tworkflow -schina_sz -asave_price
 //php job.php -bdc -tworkflow -schina_hk -asave_price
 
+//------------news----------------------//
+//php job.php -bdc -tworkflow -schina_a_finance_news -asave_sh_finance_news
+//php job.php -bdc -tworkflow -schina_a_finance_news -asave_sz_finance_news
+//php job.php -bdc -tworkflow -schina_hk_finance_news -asave_finance_news
+
+
 define("APPLICATION_PATH", dirname(dirname(__FILE__)));
 include_once(APPLICATION_PATH."/config/config.inc.php");
 
