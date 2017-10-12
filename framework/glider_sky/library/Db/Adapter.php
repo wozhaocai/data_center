@@ -3,7 +3,7 @@
 class Db_Adapter {
 
     static protected $oDB = null;
-    protected $_sTable = '';
+    public $_sTable = '';
     static protected $sDbConnectShort = true;
     protected $_aParam = array();
     protected $_aLimit = array();
@@ -320,7 +320,7 @@ class Db_Adapter {
         return self::$oDB[$this->_sCurrentDb]->execUpdate();
     }
 
-    function gets($aParam, $one = false) {
+    function gets($aParam, $one = false, $sSpecialSql='') {
         if(!empty($aParam['order'])){
             $aParam['order'] = str_replace("<>","|",$aParam['order']);
             $this->setOrderStr(str_replace("|"," ",$aParam['order']));
@@ -353,9 +353,9 @@ class Db_Adapter {
             }
         }
         if(!empty($aRequest)){
-            return $this->selectDB(array("where" => $aRequest), $one);
+            return $this->selectDB(array("where" => $aRequest), $one, $sSpecialSql);
         }else{
-            return $this->selectDB(array(), $one);
+            return $this->selectDB(array(), $one, $sSpecialSql);
         }        
     }
 
