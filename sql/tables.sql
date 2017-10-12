@@ -34,6 +34,17 @@ CREATE TABLE `groups` (
   UNIQUE KEY `uk_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组';
 
+CREATE TABLE `user_group_map` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '映射id',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `gid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户组id',
+  `enable` tinyint(3) NOT NULL DEFAULT '1' COMMENT '启用',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_uid_gid` (`uid`,`gid`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='用户和用户组映射表'
+
 #
 # Structure for table "menus"
 #
@@ -347,3 +358,15 @@ CREATE TABLE `us_china_news` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_us_china_news` (`code`,`news_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='美股中概股新闻';
+
+CREATE TABLE `focus_stock_code` (
+ `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '资源id',
+ `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+ `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
+ `enable` tinyint(3) NOT NULL DEFAULT '1' COMMENT '启用',
+ `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+ `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `uk_focus_stock_code` (`code`),
+ KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟踪股票代码'
