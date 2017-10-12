@@ -138,7 +138,7 @@ var myForm = new MyForm();
               </ul>
               
            <hr/>
-          <p>注：<{$sMemo}></p>-->
+          <p>注：<{$sMemo}></p>
         </form>      
 
  <{include file="./footer.tpl"}>
