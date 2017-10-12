@@ -91,8 +91,15 @@ class GS_Module_Entity extends GS_Module_Base{
     }
     
     public function gets(){    
-        $this->_aParam["query"]["enable"] = 1;        
-        $aRs = $this->_oDB->gets($this->_aParam["query"]); 
+        $this->_aParam["query"]["enable"] = 1;      
+        if(!empty($this->_aParam["query"]["day_field"])){
+            list($sGroupbyField,$sOrderByField) = explode(":",$sDayField);
+            $sql = "select * from (select * from ".$this->_oDB->_sTable." group by {$sGroupbyField} order by {$sOrderByField} desc) go ";
+            unset($this->_aParam["query"]["day_field"]);
+            $aRs = $this->_oDB->gets($this->_aParam["query"],false,$sql);
+        }else{
+            $aRs = $this->_oDB->gets($this->_aParam["query"]); 
+        }
         $aResult = array();
         if(!empty($aRs)){
             foreach($aRs as $i=>$row){
@@ -101,6 +108,10 @@ class GS_Module_Entity extends GS_Module_Base{
             }
         }
         return $aResult;
+    }
+    
+    public function getsSpecial($sDayField){
+        
     }
     
     public function insert(){
