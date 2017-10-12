@@ -195,6 +195,7 @@ EOB;
             foreach ($oNode->columns->column as $oColumn) {
                 $aColumnHtml[] = Util_Html::formatAmazeInputByObj($oColumn, $aFillData, $aHost["query"]);
             }
+            $sMemo = !empty($oNode->memo) ? (string) $oNode->memo:"";
             $aColumnHtml[] = <<<EOB
                     <div class="am-form-group am-cf">
                             <div class="meta-form-button">
@@ -202,6 +203,9 @@ EOB;
                                     <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
                                     {$aHost["query"]}
                                     <input type="hidden" name="submit_action" value="edit">
+                                </p>
+                                <p>
+                                    {$sMemo}
                                 </p>
                             </div>
                     </div>
@@ -235,6 +239,7 @@ EOB;
         foreach ($oNode->columns->column as $oColumn) {
             $aColumnHtml[] = Util_Html::formatAmazeInput($oColumn);
         }
+        $sMemo = !empty($oNode->memo) ? (string) $oNode->memo:"";
         $aColumnHtml[] = <<<EOB
                     <div class="am-form-group am-cf">
                             <div class="meta-form-button">
@@ -242,6 +247,9 @@ EOB;
                                     <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
                                     {$aHost["query"]}
                                     <input type="hidden" name="submit_action" value="add">
+                                </p>
+                                <p>
+                                    {$sMemo}
                                 </p>
                             </div>
                     </div>
@@ -309,6 +317,8 @@ EOB;
         }
         $this->_oTemplate->assign('aRowSpan', $aRowSpan);
         $this->_oTemplate->assign('aColumn', $aColumn);
+        $sMemo = !empty($oNode->memo) ? (string) $oNode->memo:"";
+        $this->_oTemplate->assign('sMemo', $sMemo);
         if ($oNode->data->add_url and (string) $oNode->data->add_url['hidden'] == 'false') {
             $sHtml = "<a class='am-btn am-btn-danger am-round am-btn-xs am-icon-plus' href=\"javascript:;\" onclick=\"loadEditForm('" . $this->parseUrl((string) $oNode->data->add_url) . "');\">添加新记录</a>";
             $this->_oTemplate->assign('action_des', $sHtml);
