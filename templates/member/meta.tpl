@@ -137,8 +137,8 @@ var myForm = new MyForm();
                 <{$sPageStr}>                
               </ul>
               
-           <!-- <hr />
-          <p>注：.....</p>-->
+           <hr/>
+          <p>注：<{$sMemo}></p>-->
         </form>      
 
  <{include file="./footer.tpl"}>
