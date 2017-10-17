@@ -1,0 +1,5 @@
+分钟	小时	天	月份	工作日	命令	操作
+1	17	*	*	*	/usr/bin/sh /home/data/wwwroot/wozhaocai/scripts/data_stock_china_front.sh  >> /home/data/wwwlogs/shell.log&
+1	17	*	*	*	/usr/bin/sh /home/data/wwwroot/wozhaocai/scripts/data_stock_china_end.sh >> /home/data/wwwlogs/shell.log&
+45	13	*	*	*	/usr/bin/sh /home/data/wwwroot/wozhaocai/scripts/data_stock_us_china_front.sh >> /home/data/wwwlogs/shell.log&
+45	13	*	*	*	/usr/bin/sh /home/data/wwwroot/wozhaocai/scripts/data_stock_us_china_end.sh >> /home/data/wwwlogs/shell.log&
