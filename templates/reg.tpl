@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-    <div style="background-color:#FAFAFA;height:700px;margin:0 auto;">
+    <div style="background-color:#FFF8DC;height:700px;margin:0 auto;">
         <div class="login-topBg1">        
             <div class="login-topStyle" >          
                 <!--在点击注册时出现样式login-topStyle3登录框，而login-topStyle2则消失-->
