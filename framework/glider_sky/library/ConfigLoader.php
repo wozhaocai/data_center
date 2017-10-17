@@ -21,15 +21,22 @@ class ConfigLoader{
     }
 
     private function loadEnv() {
+        $server_name = php_uname('n');
+        if(isset($this->_aConfig['common']["data"]["host"])){
+            $aTestServer = explode(",", $this->_aConfig['common']["data"]["host"]);            
+            if (in_array($server_name,$aTestServer)) {
+                define("IDC", 'data');
+            }
+        }
         if (isset($this->_aConfig['common']["test"]["host"])) {
             $aTestServer = explode(",", $this->_aConfig['common']["test"]["host"]);
-            $server_name = php_uname('n');
             if (in_array($server_name,$aTestServer)) {
                 define("IDC", 'test');
-            } else {
-                define("IDC", 'online');
-            }
-        }      
+            } 
+        }   
+        if(!defined('IDC')){
+            define("IDC", 'online');
+        }
         if (isset($this->_aConfig['common']["template"]["engine"])){
             if($this->_aConfig['common']["template"]["engine"] == "smarty"){
                 if (isset($this->_aConfig['common']["smarty"]["dir"])) {
