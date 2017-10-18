@@ -11,11 +11,7 @@ class GS_Module_Spider extends GS_Module_Base{
         $aParam = $this->_aParam["query"];
         $oModule = new GS_Module($this->_aParam['business'], "Entity", "spider", "gets",$aParam);        
         $aSpider = $oModule->run();
-        if(!empty($this->_aParam["query"]["data"])){
-            $sSpiderUrl = $this->parseUrlByParam($aSpider[0]->spider_url);
-        }else{
-            $sSpiderUrl = $aSpider[0]->spider_url;
-        }
+        $sSpiderUrl = $this->parseUrlByParam($aSpider[0]->spider_url);
         $aParamScope = array();
         if(!empty($aSpider[0]->spider_url_param)){
             $aParamScope = $this->parseUrlParam($sSpiderUrl,$aSpider[0]->spider_url_param);
@@ -72,10 +68,14 @@ class GS_Module_Spider extends GS_Module_Base{
     }
     
     private function parseUrlByParam($sSpiderUrl){
-        $aParams = $this->_aParam["query"];
-        $sSpiderUrl = Util_DataType::replace($sSpiderUrl, $aParams["data"]);
-        unset($aParams["data"]);
-        $sSpiderUrl = Util_DataType::replace($sSpiderUrl, $aParams);  
+        if(!empty($this->_aParam["query"])){
+            $aParams = $this->_aParam["query"];
+            if(!empty($aParams["data"])){
+                $sSpiderUrl = Util_DataType::replace($sSpiderUrl, $aParams["data"]);
+                unset($aParams["data"]);
+            }
+            $sSpiderUrl = Util_DataType::replace($sSpiderUrl, $aParams);  
+        }
         $sSpiderUrl = Util_DataType::replaceDate($sSpiderUrl); 
         return $sSpiderUrl;
     }
@@ -85,7 +85,8 @@ class GS_Module_Spider extends GS_Module_Base{
         $aRules = explode("|", $sRule);
         $sPrev = "";
         $sIsArray = false;
-        foreach($aRules as $sRuleOption){
+        $aResult = array();
+        foreach($aRules as $m=>$sRuleOption){
             if(!$sIsArray){
                 $this->parseRule($sRuleOption,$aContent,$sPrev); 
                 if(is_array($aContent)){
@@ -93,12 +94,22 @@ class GS_Module_Spider extends GS_Module_Base{
                 }
             }else{
                 foreach($aContent as $i=>$row){
-                    $this->parseRule($sRuleOption,$row,$sPrev);
-                    $aContent[$i] = $row;
+                    $x = $m;
+                    if(substr($sRuleOption,0,6) == "array@"){
+                        list($sType,$sIndex) = explode("@",$sRuleOption);
+                        if($i < $sIndex) continue;
+                    }     
+                    if(substr($sRuleOption,0,6) == "array@"){
+                        $x++;
+                    }
+                    for($n=$x;$n<count($aRules);$n++){       
+                        $this->parseRule($aRules[$n],$row,$sPrev);                        
+                    }
+                    $aResult[] = $row;
                 }
             }
         }
-        return $aContent;        
+        return $aResult;        
     }
     
     private function saveData($aData,$sSaveRule){  
@@ -147,10 +158,15 @@ class GS_Module_Spider extends GS_Module_Base{
         }elseif($aOption[0] == "json_decode"){
             $aContent = json_decode($aContent);
         }elseif($aOption[0] == "strpos"){
-            if(empty($aOption[2])){
-                $sPrev = strpos($aContent,$aOption[1],0);
+            if(!empty($aOption[3])){
+                $sTempIndex = $aOption[3];
             }else{
-                $sPrev = strpos($aContent,$aOption[1],0)+$aOption[2];
+                $sTempIndex = 0;
+            }
+            if(empty($aOption[2])){
+                $sPrev = strpos($aContent, $aOption[1],$sTempIndex);
+            }else{
+                $sPrev = strpos($aContent, $aOption[1],$sTempIndex)+$aOption[2];
             }
         }elseif($aOption[0] == "reg"){
             if($aOption[1] == "json"){
@@ -172,7 +188,11 @@ class GS_Module_Spider extends GS_Module_Base{
                 $sPrev = $aContent = substr($aContent,0,$sPrev);
                 return "";
             }else{
-                $sPrev = $aContent = substr($aContent,$aOption[1],$aOption[2]);
+                if($aOption[2] == "end"){
+                    $sPrev = $aContent = substr($aContent,$aOption[1],$sPrev);
+                }else{
+                    $sPrev = $aContent = substr($aContent,$aOption[1],$aOption[2]);
+                }
                 return "";
             }
         }elseif($aOption[0] == "str_replace"){
