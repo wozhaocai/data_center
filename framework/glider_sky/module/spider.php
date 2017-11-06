@@ -86,11 +86,15 @@ class GS_Module_Spider extends GS_Module_Base{
         $sPrev = "";
         $sIsArray = false;
         $aResult = array();
+        $iRuleCnt = count($aRules)-1;
         foreach($aRules as $m=>$sRuleOption){
             if(!$sIsArray){
                 $this->parseRule($sRuleOption,$aContent,$sPrev); 
                 if(is_array($aContent)){
                     $sIsArray = true;
+                }
+                if($m == $iRuleCnt){
+                    $aResult = $aContent;
                 }
             }else{
                 foreach($aContent as $i=>$row){
