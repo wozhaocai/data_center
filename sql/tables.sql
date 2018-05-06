@@ -386,6 +386,6 @@ CREATE TABLE `hk_hold_inventory` (
  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
  PRIMARY KEY (`id`),
- UNIQUE KEY `uk_hk_hold_inventory` (`code`,`act_type`,`act_day`),
+ UNIQUE KEY `uk_hk_hold_inventory` (`uid`,`code`,`act_type`,`act_day`),
  KEY `code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='港股持仓';
