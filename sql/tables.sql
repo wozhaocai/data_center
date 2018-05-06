@@ -369,4 +369,23 @@ CREATE TABLE `focus_stock_code` (
  PRIMARY KEY (`id`),
  UNIQUE KEY `uk_focus_stock_code` (`code`),
  KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟踪股票代码'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟踪股票代码';
+
+CREATE TABLE `hk_hold_inventory` (
+ `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '资源id',
+ `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+ `code` varchar(50) NOT NULL DEFAULT '' COMMENT '股票代码',
+ `act_num` int(10) NOT NULL DEFAULT '0' COMMENT '操作股数',
+ `act_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '操作价格',
+ `real_price` float(10,4) NOT NULL DEFAULT '0.0000' COMMENT '实际价格',
+ `sell_rate` int(10) NOT NULL DEFAULT '3' COMMENT '止损比例%',
+ `act_type` tinyint(3) NOT NULL DEFAULT '1' COMMENT '操作类型,1买2卖',
+ `act_day` varchar(10) NOT NULL DEFAULT '0000-00-00' COMMENT '操作日期',
+ `content` text NOT NULL COMMENT '操作说明|to_urlencode',
+ `robot_content` text NOT NULL COMMENT '机器辅助说明|to_urlencode',
+ `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+ `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `uk_hk_hold_inventory` (`code`,`act_type`,`act_day`),
+ KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='港股持仓';
