@@ -140,13 +140,15 @@
                     </li>
                     <{/foreach}>
             </div>
-            <div class="am-popup am-popup-inner" id="my-popup">
-                <div class="am-popup-hd">
-                    <h4 class="am-popup-title" id="form_title"></h4>
-                    <span data-am-modal-close class="am-close">&times;</span> 
+            <div class="am-popup" id="my-popup">
+                <div class="am-popup-inner">
+                    <div class="am-popup-hd">
+                        <h4 class="am-popup-title" id="form_title"></h4>
+                        <span data-am-modal-close class="am-close">&times;</span>
+                    </div>
+                    <div class="am-popup-bd">
+                        <form class="am-form" method="post" id="form1">
+                        </form>
+                    </div>
                 </div>
-                 <div class="meta-form-bd">
-                    <form class="am-form" method="post" id="form1">
-                    </form>
-                </div>
-            </div>            
+            </div>                      
