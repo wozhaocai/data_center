@@ -9,6 +9,7 @@ if(!empty($_SESSION["username"])){
 }
 
 $oTemplate = new GS_Template();
+if()
 if(!empty($_REQUEST["err_msg"])){
     $oTemplate->assign("err_msg", $_REQUEST["err_msg"])->display("index.tpl");
 }else{

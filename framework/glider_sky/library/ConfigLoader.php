@@ -22,18 +22,15 @@ class ConfigLoader{
 
     private function loadEnv() {
         $server_name = php_uname('n');
-        if(isset($this->_aConfig['common']["data"]["host"])){
-            $aTestServer = explode(",", $this->_aConfig['common']["data"]["host"]);            
-            if (in_array($server_name,$aTestServer)) {
-                define("IDC", 'data');
+        foreach($this->_aConfig as $sEnv => $aEnv){
+            if(!empty($aEnv["host"]["ip"])){
+                $sCurrentServer = explode(",", $aEnv["host"]["ip"]);            
+                if (in_array($server_name,$sCurrentServer)) {
+                    define("IDC", $sEnv);
+                    break;
+                }
             }
         }
-        if (isset($this->_aConfig['common']["test"]["host"])) {
-            $aTestServer = explode(",", $this->_aConfig['common']["test"]["host"]);
-            if (in_array($server_name,$aTestServer)) {
-                define("IDC", 'test');
-            } 
-        }   
         if(!defined('IDC')){
             define("IDC", 'online');
         }
