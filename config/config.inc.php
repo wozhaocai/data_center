@@ -5,14 +5,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-session_start();
 date_default_timezone_set('PRC');
+var_dump("2");
+exit;
 require_once APPLICATION_PATH."/framework/glider_sky/module/base.php";
+var_dump("3");
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
 require_once APPLICATION_PATH."/application/view/BaseView.php";
 require_once APPLICATION_PATH."/application/entity/BaseEntity.php";
 require_once APPLICATION_PATH."/application/controller/BaseController.php";
 ServiceLocator::attachLocator(new PearLocator(APPLICATION_PATH."/framework/glider_sky"), 'PEAR');
+var_dump("3");
 function debugVar($sVal){
     var_dump("<pre>");
     var_dump($sVal);
