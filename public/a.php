@@ -6,7 +6,4 @@
  * and open the template in the editor.
  */
 
-class Member_IndexView extends BaseView{
-    public function index(){        
-    } 
-}
+echo "a";

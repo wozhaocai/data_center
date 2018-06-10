@@ -14,6 +14,7 @@
          $this->_aParams = $aParams;
          $this->_oTemplate = $oTemplate;
          $this->_oTemplate->assign("site",  GliderSky::$aConfig["site"]);
+         
          if(!isset($this->_aParams["vendor"]) or $this->_aParams["vendor"] != "guest"){
             $this->initMenu();
         }         
@@ -30,7 +31,7 @@
         exit(0);
     }
     
-    public function initMenu(){        
+    public function initMenu(){   
         foreach(self::$_aMenuSessionId as $sField){
             if(!empty($this->_aParams[$sField])){
                 $_SESSION[$sField] = $this->_aParams[$sField];
@@ -54,7 +55,7 @@
             }
         }else{
             $sMainId = $this->_aParams['main_id'];
-        }        
+        }    
         if(!empty($_SESSION["username"])){
             $this->_oTemplate->assign("username",$_SESSION["username"]);
             if(empty($_SESSION["userinfo"])){
@@ -68,6 +69,8 @@
             
             $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array("username"=>$_SESSION["username"]));
             $aMenus = $oModule->run(); 
+            debugVar($aMenus);
+            exit;
             if(empty($aMenus)){
                 header("Location:/index.php?err_msg=请核实用户权限");
                 exit;
