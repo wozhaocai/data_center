@@ -1,4 +1,4 @@
-        <div class="footer"> <span class="footerText">Copyright © 2017 </span> </div>
+        <div class="footer"> <span class="footerText">Copyright © 2018 wozhaocai.com. All Rights Reserved </span> </div>
     </div>
 </div>
 </body>
