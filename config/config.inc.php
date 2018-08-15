@@ -7,8 +7,6 @@
  */
 session_start();
 
-header('Content-Type: text/html; charset=utf-8');
-
 date_default_timezone_set('PRC');
 require_once APPLICATION_PATH."/framework/glider_sky/module/base.php";
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
