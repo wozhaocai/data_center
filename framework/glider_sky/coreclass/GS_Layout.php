@@ -458,7 +458,7 @@ EOB;
         $this->_oTemplate->assign("aSearch", $aSearch);
         $this->_oTemplate->assign("aSearchValue", $aSearchValue);
         $this->_oTemplate->assign("aSearchSpecial", $aSearchSpecial);
-        $aSearchStr = '';
+        $aSearchStr = array();
         foreach ($aSearch as $sKey => $sValue) {
             $aSearchStr[] = "'{$sKey}'";
         }
