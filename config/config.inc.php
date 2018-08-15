@@ -5,6 +5,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+session_start();
+
+header('Content-Type: text/html; charset=utf-8');
+
 date_default_timezone_set('PRC');
 require_once APPLICATION_PATH."/framework/glider_sky/module/base.php";
 require_once APPLICATION_PATH."/framework/glider_sky/library/PearLocator.php";
@@ -22,11 +26,5 @@ register_shutdown_function(function() {
     
 });
 
-$oApp = new GliderSky(APPLICATION_PATH . "/config/application.ini");
+$oApp = new GliderSky("/home/data/config/stock/application.ini");
 $oApp->run();
-
-
-
-
-
-;
