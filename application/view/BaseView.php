@@ -69,8 +69,7 @@
             
             $oModule = new GS_Module($this->_aParams['business'],"Entity","Admin_Menus","getMenus",array("username"=>$_SESSION["username"]));
             $aMenus = $oModule->run(); 
-            debugVar($aMenus);
-            exit;
+
             if(empty($aMenus)){
                 header("Location:/index.php?err_msg=请核实用户权限");
                 exit;
